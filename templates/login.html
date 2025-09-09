@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- meta 태그 추가 위치 -->
+
+    <title>로그인</title>
+
+    <link href="../src/output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="./images/Logo-hodu.png" alt="HODU" />
+      </div>
+    </header>
+
+    <main>
+      <div class="card">
+        <!-- Tabs -->
+        <div role="tablist" aria-label="로그인 유형" class="tabs">
+          <!--tablist는 안에 있는 요소들이 탭(tab) 집합임을 스크린리더 등 보조기기에 알려줍니다. 
+                접근성 표준(WAI-ARIA)에서 탭 UI는 tablist + tab + tabpanel 구조로 맞추면 좋아요.
+                aria-label="로그인 유형" → 탭 그룹 전체의 이름을 지정. → 스크린리더는 “로그인 유형, 탭 목록”처럼 읽어줍니다.
+                -->
+          <button
+            id="tab-buyer"
+            class="tab"
+            role="tab"
+            aria-controls="panel-buyer"
+            aria-selected="true"
+          >
+            구매회원 로그인
+          </button>
+
+          <button
+            id="tab-seller"
+            class="tab"
+            role="tab"
+            aria-controls="panel-seller"
+            aria-selected="false"
+          >
+            판매회원 로그인
+          </button>
+        </div>
+
+        <!-- Panels -->
+        <section
+          id="panel-buyer"
+          class="panel"
+          role="tabpanel"
+          aria-labelledby="tab-buyer"
+          tabindex="0"
+        >
+          <form id="form-buyer" autocomplete="on">
+            <fieldset>
+              <legend class="sr-only">구매회원 로그인</legend>
+              <div class="field">
+                <label class="sr-only" for="buyer-id">구매회원 아이디</label>
+                <input
+                  id="buyer-id"
+                  name="username"
+                  autocomplete="username"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label class="sr-only" for="buyer-pw">구매회원 비밀번호</label>
+                <input
+                  id="buyer-pw"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                />
+              </div>
+              <p
+                id="buyer-login-error"
+                class="sr-only"
+                role="alert"
+                aria-live="assertive"
+              ></p>
+              <!-- assertive 즉시 중단하고 바로 읽음. “사용자가 꼭 바로 알아야 하는 심각/중요 상황”에 적합.
+                      예: “아이디 또는 비밀번호가 올바르지 않습니다.”
+                    -->
+              <button class="btn" type="button">로그인</button>
+            </fieldset>
+          </form>
+        </section>
+
+        <section
+          id="panel-seller"
+          class="panel"
+          role="tabpanel"
+          aria-labelledby="tab-seller"
+          tabindex="0"
+          hidden
+          inert
+        >
+          <form id="form-seller" autocomplete="on">
+            <fieldset>
+              <legend class="sr-only">판매회원 로그인</legend>
+              <div class="field">
+                <label class="sr-only" for="seller-id">판매회원 아이디</label>
+                <input
+                  id="seller-id"
+                  name="username"
+                  autocomplete="username"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label class="sr-only" for="seller-pw">판매회원 비밀번호</label>
+                <input
+                  id="seller-pw"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                />
+              </div>
+              <p
+                id="seller-login-error"
+                class="sr-only"
+                role="alert"
+                aria-live="assertive"
+              ></p>
+              <button class="btn" type="button">로그인</button>
+            </fieldset>
+          </form>
+        </section>
+      </div>
+
+      <div class="links">
+        <a href="/#">회원가입</a> | <a href="/#">비밀번호 찾기</a>
+      </div>
+    </main>
+  </body>
+</html>
