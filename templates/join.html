@@ -169,20 +169,63 @@
                       <fieldset>
                         <legend class="text-font-gray">휴대폰번호</legend>
                         <div class="mt-2.5 flex gap-3">
-                          <select
+                          <input
+                            type="hidden"
                             name="phoneFirst"
                             id="phoneFirst"
+                            value="010"
                             required
-                            aria-label="통신사 번호"
-                            class="focus:outline-main border-gray-border w-[33%] appearance-none rounded-[5px] border bg-[url(../images/icon-down-arrow.svg)] bg-right bg-no-repeat p-4 pr-8 text-center focus:bg-[url(../images/icon-up-arrow.svg)]"
-                          >
-                            <option value="010" selected>010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="017">017</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
-                          </select>
+                          />
+                          <div class="relative w-[33%]">
+                            <p
+                              id="phoneFirstSelect"
+                              aria-label="통신사 번호"
+                              class="focus:outline-main border-gray-border cursor-pointer appearance-none rounded-[5px] border bg-[url(../images/icon-down-arrow.svg)] bg-right bg-no-repeat p-4 pr-8 text-center focus:bg-[url(../images/icon-up-arrow.svg)]"
+                            >
+                              010
+                            </p>
+                            <ul
+                              id="phoneFirstSelectUl"
+                              class="custom-select border-gray-border absolute top-11/10 z-10 h-40 w-full overflow-x-hidden overflow-y-scroll rounded-[5px] border bg-white text-center"
+                            >
+                              <li
+                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                                data-value="010"
+                              >
+                                010
+                              </li>
+                              <li
+                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                                data-value="011"
+                              >
+                                011
+                              </li>
+                              <li
+                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                                data-value="016"
+                              >
+                                016
+                              </li>
+                              <li
+                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                                data-value="017"
+                              >
+                                017
+                              </li>
+                              <li
+                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                                data-value="018"
+                              >
+                                018
+                              </li>
+                              <li
+                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                                data-value="019"
+                              >
+                                019
+                              </li>
+                            </ul>
+                          </div>
                           <input
                             type="tel"
                             name="phoneMiddle"
@@ -209,7 +252,7 @@
                   </fieldset>
 
                   <fieldset
-                    class="form-group seller-only flex flex-col gap-3"
+                    class="form-group seller-only flex hidden flex-col gap-3"
                     id="sellerData"
                   >
                     <legend class="sr-only">판매자 정보</legend>
