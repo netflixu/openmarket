@@ -11,7 +11,7 @@
   </head>
   <body>
     <header>
-      <h1 style="text-align: center; margin-bottom: 20px">
+      <h1>
         <a href="/" aria-label="호두 오픈마켓 홈페이지로 이동">
           <img src="../images/Logo-hodu.svg" alt="호두 오픈마켓" />
         </a>
@@ -22,24 +22,28 @@
       <div class="card">
         <!-- Tabs -->
         <ul role="tablist" aria-label="로그인 유형" class="tabs">
-          <li>
+          <li role="presentation">
             <button
               id="tab-buyer"
               class="tab"
               role="tab"
-              aria-controls="panel-buyer"
+              aria-controls="panel"
               aria-selected="true"
+              tabindex="0"
+              type="button"
             >
               구매회원 로그인
             </button>
           </li>
-          <li>
+          <li role="presentation">
             <button
               id="tab-seller"
               class="tab"
               role="tab"
-              aria-controls="panel-seller"
+              aria-controls="panel"
               aria-selected="false"
+              tabindex="-1"
+              type="button"
             >
               판매회원 로그인
             </button>
