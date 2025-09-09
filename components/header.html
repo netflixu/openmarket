@@ -1,0 +1,54 @@
+<header class="w-full shadow-md">
+  <div
+    class="mx-auto flex h-[90px] max-w-[1280px] items-center justify-between px-4"
+  >
+    <!-- 좌측: 로고 + 검색창 -->
+    <div class="flex items-center space-x-4">
+      <!-- 로고 -->
+      <a href="#productList" data-link class="block">
+        <img
+          src="/images/logo-hodu.png"
+          alt="HODU 로고"
+          id="logo"
+          class="h-10 w-auto"
+        />
+      </a>
+
+      <!-- 검색창 -->
+      <div class="relative w-[400px]">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="상품을 검색해보세요!"
+          class="h-[46px] w-full rounded-full border-2 border-[#21BF48] pr-12 pl-6 placeholder-gray-500 focus:ring-2 focus:ring-[#21BF48] focus:outline-none"
+        />
+        <img
+          src="/images/icon-search.svg"
+          alt="검색"
+          class="absolute top-1/2 right-4 h-5 w-5 -translate-y-1/2"
+        />
+      </div>
+    </div>
+    <!-- 아이콘 영역 -->
+    <div class="flex items-center space-x-8">
+      <!-- 장바구니 -->
+      <a href="#cart" class="flex flex-col items-center" id="cart-button">
+        <img
+          src="/images/icon-shopping-cart.svg"
+          alt="검색"
+          class="h-6 w-6 text-black"
+        />
+        <span class="mt-1 text-xs text-gray-500">장바구니</span>
+      </a>
+      <!-- 마이페이지 -->
+      <a href="#mypage" class="flex flex-col items-center" id="mypage-button">
+        <img
+          src="/images/icon-user.svg"
+          alt="검색"
+          class="h-6 w-6 text-black"
+        />
+        <span class="mt-1 text-xs text-gray-500">마이페이지</span>
+      </a>
+    </div>
+  </div>
+</header>
