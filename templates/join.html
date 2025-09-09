@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- meta 태그 추가 위치 -->
+
+    <title>회원가입</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../styles/style.css" />
+  </head>
+  <body>
+    <div>
+      <!-- index.html 위치 -->
+      <header>
+        <h1>
+          <a href="/" aria-label="호두 오픈마켓 홈페이지로 이동">
+            <img src="../images/Logo-hodu.svg" alt="호두 오픈마켓" />
+          </a>
+        </h1>
+      </header>
+
+      <main>
+        <section>
+          <h2 class="sr-only">회원가입 폼</h2>
+          <div class="tab-container">
+            <ul class="tab-list">
+              <li class="grow">
+                <button class="active" type="button" data-type="buyer">
+                  구매회원가입
+                </button>
+              </li>
+              <li class="grow">
+                <button type="button" data-type="seller">판매회원가입</button>
+              </li>
+            </ul>
+            <div class="tab-penal">
+              <h3 class="sr-only">구매 회원가입 폼</h3>
+
+              <form action="#" method="post">
+                <input type="hidden" name="userType" value="buyer" />
+
+                <div>
+                  <fieldset>
+                    <legend class="sr-only">로그인 정보</legend>
+
+                    <div>
+                      <label class="text-font-gray" for="userId">아이디</label>
+                      <div>
+                        <input
+                          type="text"
+                          name="userId"
+                          id="userId"
+                          required
+                          minlength="4"
+                          maxlength="20"
+                          aria-describedby="userIdSuccess userIdError"
+                        />
+                        <button
+                          class="bg-main"
+                          type="button"
+                          aria-describedby="userId"
+                        >
+                          중복확인
+                        </button>
+                      </div>
+                      <div
+                        id="userIdSuccess"
+                        class="success-message"
+                        style="display: none"
+                      >
+                        ✓ 멋진 아이디네요!
+                      </div>
+                      <div
+                        id="userIdError"
+                        class="error-message"
+                        style="display: none"
+                      ></div>
+                    </div>
+
+                    <div>
+                      <label class="text-font-gray" for="password"
+                        >비밀번호</label
+                      >
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label class="text-font-gray" for="passwordConfirm"
+                        >비밀번호 재확인</label
+                      >
+                      <input
+                        type="password"
+                        name="passwordConfirm"
+                        id="passwordConfirm"
+                        required
+                        aria-describedby="passwordError"
+                      />
+                      <div
+                        id="passwordError"
+                        class="error-message"
+                        style="display: none"
+                      >
+                        비밀번호가 일치하지 않습니다.
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <fieldset>
+                    <legend class="sr-only">개인 정보</legend>
+
+                    <div>
+                      <label class="text-font-gray" for="userName">이름</label>
+                      <input
+                        type="text"
+                        name="userName"
+                        id="userName"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <fieldset>
+                        <legend class="text-font-gray">휴대폰번호</legend>
+                        <div>
+                          <select
+                            name="phoneFirst"
+                            id="phoneFirst"
+                            required
+                            aria-label="통신사 번호"
+                          >
+                            <option value="010" selected>010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                          </select>
+                          <input
+                            type="tel"
+                            name="phoneMiddle"
+                            id="phoneMiddle"
+                            required
+                            aria-label="휴대폰 가운데 4자리"
+                            pattern="[0-9]{3,4}"
+                            maxlength="4"
+                          />
+                          <input
+                            type="tel"
+                            name="phoneLast"
+                            id="phoneLast"
+                            required
+                            aria-label="휴대폰 마지막 4자리"
+                            pattern="[0-9]{4}"
+                            maxlength="4"
+                          />
+                        </div>
+                      </fieldset>
+                    </div>
+                  </fieldset>
+
+                  <fieldset
+                    class="form-group seller-only hidden"
+                    id="businessNumberGroup"
+                  >
+                    <legend class="sr-only">판매자 정보</legend>
+
+                    <div>
+                      <label class="text-font-gray" for="businessNumber"
+                        >사업자 등록번호</label
+                      >
+                      <div>
+                        <input
+                          type="text"
+                          name="businessNumber"
+                          id="businessNumber"
+                          required
+                          pattern="[0-9]{3}-[0-9]{2}-[0-9]{5}"
+                          aria-describedby="businessNumberError"
+                        />
+                        <button type="button" aria-describedby="businessNumber">
+                          인증
+                        </button>
+                      </div>
+                      <div
+                        id="businessNumberError"
+                        class="error-message"
+                        style="display: none"
+                      >
+                        사업자 번호를 다시 확인해주세요.
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="text-font-gray" for="storeName"
+                        >스토어 이름</label
+                      >
+                      <input
+                        type="text"
+                        name="storeName"
+                        id="storeName"
+                        required
+                      />
+                    </div>
+                  </fieldset>
+                </div>
+                <div>
+                  <h3 class="sr-only">약관 동의</h3>
+                  <div>
+                    <input
+                      type="checkbox"
+                      name="privacyConsent"
+                      id="privacyConsent"
+                      required
+                    />
+                    <label class="text-font-gray" for="privacyConsent"
+                      >호두샵의 <a class="font-bold" href="#">이용약관</a> 및
+                      <a class="font-bold" href="#">개인정보처리방침</a>에 대한
+                      내용을 확인하였고 동의합니다.</label
+                    >
+                  </div>
+                  <div>
+                    <button
+                      type="submit"
+                      disabled
+                      aria-describedby="submitHelp"
+                    >
+                      가입하기
+                    </button>
+                    <div id="submitHelp" class="sr-only">
+                      모든 항목을 입력하고 약관에 동의해야 가입할 수 있습니다
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
