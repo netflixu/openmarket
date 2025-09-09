@@ -121,8 +121,16 @@
                           id="password"
                           required
                           class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
+                          aria-describedby="passwordError"
                         />
                       </div>
+                      <p
+                        id="passwordError"
+                        class="error-message text-accent mt-2.5 hidden"
+                        aria-live="assertive"
+                      >
+                        필수 정보입니다
+                      </p>
                     </div>
 
                     <div>
@@ -137,12 +145,12 @@
                           name="passwordConfirm"
                           id="passwordConfirm"
                           required
-                          aria-describedby="passwordError"
+                          aria-describedby="passwordConfirmError"
                           class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
                         />
                       </div>
                       <p
-                        id="passwordError"
+                        id="passwordConfirmError"
                         class="error-message text-accent mt-2.5 hidden"
                         aria-live="assertive"
                       >
@@ -162,7 +170,15 @@
                         id="userName"
                         required
                         class="border-gray-border focus:outline-main mt-2.5 w-full rounded-[5px] border p-4"
+                        aria-describedby="userNameError"
                       />
+                      <p
+                        id="userNameError"
+                        class="error-message text-accent mt-2.5 hidden"
+                        aria-live="assertive"
+                      >
+                        필수 정보입니다
+                      </p>
                     </div>
 
                     <div>
@@ -247,6 +263,13 @@
                             class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-4"
                           />
                         </div>
+                        <p
+                          id="phoneNumberError"
+                          class="error-message text-accent mt-2.5 hidden"
+                          aria-live="assertive"
+                        >
+                          필수 정보입니다
+                        </p>
                       </fieldset>
                     </div>
                   </fieldset>
