@@ -120,9 +120,10 @@ function login() {
       }
       // 엑세스토큰 저장
       setAccess(data.access);
-      console.log(getAccess(), "accessssss");
       // 리프레시 토큰저장
       saveRefresh(data.refresh);
+
+      location.hash = "#productList";
     })
     .catch((error) => {
       showError(error.error);
@@ -132,27 +133,22 @@ function login() {
 
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault(); // 폼 실제 제출 막기
-  console.log("아이디", username.value);
-  console.log("비밀번호", password.value);
 
   hideError();
 
   if (!username.value && !password.value) {
-    console.log("아이디를 입력해주세요");
     showError("아이디를 입력해 주세요.");
     username.focus();
     return;
   }
 
   if (!username.value) {
-    console.log("아이디를 입력해주세요");
     showError("아이디를 입력해 주세요.");
     username.focus();
     return;
   }
 
   if (!password.value) {
-    console.log("비밀번호를 입력해주세요");
     showError("비밀번호를 입력해 주세요.");
     password.focus();
     return;
