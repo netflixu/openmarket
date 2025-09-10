@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="../src/output.css" />
     <link rel="stylesheet" href="../styles/style.css" />
+    <script src="../scripts/login.js" defer></script>
   </head>
   <body>
     <div class="flex flex-col items-center">
@@ -28,11 +29,15 @@
         >
           <h2 class="sr-only">로그인 폼</h2>
           <!-- Tabs -->
-          <ul role="tablist" aria-label="로그인 유형" class="flex text-lg">
+          <ul
+            role="tablist"
+            aria-label="로그인 유형"
+            class="tab-list flex text-lg"
+          >
             <li role="presentation" class="flex-1">
               <button
                 id="tab-buyer"
-                class="border-gray-border h-20 w-full rounded-t-[10px] border-t border-r pt-5 font-medium hover:cursor-pointer"
+                class="bg-disabled-li active border-gray-border h-20 w-full rounded-t-[10px] border-t border-r pt-5 font-medium hover:cursor-pointer"
                 role="tab"
                 aria-controls="panel"
                 aria-selected="true"
@@ -94,12 +99,9 @@
                   />
                 </div>
 
-                <p
-                  id="login-error"
-                  class="sr-only"
-                  role="alert"
-                  aria-live="assertive"
-                ></p>
+                <p id="login-error" class="" role="alert" aria-live="assertive">
+                  아이디 또는 비밀번호가 일치하지 않습니다.
+                </p>
 
                 <button
                   class="bg-main .font-bold my-9 h-15 w-120 rounded-[5px] text-[18px] text-white"
