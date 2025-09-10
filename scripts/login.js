@@ -1,3 +1,5 @@
+import { getAccess, saveRefresh, setAccess } from "./tokenStore.js";
+
 const tabBuyer = document.getElementById("tab-buyer");
 const tabSeller = document.getElementById("tab-seller");
 const panel = document.getElementById("panel");
@@ -79,6 +81,12 @@ function hideError() {
   loginError.textContent = "";
 }
 
+function getLoginType() {
+  return tabBuyer.getAttribute("aria-selected") === "true"
+    ? tabBuyer.dataset.id
+    : tabSeller.dataset.id;
+}
+
 function login() {
   fetch("https://api.wenivops.co.kr/services/open-market/accounts/login/", {
     method: "POST",
@@ -101,6 +109,20 @@ function login() {
     })
     .then((data) => {
       console.log(data);
+      let loginType = getLoginType();
+      if (loginType !== data.user.user_type) {
+        if (loginType === "BUYER") {
+          showError("판매회원 로그인을 해주세요");
+        } else if (loginType === "SELLER") {
+          showError("구매회원 로그인을 해주세요");
+        }
+        return;
+      }
+      // 엑세스토큰 저장
+      setAccess(data.access);
+      console.log(getAccess(), "accessssss");
+      // 리프레시 토큰저장
+      saveRefresh(data.refresh);
     })
     .catch((error) => {
       showError(error.error);

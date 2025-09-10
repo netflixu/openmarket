@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="../src/output.css" />
     <link rel="stylesheet" href="../styles/style.css" />
-    <script src="../scripts/login.js" defer></script>
+    <script type="module" src="../scripts/login.js" defer></script>
   </head>
   <body>
     <div class="flex flex-col items-center">
@@ -37,6 +37,7 @@
             <li role="presentation" class="flex-1">
               <button
                 id="tab-buyer"
+                data-id="BUYER"
                 class="bg-disabled-li active border-gray-border h-20 w-full rounded-t-[10px] border-t border-r pt-5 font-medium hover:cursor-pointer"
                 role="tab"
                 aria-controls="panel"
@@ -50,6 +51,7 @@
             <li role="presentation" class="flex-1">
               <button
                 id="tab-seller"
+                data-id="SELLER"
                 class="bg-disabled-li border-gray-border h-20 w-full rounded-t-[10px] border-t border-l pt-5 font-medium hover:cursor-pointer"
                 role="tab"
                 aria-controls="panel"
