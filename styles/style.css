@@ -42,8 +42,30 @@
   border-bottom: 0;
 }
 
+/* 회원가입 에러 */
 .error {
   border: 1px solid var(--color-accent);
+}
+.error:focus {
+  outline: 1px solid var(--color-accent);
+}
+.error-message {
+  color: var(--color-accent);
+}
+
+/* password 유효성검사 */
+.check-password::after {
+  background-image: url(../images/icon-check-on.svg);
+}
+
+/* checkbox check */
+.check::before {
+  background-image: url(../images/check-fill-box.svg);
+}
+
+/* disabled */
+form button:disabled {
+  background-color: var(--color-gray-border);
 }
 
 /* 커스텀 셀렉트 */
