@@ -10,7 +10,7 @@ const loginButton = document.getElementById("login-button");
 
 function switchTab(activeTab, inactiveTab) {
   activeTab.classList.add("active");
-  activeTab.setAttribute("aria-selected", "ture");
+  activeTab.setAttribute("aria-selected", "true");
   activeTab.setAttribute("tabindex", "0");
 
   inactiveTab.classList.remove("active");
@@ -68,13 +68,6 @@ function handleKeydown(event) {
 tabBuyer.addEventListener("keydown", handleKeydown);
 tabSeller.addEventListener("keydown", handleKeydown);
 
-// 로그인
-// [로그인] 버튼 클릭 오류 메시지
-
-// 아이디, 비밀번호 입력란 모두 공란일 경우, 비밀번호만 입력했을 경우 : 아이디를 입력해 주세요.
-// 아이디만 입력했을 경우 : 비밀번호를 입력해 주세요.
-// 아이디, 비밀번호가 일치하지 않을 경우 : 아이디 또는 비밀번호가 일치하지 않습니다.
-
 function showError(message) {
   loginError.textContent = message;
   loginErrorPlace.classList.remove("hidden");
@@ -86,7 +79,35 @@ function hideError() {
   loginError.textContent = "";
 }
 
-// 일단 공란인지 아닌지 확인 해야한다.
+function login() {
+  fetch("https://api.wenivops.co.kr/services/open-market/accounts/login/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username.value,
+      password: password.value,
+    }),
+  })
+    .then((response) => {
+      // 응답이 실패면 에러 메시지 추출
+      if (!response.ok) {
+        return response.json().then((errorData) => {
+          throw errorData;
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      showError(error.error);
+      password.value = "";
+    });
+}
+
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault(); // 폼 실제 제출 막기
   console.log("아이디", username.value);
@@ -115,6 +136,5 @@ loginForm.addEventListener("submit", (event) => {
     return;
   }
 
-  // 여기서 아이디/비밀번호가 모두 입력된 경우 추가 검증
-  console.log("아이디 또는 비밀번호가 일치하지 않습니다.");
+  login();
 });
