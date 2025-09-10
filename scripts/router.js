@@ -20,6 +20,7 @@ async function loadPage(hash) {
     const script = document.createElement("script");
     script.src = `/scripts/${page}.js`;
     script.async = true;
+    script.type = "module";
     document.body.appendChild(script);
 
     // 4. 페이지 이동 시 스크롤 맨 위로

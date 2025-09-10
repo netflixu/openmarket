@@ -1,133 +1,113 @@
-<!doctype html>
-<html lang="ko-KR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- meta 태그 추가 위치 -->
+<div class="flex flex-col items-center">
+  <header class="mt-25">
+    <h1>
+      <img
+        class="w-[238px]"
+        src="../images/Logo-hodu.svg"
+        alt="호두 오픈마켓"
+      />
+    </h1>
+  </header>
 
-    <title>로그인</title>
-
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../styles/style.css" />
-    <script type="module" src="../scripts/login.js" defer></script>
-  </head>
-  <body>
-    <div class="flex flex-col items-center">
-      <header class="mt-25">
-        <h1>
-          <img
-            class="w-[238px]"
-            src="../images/Logo-hodu.svg"
-            alt="호두 오픈마켓"
-          />
-        </h1>
-      </header>
-
-      <main class="mt-[70px]">
-        <section
-          class="border-gray-border w-[550px] rounded-[10px] border-r border-b border-l"
-        >
-          <h2 class="sr-only">로그인 폼</h2>
-          <!-- Tabs -->
-          <ul
-            role="tablist"
-            aria-label="로그인 유형"
-            class="tab-list flex text-lg"
-          >
-            <li role="presentation" class="flex-1">
-              <button
-                id="tab-buyer"
-                data-id="BUYER"
-                class="bg-disabled-li active border-gray-border h-20 w-full rounded-t-[10px] border-t border-r pt-5 font-medium hover:cursor-pointer"
-                role="tab"
-                aria-controls="panel"
-                aria-selected="true"
-                tabindex="0"
-                type="button"
-              >
-                구매회원 로그인
-              </button>
-            </li>
-            <li role="presentation" class="flex-1">
-              <button
-                id="tab-seller"
-                data-id="SELLER"
-                class="bg-disabled-li border-gray-border h-20 w-full rounded-t-[10px] border-t border-l pt-5 font-medium hover:cursor-pointer"
-                role="tab"
-                aria-controls="panel"
-                aria-selected="false"
-                tabindex="-1"
-                type="button"
-              >
-                판매회원 로그인
-              </button>
-            </li>
-          </ul>
-
-          <!-- 단일 패널 -->
-          <div
-            id="panel"
-            class="mt-9"
-            role="tabpanel"
+  <main class="mt-[70px]">
+    <section
+      class="border-gray-border w-[550px] rounded-[10px] border-r border-b border-l"
+    >
+      <h2 class="sr-only">로그인 폼</h2>
+      <!-- Tabs -->
+      <ul role="tablist" aria-label="로그인 유형" class="tab-list flex text-lg">
+        <li role="presentation" class="flex-1">
+          <button
+            id="tab-buyer"
+            data-id="BUYER"
+            class="active border-gray-border h-20 w-full rounded-t-[10px] border-t border-r pt-5 font-medium hover:cursor-pointer"
+            role="tab"
+            aria-controls="panel"
+            aria-selected="true"
             tabindex="0"
-            aria-labelledby="tab-buyer"
+            type="button"
           >
-            <form id="login-form" autocomplete="on">
-              <fieldset class="flex flex-col items-center">
-                <legend class="sr-only">로그인</legend>
+            구매회원 로그인
+          </button>
+        </li>
+        <li role="presentation" class="flex-1">
+          <button
+            id="tab-seller"
+            data-id="SELLER"
+            class="bg-disabled-li border-gray-border h-20 w-full rounded-t-[10px] border-t border-l pt-5 font-medium hover:cursor-pointer"
+            role="tab"
+            aria-controls="panel"
+            aria-selected="false"
+            tabindex="-1"
+            type="button"
+          >
+            판매회원 로그인
+          </button>
+        </li>
+      </ul>
 
-                <div>
-                  <label class="sr-only" for="username">아이디</label>
-                  <input
-                    id="username"
-                    class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b placeholder:text-[16px]"
-                    name="username"
-                    autocomplete="username"
-                    placeholder="아이디"
-                  />
-                </div>
+      <!-- 단일 패널 -->
+      <div
+        id="panel"
+        class="mt-9"
+        role="tabpanel"
+        tabindex="0"
+        aria-labelledby="tab-buyer"
+      >
+        <form id="login-form" autocomplete="on" action="#">
+          <fieldset class="flex flex-col items-center">
+            <legend class="sr-only">로그인</legend>
 
-                <div>
-                  <label class="sr-only" for="password">비밀번호</label>
-                  <input
-                    id="password"
-                    class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b placeholder:text-[16px]"
-                    name="password"
-                    type="password"
-                    autocomplete="current-password"
-                    placeholder="비밀번호"
-                  />
-                </div>
+            <div>
+              <label class="sr-only" for="username">아이디</label>
+              <input
+                id="username"
+                class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b placeholder:text-[16px]"
+                name="username"
+                autocomplete="username"
+                placeholder="아이디"
+              />
+            </div>
 
-                <div
-                  id="login-error-place"
-                  class="mt-[26px] flex hidden h-5 w-120 items-center justify-start"
-                >
-                  <p
-                    id="login-error"
-                    class="text-accent font-medium"
-                    role="alert"
-                    aria-live="assertive"
-                  ></p>
-                </div>
+            <div>
+              <label class="sr-only" for="password">비밀번호</label>
+              <input
+                id="password"
+                class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b placeholder:text-[16px]"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="비밀번호"
+              />
+            </div>
 
-                <button
-                  id="login-button"
-                  class="bg-main mt-9 mb-9 h-15 w-120 rounded-[5px] text-[18px] font-bold text-white"
-                  type="submit"
-                >
-                  로그인
-                </button>
-              </fieldset>
-            </form>
-          </div>
-        </section>
+            <div
+              id="login-error-place"
+              class="mt-[26px] hidden h-5 w-120 items-center justify-start"
+            >
+              <p
+                id="login-error"
+                class="text-accent font-medium"
+                role="alert"
+                aria-live="assertive"
+              ></p>
+            </div>
 
-        <div class="mt-[30px] flex justify-center gap-[14px]">
-          <a href="/#">회원가입</a> <span>|</span>
-          <a href="/#">비밀번호 찾기</a>
-        </div>
-      </main>
+            <button
+              id="login-button"
+              class="bg-main mt-9 mb-9 h-15 w-120 rounded-[5px] text-[18px] font-bold text-white"
+              type="submit"
+            >
+              로그인
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+
+    <div class="mt-[30px] flex justify-center gap-[14px]">
+      <a href="/#">회원가입</a> <span>|</span>
+      <a href="/#">비밀번호 찾기</a>
     </div>
-  </body>
-</html>
+  </main>
+</div>
