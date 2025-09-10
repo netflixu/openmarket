@@ -7,98 +7,116 @@
 
     <title>로그인</title>
 
-    <link href="../src/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../src/output.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
   </head>
   <body>
-    <header>
-      <h1>
-        <a href="/" aria-label="호두 오픈마켓 홈페이지로 이동">
-          <img src="../images/Logo-hodu.svg" alt="호두 오픈마켓" />
-        </a>
-      </h1>
-    </header>
+    <div class="flex flex-col items-center">
+      <header class="mt-25">
+        <h1>
+          <img
+            class="w-[238px]"
+            src="../images/Logo-hodu.svg"
+            alt="호두 오픈마켓"
+          />
+        </h1>
+      </header>
 
-    <main>
-      <div class="card">
-        <!-- Tabs -->
-        <ul role="tablist" aria-label="로그인 유형" class="tabs">
-          <li role="presentation">
-            <button
-              id="tab-buyer"
-              class="tab"
-              role="tab"
-              aria-controls="panel"
-              aria-selected="true"
-              tabindex="0"
-              type="button"
-            >
-              구매회원 로그인
-            </button>
-          </li>
-          <li role="presentation">
-            <button
-              id="tab-seller"
-              class="tab"
-              role="tab"
-              aria-controls="panel"
-              aria-selected="false"
-              tabindex="-1"
-              type="button"
-            >
-              판매회원 로그인
-            </button>
-          </li>
-        </ul>
-
-        <!-- 단일 패널 -->
+      <main class="mt-[70px]">
         <section
-          id="panel"
-          class="panel"
-          role="tabpanel"
-          tabindex="0"
-          aria-labelledby="tab-buyer"
+          class="border-gray-border w-[550px] rounded-[10px] border-r border-b border-l"
         >
-          <form id="login-form" autocomplete="on">
-            <fieldset>
-              <legend class="sr-only">로그인</legend>
+          <h2 class="sr-only">로그인 폼</h2>
+          <!-- Tabs -->
+          <ul role="tablist" aria-label="로그인 유형" class="flex text-lg">
+            <li role="presentation" class="flex-1">
+              <button
+                id="tab-buyer"
+                class="border-gray-border h-20 w-full rounded-t-[10px] border-t border-r pt-5 font-medium hover:cursor-pointer"
+                role="tab"
+                aria-controls="panel"
+                aria-selected="true"
+                tabindex="0"
+                type="button"
+              >
+                구매회원 로그인
+              </button>
+            </li>
+            <li role="presentation" class="flex-1">
+              <button
+                id="tab-seller"
+                class="bg-disabled-li border-gray-border h-20 w-full rounded-t-[10px] border-t border-l pt-5 font-medium hover:cursor-pointer"
+                role="tab"
+                aria-controls="panel"
+                aria-selected="false"
+                tabindex="-1"
+                type="button"
+              >
+                판매회원 로그인
+              </button>
+            </li>
+          </ul>
 
-              <div class="field">
-                <label class="sr-only" for="username">아이디</label>
-                <input
-                  id="username"
-                  name="username"
-                  autocomplete="username"
-                  required
-                />
-              </div>
+          <!-- 단일 패널 -->
+          <div
+            id="panel"
+            class="mt-9"
+            role="tabpanel"
+            tabindex="0"
+            aria-labelledby="tab-buyer"
+          >
+            <form id="login-form" autocomplete="on">
+              <fieldset class="flex flex-col items-center">
+                <legend class="sr-only">로그인</legend>
 
-              <div class="field">
-                <label class="sr-only" for="password">비밀번호</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autocomplete="current-password"
-                  required
-                />
-              </div>
+                <div class="">
+                  <label class="sr-only" for="username">아이디</label>
+                  <input
+                    id="username"
+                    class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b placeholder:text-[16px]"
+                    name="username"
+                    autocomplete="username"
+                    required
+                    placeholder="아이디"
+                  />
+                </div>
 
-              <p
-                id="login-error"
-                class="sr-only"
-                role="alert"
-                aria-live="assertive"
-              ></p>
+                <div class="field">
+                  <label class="sr-only" for="password">비밀번호</label>
+                  <input
+                    id="password"
+                    class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b placeholder:text-[16px]"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                    placeholder="비밀번호"
+                  />
+                </div>
 
-              <button class="btn" type="submit">로그인</button>
-            </fieldset>
-          </form>
+                <p
+                  id="login-error"
+                  class="sr-only"
+                  role="alert"
+                  aria-live="assertive"
+                ></p>
+
+                <button
+                  class="bg-main .font-bold my-9 h-15 w-120 rounded-[5px] text-[18px] text-white"
+                  type="submit"
+                >
+                  로그인
+                </button>
+              </fieldset>
+            </form>
+          </div>
         </section>
-      </div>
 
-      <div class="links">
-        <a href="/#">회원가입</a> | <a href="/#">비밀번호 찾기</a>
-      </div>
-    </main>
+        <div class="mt-[30px] flex justify-center gap-[14px]">
+          <a href="/#">회원가입</a> <span>|</span>
+          <a href="/#">비밀번호 찾기</a>
+        </div>
+      </main>
+    </div>
   </body>
 </html>
