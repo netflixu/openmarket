@@ -1,51 +1,39 @@
-const routes = {
-  productList: () => import("../templates/productList.html"),
-  product: () => import("../templates/product.html"),
-  login: () => import("../templates/login.html"),
-  join: () => import("../templates/join.html"),
-};
-
 const root = document.getElementById("app"); // index.html 안에 id="app" 영역에서 각 페이지 렌더링
 
-export async function navigate() {
-  const hash = location.hash.replace("#", "") || "productList";
-  const route = routes[hash];
+async function loadPage(hash) {
+  const page = hash || "productList"; // 기본 페이지
+  try {
+    // 1. 메인 페이지 HTML templates 로드
+    const res = await fetch(`/templates/${page}.html`);
+    const html = await res.text();
+    root.innerHTML = html;
 
-  if (route) {
-    try {
-      const res = await fetch(`./templates/${hash}.html`);
-      const html = await res.text();
-      root.innerHTML = html;
-      window.scrollTo(0, 0);
-    } catch (err) {
-      root.innerHTML = `<p>페이지를 불러오는 중 오류가 발생했습니다.</p>`;
+    // 2. 공통 Header 컴포넌트 동적 로드
+    const headerContainer = document.getElementById("header");
+    if (headerContainer) {
+      const headerRes = await fetch("/components/header.html");
+      const headerHTML = await headerRes.text();
+      headerContainer.innerHTML = headerHTML;
     }
-  } else {
-    root.innerHTML = `<p>해당 페이지를 찾을 수 없습니다.</p>`;
+
+    // 3. 페이지별 JS 동적 로드(html, js 파일명이 같을 경우)
+    const script = document.createElement("script");
+    script.src = `/scripts/${page}.js`;
+    script.async = true;
+    document.body.appendChild(script);
+
+    // 4. 페이지 이동 시 스크롤 맨 위로
+    window.scrollTo(0, 0);
+  } catch (err) {
+    root.innerHTML = `<p>페이지를 불러오는 중 오류가 발생했습니다.</p>`;
   }
 }
 
-async function loadHeader() {
-  const headerEl = document.getElementById("header");
-  const res = await fetch("/components/Header.html");
-  const html = await res.text();
-  headerEl.innerHTML = html;
-
-  headerEl.addEventListener("click", (e) => {
-    const target = e.target.closest("a[href^='#']");
-    if (target) {
-      e.preventDefault();
-      const hash = target.getAttribute("href");
-      if (hash) {
-        location.hash = hash;
-      }
-    }
-  });
+function handleHashChange() {
+  const hash = location.hash.replace("#", "");
+  loadPage(hash);
 }
 
 // 해시가 변경될 때마다 navigate 실행
-window.addEventListener("hashchange", navigate);
-window.addEventListener("DOMContentLoaded", () => {
-  loadHeader();
-  navigate(); // 기존 라우터 함수 호출
-});
+window.addEventListener("hashchange", handleHashChange);
+window.addEventListener("DOMContentLoaded", handleHashChange);
