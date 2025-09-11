@@ -165,6 +165,7 @@ form button:disabled {
 
   position: absolute;
   top: 130%;
+  z-index: 100;
 
   display: none;
 }
