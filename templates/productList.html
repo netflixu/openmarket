@@ -1,87 +1,64 @@
-<body class="bg-gray-50">
-  <!-- 헤더 -->
-  <header class="bg-white border-b">
-    <div class="max-w-6xl mx-auto h-20 px-6 flex items-center gap-2">
-      <!-- 로고: SPA 홈 라우트로 -->
-      <a href="#productList" class="shrink-0 mr-5">
-        <img src="../images/Logo-hodu.svg" alt="HODU" class="h-8 w-auto" />
-      </a>
+<div>
+  <!-- 헤더가 주입될 자리 (필요 시 스크립트로 렌더링) -->
+  <div id="header"></div>
 
-      <form class="flex-none !w-80 sm:w-64 md:w-72" role="search">
-        <label class="relative block">
-          <input
-            type="search" name="q"
-            placeholder="상품을 검색해보세요!"
-            class="w-full h-10 pl-3 pr-16 rounded-full border-2 border-[#22C55E]
-                   placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#22C55E]/40"
-          />
-          <button type="submit"
-            class="absolute right-2 top-1.5 w-8 h-8 grid place-items-center bg-transparent text-[#22C55E]"
-            aria-label="검색">
-            <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="9" cy="9" r="8"></circle>
-              <path d="M18 18 L16 16"></path>
-            </svg>
-          </button>
-        </label>
-      </form>
+  <!-- 본문 섹션: product.html과 동일한 계층 -->
+  <section class="w-full">
+    <div class="mx-auto max-w-[1280px] px-4">
+      <!-- 상단 배너(슬라이더 자리) -->
+      <div
+        class="relative mt-6 flex h-72 items-center justify-center rounded bg-gray-100"
+      >
+        <button
+          class="absolute left-4 text-3xl font-bold text-black/80 hover:text-black"
+          aria-label="이전"
+        >
+          &#8249;
+        </button>
+        <div class="text-gray-400">배너/슬라이더 영역</div>
+        <button
+          class="absolute right-4 text-3xl font-bold text-black/80 hover:text-black"
+          aria-label="다음"
+        >
+          &#8250;
+        </button>
+      </div>
 
-      <!-- 우측 아이콘 -->
-      <nav class="ml-auto pl-8 flex items-end gap-8">
-        <a href="#cart" class="flex flex-col items-center">
-          <img src="../images/icon-shopping-cart.svg" alt="" aria-hidden="true" class="w-7 h-7 object-contain" />
-          <span class="mt-1 text-xs text-gray-500">장바구니</span>
-        </a>
-        <a href="#mypage" class="flex flex-col items-center">
-          <img src="../images/icon-user.svg" alt="" aria-hidden="true" class="w-7 h-7 object-contain" />
-          <span class="mt-1 text-xs text-gray-500">마이페이지</span>
-        </a>
-      </nav>
+      <!-- 상품 리스트 -->
+      <main class="py-12">
+        <!-- 그리드 컨테이너 -->
+        <div
+          id="grid"
+          class="grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 md:grid-cols-3"
+        ></div>
+
+        <!-- 로딩 스켈레톤 -->
+        <template id="skeleton">
+          <div class="animate-pulse rounded-lg bg-white p-4 shadow">
+            <div class="aspect-square w-full rounded-md bg-gray-200"></div>
+            <div class="mt-4 h-4 w-3/4 rounded bg-gray-200"></div>
+            <div class="mt-2 h-4 w-1/3 rounded bg-gray-200"></div>
+          </div>
+        </template>
+
+        <!-- 오류 메시지 -->
+        <p id="error" class="mt-8 hidden text-center text-sm text-red-600"></p>
+      </main>
     </div>
-  </header>
-
-  <!-- 상단 배너(슬라이더 자리) -->
-  <section class="relative bg-gray-100 h-72 flex items-center justify-center">
-    <!-- 이전 -->
-    <button class="absolute left-4 text-black/80 hover:text-black text-3xl font-bold"
-            aria-label="이전">&#8249;</button>
-
-    <div class="text-gray-400">배너/슬라이더 영역</div>
-
-    <!-- 다음 -->
-    <button class="absolute right-4 text-black/80 hover:text-black text-3xl font-bold"
-            aria-label="다음">&#8250;</button>
   </section>
 
-  <!-- 상품 리스트 -->
-  <main class="max-w-7xl mx-auto px-6 py-12">
-    <!-- 그리드 컨테이너 -->
-    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-16"></div>
-
-    <!-- 로딩 스켈레톤 -->
-    <template id="skeleton">
-      <div class="bg-white shadow rounded-lg p-4 animate-pulse">
-        <div class="w-full aspect-square bg-gray-200 rounded-md"></div>
-        <div class="mt-4 h-4 bg-gray-200 rounded w-3/4"></div>
-        <div class="mt-2 h-4 bg-gray-200 rounded w-1/3"></div>
-      </div>
-    </template>
-
-    <!-- 오류 메시지 -->
-    <p id="error" class="hidden mt-8 text-center text-sm text-red-600"></p>
-  </main>
-
+  <!-- 푸터 (원하시면 여기 대신 외부에서 주입해도 OK) -->
   <footer class="bg-gray-100">
-    <div class="max-w-6xl mx-auto px-8 py-10">
-      <!-- 상단: 링크 + 소셜 -->
+    <div class="mx-auto max-w-6xl px-8 py-10">
       <div class="flex items-center justify-between text-sm">
         <ul class="flex flex-wrap items-center text-gray-700">
           <li><a href="#" class="hover:text-black">호두샵 소개</a></li>
           <span class="mx-3 text-gray-300">|</span>
           <li><a href="#" class="hover:text-black">이용약관</a></li>
           <span class="mx-3 text-gray-300">|</span>
-          <li><a href="#" class="font-semibold text-black">개인정보처리방침</a></li>
+          <li>
+            <a href="#" class="font-semibold text-black">개인정보처리방침</a>
+          </li>
           <span class="mx-3 text-gray-300">|</span>
           <li><a href="#" class="hover:text-black">전자금융거래약관</a></li>
           <span class="mx-3 text-gray-300">|</span>
@@ -92,20 +69,23 @@
 
         <div class="flex items-center gap-4">
           <a href="#" aria-label="Instagram">
-            <img src="../images/icon-insta.svg" alt="Instagram" class="w-7 h-7" />
+            <img
+              src="../images/icon-insta.svg"
+              alt="Instagram"
+              class="h-7 w-7"
+            />
           </a>
           <a href="#" aria-label="Facebook">
-            <img src="../images/icon-fb.svg" alt="Facebook" class="w-7 h-7" />
+            <img src="../images/icon-fb.svg" alt="Facebook" class="h-7 w-7" />
           </a>
           <a href="#" aria-label="YouTube">
-            <img src="../images/icon-yt.svg" alt="YouTube" class="w-7 h-7" />
+            <img src="../images/icon-yt.svg" alt="YouTube" class="h-7 w-7" />
           </a>
         </div>
       </div>
 
-      <hr class="mt-5 border-gray-300">
+      <hr class="mt-5 border-gray-300" />
 
-      <!-- 회사 정보 -->
       <div class="mt-6 text-sm leading-relaxed text-gray-500">
         <p class="font-semibold text-gray-500">(주)HODU SHOP</p>
         <p class="mt-1">제주특별자치도 제주시 동광고 137 제주코딩베이스캠프</p>
@@ -114,4 +94,4 @@
       </div>
     </div>
   </footer>
-</body>
+</div>
