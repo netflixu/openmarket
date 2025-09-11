@@ -41,6 +41,7 @@ async function loadPage(hash) {
       script.id = scriptId; // script 식별자 부여
       script.src = `/scripts/${page}.js`;
       script.async = true;
+      script.type = "module";
 
       script.onload = () => {
         resolve();
