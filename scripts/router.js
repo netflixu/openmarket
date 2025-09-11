@@ -3,6 +3,26 @@ import { setIcons } from "./header.js";
 // SPA 진입 포인트: 라우팅이 이루어질 루트 DOM 요소
 const root = document.getElementById("app");
 
+// 동적 스크립트 로더 (중복 로드 방지 + 에러 처리)
+function loadScript(src, id) {
+  return new Promise((resolve, reject) => {
+    // 같은 id가 이미 있으면 재로드하지 않음
+    if (id) {
+      const existing = document.getElementById(id);
+      if (existing) return resolve();
+    }
+
+    const s = document.createElement("script");
+    if (id) s.id = id;
+    s.src = src;
+    s.type = "module"; // ESM 사용 중이면 유지
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error(`SCRIPT_LOAD_FAILED: ${src}`));
+    document.body.appendChild(s); // head에 넣어도 OK
+  });
+}
+
 // 1. 페이지 템플릿 및 JS 로딩 함수 (비동기)
 async function loadPage(hash) {
   // 예: #product?id=2 → product
