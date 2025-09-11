@@ -42,6 +42,7 @@ async function loadPage(hash) {
       const headerRes = await fetch("/components/header.html");
       if (headerRes.ok) {
         headerContainer.innerHTML = await headerRes.text();
+        setIcons();
       }
     }
 
