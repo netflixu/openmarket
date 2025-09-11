@@ -28,11 +28,26 @@ async function loadPage(hash) {
 
     // [4] script.onload로 로딩 완료 시점까지 보장 (init 함수 실행을 위해 필요)
     return new Promise((resolve) => {
-      script.onload = resolve;
-      document.body.appendChild(script);
+      const scriptId = `page-script-${page}`;
+      const existingScript = document.getElementById(scriptId);
 
-      // 페이지 이동 시 스크롤 맨 위로
-      window.scrollTo(0, 0);
+      if (existingScript) {
+        resolve(); // 이미 script가 로드되어 있으면 그대로 init 함수만 실행
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.id = scriptId; // script 식별자 부여
+      script.src = `/scripts/${page}.js`;
+      script.async = true;
+
+      script.onload = () => {
+        resolve();
+        window.scrollTo(0, 0);
+      };
+
+      document.body.appendChild(script);
     });
   } catch (err) {
     // [5] 로딩 실패 (404 등) → 예외 페이지 처리
