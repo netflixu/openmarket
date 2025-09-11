@@ -1,3 +1,4 @@
+import { saveUserInfo } from "./getUserInfo.js";
 import {
   getAccess,
   loadRefresh,
@@ -79,8 +80,9 @@ function initializeLogin() {
       })
       .then((data) => {
         console.log(data);
+        const { access, refresh, user } = data;
         let loginType = getLoginType();
-        if (loginType !== data.user.user_type) {
+        if (loginType !== user.user_type) {
           if (loginType === "BUYER") {
             showError("판매회원 로그인을 해주세요");
           } else if (loginType === "SELLER") {
@@ -89,9 +91,11 @@ function initializeLogin() {
           return;
         }
         // 엑세스토큰 저장
-        setAccess(data.access);
+        setAccess(access);
         // 리프레시 토큰저장
-        saveRefresh(data.refresh);
+        saveRefresh(refresh);
+        // 유저정보 저장
+        saveUserInfo(user);
 
         // SPA 환경에서는 해시만 변경
         location.hash = "#productList";
