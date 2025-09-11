@@ -81,12 +81,6 @@ const sellerValidationsMapping = {
   },
 };
 
-// style.css 스타일 불러오기
-const link = document.createElement("link");
-link.rel = "stylesheet";
-link.href = "./styles/style.css";
-document.head.appendChild(link);
-
 // 전체 확인
 document.addEventListener("keyup", () => {
   const isDisabled = isInputBlank("all", false);
