@@ -220,12 +220,19 @@ userName.addEventListener("keydown", () => {
 });
 //4. 휴대폰번호
 phoneFirst.addEventListener("focus", (e) => {
+  e.stopPropagation();
+
   isInputBlank("phoneNumber");
 
   resetError(null, phoneNumberMessage);
   phoneFirstSelectUl.style.display = "block";
 
   e.target.classList.add("outline-main");
+});
+document.addEventListener("click", (e) => {
+  // 외부 눌러도 드롭다운
+  if (!phoneFirst.contains(e.target) && !phoneFirstSelectUl.contains(e.target))
+    phoneFirstSelectUl.style.display = "none";
 });
 phoneFirstSelectUl.addEventListener("click", (e) => {
   if (e.target.dataset.value === "") return;
