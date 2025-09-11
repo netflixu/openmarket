@@ -119,6 +119,7 @@ function makeIcon(array) {
       "text-xs",
       "text-font-gray",
       `${item.type}`,
+      "shrink-0",
     );
 
     // 판매자센터 버튼 스타일링
