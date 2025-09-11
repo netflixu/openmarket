@@ -1,368 +1,344 @@
-<!doctype html>
-<html lang="ko-KR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- meta 태그 추가 위치 -->
+<header class="flex justify-center p-[70px]">
+  <h1>
+    <a href="/" aria-label="호두 오픈마켓 홈페이지로 이동">
+      <img
+        class="w-[238px]"
+        src="../images/Logo-hodu.svg"
+        alt="호두 오픈마켓"
+      />
+    </a>
+  </h1>
+</header>
 
-    <title>회원가입</title>
+<main class="flex justify-center">
+  <section class="w-[550px] pb-16">
+    <h2 class="sr-only">회원가입 폼</h2>
+    <div class="tab-container">
+      <ul
+        role="tablist"
+        aria-label="로그인 유형"
+        class="tab-list flex items-stretch justify-center text-lg"
+      >
+        <li class="grow">
+          <button
+            class="bg-disabled-li active border-gray-border w-full rounded-t-[10px] border p-5 font-medium hover:cursor-pointer"
+            type="button"
+            data-type="buyer"
+            role="tab"
+            aria-controls="panel-buyer"
+            aria-selected="true"
+          >
+            구매회원가입
+          </button>
+        </li>
+        <li class="grow">
+          <button
+            class="bg-disabled-li border-gray-border w-full rounded-t-[10px] border p-5 font-medium hover:cursor-pointer"
+            type="button"
+            data-type="seller"
+            role="tab"
+            aria-controls="panel-seller"
+            aria-selected="false"
+          >
+            판매회원가입
+          </button>
+        </li>
+      </ul>
+      <div class="tab-panel" role="tabpanel">
+        <h3 class="sr-only">구매 회원가입 폼</h3>
 
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../styles/style.css" />
-  </head>
-  <body>
-    <div class="flex flex-col items-center">
-      <!-- index.html 위치 -->
-      <header class="p-[70px]">
-        <h1>
-          <a href="/" aria-label="호두 오픈마켓 홈페이지로 이동">
-            <img
-              class="w-[238px]"
-              src="../images/Logo-hodu.svg"
-              alt="호두 오픈마켓"
-            />
-          </a>
-        </h1>
-      </header>
+        <form id="joinForm" name="joinForm" action="#" method="post">
+          <input type="hidden" id="userType" name="userType" value="buyer" />
 
-      <main>
-        <section class="w-[550px] pb-16">
-          <h2 class="sr-only">회원가입 폼</h2>
-          <div class="tab-container">
-            <ul
-              role="tablist"
-              aria-label="로그인 유형"
-              class="tab-list flex items-stretch justify-center text-lg"
-            >
-              <li class="grow">
-                <button
-                  class="bg-disabled-li active border-gray-border w-full rounded-t-[10px] border p-5 font-medium hover:cursor-pointer"
-                  type="button"
-                  data-type="buyer"
-                  role="tab"
-                  aria-controls="panel-buyer"
-                  aria-selected="true"
-                >
-                  구매회원가입
-                </button>
-              </li>
-              <li class="grow">
-                <button
-                  class="bg-disabled-li border-gray-border w-full rounded-t-[10px] border p-5 font-medium hover:cursor-pointer"
-                  type="button"
-                  data-type="seller"
-                  role="tab"
-                  aria-controls="panel-seller"
-                  aria-selected="false"
-                >
-                  판매회원가입
-                </button>
-              </li>
-            </ul>
-            <div class="tab-panel" role="tabpanel">
-              <h3 class="sr-only">구매 회원가입 폼</h3>
+          <div
+            class="border-gray-border flex flex-col gap-12 rounded-b-[10px] border border-t-0 p-[35px]"
+          >
+            <fieldset class="flex flex-col gap-3">
+              <legend class="sr-only">로그인 정보</legend>
 
-              <form action="#" method="post">
-                <input type="hidden" name="userType" value="buyer" />
+              <div>
+                <label class="text-font-gray" for="userId">아이디</label>
+                <div class="mt-2.5 flex gap-3">
+                  <input
+                    type="text"
+                    name="userId"
+                    id="userId"
+                    required
+                    minlength="4"
+                    maxlength="20"
+                    pattern="^[a-zA-Z0-9]{4,20}$"
+                    aria-describedby="userIdMessage"
+                    class="border-gray-border focus:outline-main grow rounded-[5px] border p-4"
+                  />
+                  <button
+                    id="userIdCheckBtn"
+                    class="bg-main rounded-[5px] px-8 py-4 text-white hover:cursor-pointer"
+                    type="button"
+                    aria-describedby="userId"
+                  >
+                    중복확인
+                  </button>
+                </div>
+                <p
+                  id="userIdMessage"
+                  class="text-main mt-2.5"
+                  aria-live="assertive"
+                ></p>
+              </div>
 
+              <div>
+                <label class="text-font-gray" for="password">비밀번호</label>
                 <div
-                  class="border-gray-border flex flex-col gap-12 rounded-b-[10px] border border-t-0 p-[35px]"
+                  id="passwordWrap"
+                  class="relative mt-2.5 after:absolute after:top-1/2 after:right-4 after:block after:h-7 after:w-7 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:content-['']"
                 >
-                  <fieldset class="flex flex-col gap-3">
-                    <legend class="sr-only">로그인 정보</legend>
-
-                    <div>
-                      <label class="text-font-gray" for="userId">아이디</label>
-                      <div class="mt-2.5 flex gap-3">
-                        <input
-                          type="text"
-                          name="userId"
-                          id="userId"
-                          required
-                          minlength="4"
-                          maxlength="20"
-                          aria-describedby="userIdSuccess userIdError"
-                          class="border-gray-border focus:outline-main grow rounded-[5px] border p-4"
-                        />
-                        <button
-                          class="bg-main rounded-[5px] px-8 py-4 text-white hover:cursor-pointer"
-                          type="button"
-                          aria-describedby="userId"
-                        >
-                          중복확인
-                        </button>
-                      </div>
-                      <p
-                        id="userIdSuccess"
-                        class="success-message text-main mt-2.5 hidden"
-                        aria-live="assertive"
-                      >
-                        멋진 아이디네요 :)
-                      </p>
-                      <p
-                        id="userIdError"
-                        class="error-message text-accent mt-2.5 hidden"
-                        aria-live="assertive"
-                      >
-                        이미 사용 중인 아이디입니다.
-                      </p>
-                    </div>
-
-                    <div>
-                      <label class="text-font-gray" for="password"
-                        >비밀번호</label
-                      >
-                      <div
-                        class="relative mt-2.5 after:absolute after:top-1/2 after:right-4 after:block after:h-7 after:w-7 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:content-['']"
-                      >
-                        <input
-                          type="password"
-                          name="password"
-                          id="password"
-                          required
-                          class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
-                          aria-describedby="passwordError"
-                        />
-                      </div>
-                      <p
-                        id="passwordError"
-                        class="error-message text-accent mt-2.5 hidden"
-                        aria-live="assertive"
-                      >
-                        필수 정보입니다
-                      </p>
-                    </div>
-
-                    <div>
-                      <label class="text-font-gray" for="passwordConfirm"
-                        >비밀번호 재확인</label
-                      >
-                      <div
-                        class="relative mt-2.5 after:absolute after:top-1/2 after:right-4 after:block after:h-7 after:w-7 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:content-['']"
-                      >
-                        <input
-                          type="password"
-                          name="passwordConfirm"
-                          id="passwordConfirm"
-                          required
-                          aria-describedby="passwordConfirmError"
-                          class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
-                        />
-                      </div>
-                      <p
-                        id="passwordConfirmError"
-                        class="error-message text-accent mt-2.5 hidden"
-                        aria-live="assertive"
-                      >
-                        비밀번호가 일치하지 않습니다.
-                      </p>
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="flex flex-col gap-3">
-                    <legend class="sr-only">개인 정보</legend>
-
-                    <div>
-                      <label class="text-font-gray" for="userName">이름</label>
-                      <input
-                        type="text"
-                        name="userName"
-                        id="userName"
-                        required
-                        class="border-gray-border focus:outline-main mt-2.5 w-full rounded-[5px] border p-4"
-                        aria-describedby="userNameError"
-                      />
-                      <p
-                        id="userNameError"
-                        class="error-message text-accent mt-2.5 hidden"
-                        aria-live="assertive"
-                      >
-                        필수 정보입니다
-                      </p>
-                    </div>
-
-                    <div>
-                      <fieldset>
-                        <legend class="text-font-gray">휴대폰번호</legend>
-                        <div class="mt-2.5 flex gap-3">
-                          <input
-                            type="hidden"
-                            name="phoneFirst"
-                            id="phoneFirst"
-                            value="010"
-                            required
-                          />
-                          <div class="relative w-[33%]">
-                            <p
-                              id="phoneFirstSelect"
-                              aria-label="통신사 번호"
-                              class="custom-select focus:outline-main border-gray-border cursor-pointer appearance-none rounded-[5px] border bg-[url(../images/icon-down-arrow.svg)] bg-no-repeat p-4 pr-8 text-center focus:bg-[url(../images/icon-up-arrow.svg)]"
-                            >
-                              010
-                            </p>
-                            <ul
-                              id="phoneFirstSelectUl"
-                              class="custom-select-ul border-gray-border absolute top-11/10 z-10 h-40 w-full overflow-x-hidden overflow-y-scroll rounded-[5px] border bg-white text-center"
-                            >
-                              <li
-                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
-                                data-value="010"
-                              >
-                                010
-                              </li>
-                              <li
-                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
-                                data-value="011"
-                              >
-                                011
-                              </li>
-                              <li
-                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
-                                data-value="016"
-                              >
-                                016
-                              </li>
-                              <li
-                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
-                                data-value="017"
-                              >
-                                017
-                              </li>
-                              <li
-                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
-                                data-value="018"
-                              >
-                                018
-                              </li>
-                              <li
-                                class="hover:bg-gray-border-b w-full cursor-pointer p-2"
-                                data-value="019"
-                              >
-                                019
-                              </li>
-                            </ul>
-                          </div>
-                          <input
-                            type="tel"
-                            name="phoneMiddle"
-                            id="phoneMiddle"
-                            required
-                            aria-label="휴대폰 가운데 4자리"
-                            pattern="[0-9]{3,4}"
-                            maxlength="4"
-                            class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-4"
-                          />
-                          <input
-                            type="tel"
-                            name="phoneLast"
-                            id="phoneLast"
-                            required
-                            aria-label="휴대폰 마지막 4자리"
-                            pattern="[0-9]{4}"
-                            maxlength="4"
-                            class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-4"
-                          />
-                        </div>
-                        <p
-                          id="phoneNumberError"
-                          class="error-message text-accent mt-2.5 hidden"
-                          aria-live="assertive"
-                        >
-                          필수 정보입니다
-                        </p>
-                      </fieldset>
-                    </div>
-                  </fieldset>
-
-                  <fieldset
-                    class="form-group seller-only flex hidden flex-col gap-3"
-                    id="sellerData"
-                  >
-                    <legend class="sr-only">판매자 정보</legend>
-
-                    <div>
-                      <label class="text-font-gray" for="businessNumber"
-                        >사업자 등록번호</label
-                      >
-                      <div class="mt-2.5 flex gap-3">
-                        <input
-                          type="text"
-                          name="businessNumber"
-                          id="businessNumber"
-                          required
-                          pattern="[0-9]{3}-[0-9]{2}-[0-9]{5}"
-                          aria-describedby="businessNumberError"
-                          class="border-gray-border focus:outline-main grow rounded-[5px] border p-4"
-                        />
-                        <button
-                          type="button"
-                          aria-describedby="businessNumber"
-                          class="bg-main rounded-[5px] px-8 py-4 text-white hover:cursor-pointer"
-                        >
-                          인증
-                        </button>
-                      </div>
-                      <p
-                        id="businessNumberError"
-                        class="error-message text-accent mt-2.5 hidden"
-                        aria-live="assertive"
-                      >
-                        사업자 번호를 다시 확인해주세요.
-                      </p>
-                    </div>
-
-                    <div>
-                      <label class="text-font-gray" for="storeName"
-                        >스토어 이름</label
-                      >
-                      <input
-                        type="text"
-                        name="storeName"
-                        id="storeName"
-                        required
-                        class="border-gray-border focus:outline-main mt-2.5 w-full rounded-[5px] border p-4"
-                      />
-                    </div>
-                  </fieldset>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    min="8"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                    required
+                    class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
+                    aria-describedby="passwordMessage"
+                  />
                 </div>
+                <p
+                  id="passwordMessage"
+                  class="error-message text-accent mt-2.5"
+                  aria-live="assertive"
+                ></p>
+              </div>
 
-                <div class="mt-8 px-[35px]">
-                  <h3 class="sr-only">약관 동의</h3>
-                  <div
-                    class="before:content=[''] flex gap-2.5 before:mt-1 before:block before:h-4 before:w-4 before:shrink-0 before:bg-[url(../images/check-box.svg)]"
-                  >
+              <div>
+                <label class="text-font-gray" for="passwordConfirm"
+                  >비밀번호 재확인</label
+                >
+                <div
+                  id="passwordConfirmWrap"
+                  class="relative mt-2.5 after:absolute after:top-1/2 after:right-4 after:block after:h-7 after:w-7 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:content-['']"
+                >
+                  <input
+                    type="password"
+                    name="passwordConfirm"
+                    id="passwordConfirm"
+                    min="8"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                    required
+                    aria-describedby="pwConfirmMessage"
+                    class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
+                  />
+                </div>
+                <p
+                  id="pwConfirmMessage"
+                  class="error-message text-accent mt-2.5"
+                  aria-live="assertive"
+                ></p>
+              </div>
+            </fieldset>
+
+            <fieldset class="flex flex-col gap-3">
+              <legend class="sr-only">개인 정보</legend>
+
+              <div>
+                <label class="text-font-gray" for="userName">이름</label>
+                <input
+                  type="text"
+                  name="userName"
+                  id="userName"
+                  autocomplete="username"
+                  required
+                  class="border-gray-border focus:outline-main mt-2.5 w-full rounded-[5px] border p-4"
+                  aria-describedby="userNameMessage"
+                />
+                <p
+                  id="userNameMessage"
+                  class="error-message mt-2.5"
+                  aria-live="assertive"
+                ></p>
+              </div>
+
+              <div>
+                <fieldset>
+                  <legend class="text-font-gray">휴대폰번호</legend>
+                  <div class="mt-2.5 flex gap-3">
+                    <div class="relative w-[33%]">
+                      <input
+                        type="tel"
+                        name="phoneFirst"
+                        id="phoneFirst"
+                        value="010"
+                        required
+                        readonly
+                        class="custom-select focus:outline-main outline-main border-gray-border w-full cursor-pointer appearance-none rounded-[5px] border bg-[url(../images/icon-down-arrow.svg)] bg-no-repeat p-4 pr-8 text-center focus:bg-[url(../images/icon-up-arrow.svg)]"
+                        aria-label="통신사 번호"
+                      />
+                      <ul
+                        id="phoneFirstSelectUl"
+                        class="custom-select-ul border-gray-border absolute top-11/10 z-10 hidden h-40 w-full overflow-x-hidden overflow-y-scroll rounded-[5px] border bg-white text-center"
+                      >
+                        <li
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          data-value="010"
+                        >
+                          010
+                        </li>
+                        <li
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          data-value="011"
+                        >
+                          011
+                        </li>
+                        <li
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          data-value="016"
+                        >
+                          016
+                        </li>
+                        <li
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          data-value="017"
+                        >
+                          017
+                        </li>
+                        <li
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          data-value="018"
+                        >
+                          018
+                        </li>
+                        <li
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          data-value="019"
+                        >
+                          019
+                        </li>
+                      </ul>
+                    </div>
                     <input
-                      type="checkbox"
-                      name="privacyConsent"
-                      id="privacyConsent"
+                      type="tel"
+                      name="phoneMiddle"
+                      id="phoneMiddle"
                       required
-                      class="hidden"
+                      aria-label="휴대폰 가운데 4자리"
+                      pattern="[0-9]{3,4}"
+                      maxlength="4"
+                      class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-4 text-center"
                     />
-                    <label class="text-font-gray" for="privacyConsent"
-                      >호두샵의 <a class="font-bold" href="#">이용약관</a> 및
-                      <a class="font-bold" href="#">개인정보처리방침</a>에 대한
-                      내용을 확인하였고 동의합니다.</label
-                    >
+                    <input
+                      type="tel"
+                      name="phoneLast"
+                      id="phoneLast"
+                      required
+                      aria-label="휴대폰 마지막 4자리"
+                      pattern="[0-9]{4}"
+                      maxlength="4"
+                      class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-4 text-center"
+                    />
                   </div>
-                  <div class="mt-[34px] px-[35px]">
-                    <button
-                      type="submit"
-                      disabled
-                      aria-describedby="submitHelp"
-                      class="bg-gray-border w-full rounded-[5px] p-[19px] text-center font-bold text-white hover:cursor-pointer disabled:cursor-no-drop"
-                    >
-                      가입하기
-                    </button>
-                    <p id="submitHelp" class="sr-only" aria-live="assertive">
-                      모든 항목을 입력하고 약관에 동의해야 가입할 수 있습니다
-                    </p>
-                  </div>
+                  <p
+                    id="phoneNumberMessage"
+                    class="error-message mt-2.5"
+                    aria-live="assertive"
+                  ></p>
+                </fieldset>
+              </div>
+            </fieldset>
+
+            <fieldset
+              class="form-group seller-only flex hidden flex-col gap-3"
+              id="sellerData"
+            >
+              <legend class="sr-only">판매자 정보</legend>
+
+              <div>
+                <label class="text-font-gray" for="businessNumber"
+                  >사업자 등록번호</label
+                >
+                <div class="mt-2.5 flex gap-3">
+                  <input
+                    type="text"
+                    name="businessNumber"
+                    id="businessNumber"
+                    pattern="[0-9]{10}"
+                    aria-describedby="businessNumberMessage"
+                    class="border-gray-border focus:outline-main grow rounded-[5px] border p-4"
+                  />
+                  <button
+                    id="businessNumberCheckBtn"
+                    type="button"
+                    aria-describedby="businessNumber"
+                    class="bg-main rounded-[5px] px-8 py-4 text-white hover:cursor-pointer"
+                  >
+                    인증
+                  </button>
                 </div>
-              </form>
+                <p
+                  id="businessNumberMessage"
+                  class="text-main mt-2.5"
+                  aria-live="assertive"
+                ></p>
+              </div>
+
+              <div>
+                <label class="text-font-gray" for="storeName"
+                  >스토어 이름</label
+                >
+                <input
+                  type="text"
+                  name="storeName"
+                  id="storeName"
+                  aria-describedby="storeNameMessage"
+                  class="border-gray-border focus:outline-main mt-2.5 w-full rounded-[5px] border p-4"
+                />
+                <p
+                  id="storeNameMessage"
+                  class="error-message mt-2.5"
+                  aria-live="assertive"
+                ></p>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="mt-8 px-[35px]">
+            <h3 class="sr-only">약관 동의</h3>
+            <div>
+              <input
+                type="checkbox"
+                name="privacyConsent"
+                id="privacyConsent"
+                required
+                class="hidden"
+              />
+              <label
+                id="privacyConsentLabel"
+                class="text-font-gray flex gap-2.5 before:mt-1 before:block before:h-4 before:w-4 before:shrink-0 before:bg-[url(../images/check-box.svg)] before:content-['']"
+                for="privacyConsent"
+              >
+                <p>
+                  호두샵의 <a class="font-bold" href="#">이용약관</a> 및
+                  <a class="font-bold" href="#">개인정보처리방침</a>에 대한
+                  내용을 확인하였고 동의합니다.
+                </p></label
+              >
+            </div>
+            <div class="mt-[34px] px-[35px]">
+              <button
+                id="joinBtn"
+                type="submit"
+                disabled
+                aria-describedby="submitHelp"
+                class="bg-main w-full rounded-[5px] p-[19px] text-center font-bold text-white hover:cursor-pointer disabled:cursor-no-drop"
+              >
+                가입하기
+              </button>
+              <p id="submitHelp" class="sr-only" aria-live="assertive">
+                모든 항목을 입력하고 약관에 동의해야 가입할 수 있습니다
+              </p>
             </div>
           </div>
-        </section>
-      </main>
+        </form>
+      </div>
     </div>
-  </body>
-</html>
+  </section>
+</main>
