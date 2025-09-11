@@ -10,57 +10,36 @@ async function loadPage(hash) {
   const page = rawPage.split("?")[0];
 
   try {
-    // [1] HTML 템플릿 로딩
+    // [1] HTML 템플릿 로딩 (+ 실패 시 throw)
     const res = await fetch(`/templates/${page}.html`);
+    if (!res.ok) throw new Error(`TEMPLATE_NOT_FOUND: ${page}`);
     const html = await res.text();
     root.innerHTML = html;
 
-    // [2] 공통 Header 로딩
+    // [2] 공통 Header 로딩 (있을 때만)
     const headerContainer = document.getElementById("header");
     if (headerContainer) {
       const headerRes = await fetch("/components/header.html");
-      const headerHTML = await headerRes.text();
-      headerContainer.innerHTML = headerHTML;
-
-      setIcons();
+      if (headerRes.ok) {
+        headerContainer.innerHTML = await headerRes.text();
+      }
     }
 
-    // [3] 해당 페이지에 필요한 JS 파일 로딩
-    const script = document.createElement("script");
-    script.src = `/scripts/${page}.js`;
-    script.async = true;
+    // [3] 해당 페이지 JS 로딩 (+ 실패 시 throw → 404 폴백)
+    await loadScript(`/scripts/${page}.js`, `page-script-${page}`);
 
-    // [4] script.onload로 로딩 완료 시점까지 보장 (init 함수 실행을 위해 필요)
-    return new Promise((resolve) => {
-      const scriptId = `page-script-${page}`;
-      const existingScript = document.getElementById(scriptId);
-
-      if (existingScript) {
-        resolve(); // 이미 script가 로드되어 있으면 그대로 init 함수만 실행
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.id = scriptId; // script 식별자 부여
-      script.src = `/scripts/${page}.js`;
-      script.async = true;
-      script.type = "module";
-
-      script.onload = () => {
-        resolve();
-        window.scrollTo(0, 0);
-      };
-
-      document.body.appendChild(script);
-    });
+    window.scrollTo(0, 0);
   } catch (err) {
-    // [5] 로딩 실패 (404 등) → 예외 페이지 처리
+    // [4] 로딩 실패(템플릿/스크립트) → 404 페이지로 폴백
     const res404 = await fetch("/templates/404.html");
-    const html = res404.ok
+    const html404 = res404.ok
       ? await res404.text()
       : `<p style="text-align:center; margin-top:10rem;">페이지를 불러오는 중 오류가 발생했습니다.</p>`;
-    root.innerHTML = html;
+    root.innerHTML = html404;
+
+    // 404의 '이전 페이지' 버튼 동작 스크립트 로드
+    await loadScript("/scripts/404.js", "page-script-404");
+    window.scrollTo(0, 0);
   }
 }
 
