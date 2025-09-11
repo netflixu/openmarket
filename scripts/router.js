@@ -1,3 +1,5 @@
+import { setIcons } from "./header.js";
+
 // SPA 진입 포인트: 라우팅이 이루어질 루트 DOM 요소
 const root = document.getElementById("app");
 
@@ -19,6 +21,8 @@ async function loadPage(hash) {
       const headerRes = await fetch("/components/header.html");
       const headerHTML = await headerRes.text();
       headerContainer.innerHTML = headerHTML;
+
+      setIcons();
     }
 
     // [3] 해당 페이지에 필요한 JS 파일 로딩
