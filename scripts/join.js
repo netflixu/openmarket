@@ -81,14 +81,11 @@ const sellerValidationsMapping = {
   },
 };
 
-// window.onload (이미지까지 모두 로드 후 실행)
-window.onload = () => {
-  // style.css 스타일 불러오기
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "./styles/style.css";
-  document.head.appendChild(link);
-};
+// style.css 스타일 불러오기
+const link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = "./styles/style.css";
+document.head.appendChild(link);
 
 // 전체 확인
 document.addEventListener("keyup", () => {
