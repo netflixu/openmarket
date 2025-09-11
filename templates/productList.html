@@ -1,5 +1,97 @@
-<section
-  class="bg mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-[50px] px-[5vw] py-12 xl:px-[320px]"
->
-  <div>상품목록 페이지 입니다.</div>
-</section>
+<div>
+  <!-- 헤더가 주입될 자리 (필요 시 스크립트로 렌더링) -->
+  <div id="header"></div>
+
+  <!-- 본문 섹션: product.html과 동일한 계층 -->
+  <section class="w-full">
+    <div class="mx-auto max-w-[1280px] px-4">
+      <!-- 상단 배너(슬라이더 자리) -->
+      <div
+        class="relative mt-6 flex h-72 items-center justify-center rounded bg-gray-100"
+      >
+        <button
+          class="absolute left-4 text-3xl font-bold text-black/80 hover:text-black"
+          aria-label="이전"
+        >
+          &#8249;
+        </button>
+        <div class="text-gray-400">배너/슬라이더 영역</div>
+        <button
+          class="absolute right-4 text-3xl font-bold text-black/80 hover:text-black"
+          aria-label="다음"
+        >
+          &#8250;
+        </button>
+      </div>
+
+      <!-- 상품 리스트 -->
+      <main class="py-12">
+        <!-- 그리드 컨테이너 -->
+        <div
+          id="grid"
+          class="grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 md:grid-cols-3"
+        ></div>
+
+        <!-- 로딩 스켈레톤 -->
+        <template id="skeleton">
+          <div class="animate-pulse rounded-lg bg-white p-4 shadow">
+            <div class="aspect-square w-full rounded-md bg-gray-200"></div>
+            <div class="mt-4 h-4 w-3/4 rounded bg-gray-200"></div>
+            <div class="mt-2 h-4 w-1/3 rounded bg-gray-200"></div>
+          </div>
+        </template>
+
+        <!-- 오류 메시지 -->
+        <p id="error" class="mt-8 hidden text-center text-sm text-red-600"></p>
+      </main>
+    </div>
+  </section>
+
+  <!-- 푸터 (원하시면 여기 대신 외부에서 주입해도 OK) -->
+  <footer class="bg-gray-100">
+    <div class="mx-auto max-w-6xl px-8 py-10">
+      <div class="flex items-center justify-between text-sm">
+        <ul class="flex flex-wrap items-center text-gray-700">
+          <li><a href="#" class="hover:text-black">호두샵 소개</a></li>
+          <span class="mx-3 text-gray-300">|</span>
+          <li><a href="#" class="hover:text-black">이용약관</a></li>
+          <span class="mx-3 text-gray-300">|</span>
+          <li>
+            <a href="#" class="font-semibold text-black">개인정보처리방침</a>
+          </li>
+          <span class="mx-3 text-gray-300">|</span>
+          <li><a href="#" class="hover:text-black">전자금융거래약관</a></li>
+          <span class="mx-3 text-gray-300">|</span>
+          <li><a href="#" class="hover:text-black">청소년보호정책</a></li>
+          <span class="mx-3 text-gray-300">|</span>
+          <li><a href="#" class="hover:text-black">제휴문의</a></li>
+        </ul>
+
+        <div class="flex items-center gap-4">
+          <a href="#" aria-label="Instagram">
+            <img
+              src="../images/icon-insta.svg"
+              alt="Instagram"
+              class="h-7 w-7"
+            />
+          </a>
+          <a href="#" aria-label="Facebook">
+            <img src="../images/icon-fb.svg" alt="Facebook" class="h-7 w-7" />
+          </a>
+          <a href="#" aria-label="YouTube">
+            <img src="../images/icon-yt.svg" alt="YouTube" class="h-7 w-7" />
+          </a>
+        </div>
+      </div>
+
+      <hr class="mt-5 border-gray-300" />
+
+      <div class="mt-6 text-sm leading-relaxed text-gray-500">
+        <p class="font-semibold text-gray-500">(주)HODU SHOP</p>
+        <p class="mt-1">제주특별자치도 제주시 동광고 137 제주코딩베이스캠프</p>
+        <p class="mt-1">사업자 번호 : 000-0000-0000 | 통신판매업</p>
+        <p class="mt-1">대표 : 김호두</p>
+      </div>
+    </div>
+  </footer>
+</div>
