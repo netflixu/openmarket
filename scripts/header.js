@@ -1,6 +1,8 @@
 import { getUserInfo } from "./getUserInfo.js";
 import { showModal } from "./modal.js";
 
+let isDropdown = null;
+
 // 아이콘 들어갈 위치 (오른쪽 상단)
 function findIconWrap() {
   const iconWrap = document.querySelector(".icon-wrap");
@@ -118,8 +120,9 @@ function makeIcon(array) {
       "items-center",
       "text-xs",
       "text-font-gray",
-      `${item.type}`,
       "shrink-0",
+      "select-none",
+      `${item.type}`,
     );
 
     // 판매자센터 버튼 스타일링
@@ -136,26 +139,44 @@ function makeIcon(array) {
     a.append(span);
 
     // 드롭다운 있는 경우
+    let arrayPush = a;
     if (item.dropdown) {
-      const dropdownWrap = document.createElement("ul");
-      item.dropdown.forEach((li) => {
-        const list = document.createElement("li");
-        const a = document.createElement("a");
-        a.innerText = li.text;
-        a.href = li.hash;
-        list.append(a);
-
-        dropdownWrap.append(list);
-      });
-      a.classList.add("relative");
-      dropdownWrap.classList.add("dropdown-wrap"); // style.css에 구현
-      a.append(dropdownWrap);
+      const wrap = document.createElement("div");
+      wrap.classList.add("relative");
+      wrap.append(a);
+      // a.append(dropdownWrap);
 
       // 클릭 시 아이콘 색 바꾸기
       a.addEventListener("click", (e) => {
+        e.stopPropagation(); // 버블링 막기!
+
         const clickBtn = e.currentTarget;
         clickBtn.classList.toggle("active-icon");
+
+        const dropdownWrap = document.querySelector(".dropdown-wrap");
+
+        if (dropdownWrap) {
+          dropdownWrap.remove();
+          isDropdown = null;
+        } else {
+          const dropdownWrap = document.createElement("ul");
+          item.dropdown.forEach((li) => {
+            const list = document.createElement("li");
+            const a = document.createElement("a");
+            a.innerText = li.text;
+            a.href = li.hash;
+            list.append(a);
+
+            dropdownWrap.append(list);
+          });
+          dropdownWrap.classList.add("dropdown-wrap"); // style.css에 구현
+
+          wrap.append(dropdownWrap);
+          isDropdown = dropdownWrap;
+        }
       });
+
+      arrayPush = wrap;
     }
 
     // 버튼을 눌렀을 때 실행해야 하는 함수가 있는 경우 실행
@@ -165,9 +186,19 @@ function makeIcon(array) {
       });
     }
 
-    iconArray.push(a);
+    iconArray.push(arrayPush);
   });
 
   // 배열 리턴
   return iconArray;
 }
+
+// 문서 전체 클릭 시 드롭다운 닫기
+document.addEventListener("click", (e) => {
+  if (isDropdown && !isDropdown.contains(e.target)) {
+    const activeIcon = document.querySelector(".active-icon");
+    activeIcon.classList.toggle("active-icon");
+    isDropdown.remove();
+    isDropdown = null;
+  }
+});
