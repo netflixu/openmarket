@@ -48,7 +48,7 @@ export function setIcons() {
     ]);
   } else if (loginType === "BUYER") {
     iconArray = makeIcon([
-      { type: "cart", text: "징바구니", hash: "#cart" },
+      { type: "cart", text: "장바구니", hash: "#cart" },
       {
         type: "mypage",
         text: "마이페이지",
