@@ -117,7 +117,7 @@ form button:disabled {
 }
 
 /* header-icon */
-.icon-wrap > a::before {
+.icon-wrap a[id$="Btn"]::before {
   content: "";
   display: block;
   width: 32px;
@@ -146,7 +146,8 @@ form button:disabled {
 }
 
 /* dropdown-wrap */
-.active-icon .dropdown-wrap {
+
+.active-icon + .dropdown-wrap {
   display: flex;
 }
 
@@ -164,7 +165,9 @@ form button:disabled {
   text-align: center;
 
   position: absolute;
+  left: 50%;
   top: 130%;
+  transform: translateX(-50%);
   z-index: 100;
 
   display: none;
