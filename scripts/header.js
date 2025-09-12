@@ -55,15 +55,24 @@ export function setIcons() {
     ]);
   } else if (loginType === "BUYER") {
     iconArray = makeIcon([
-      { type: "cart", text: "장바구니", hash: "#cart" },
+      {
+        type: "cart",
+        text: "장바구니",
+        hash: "#cart",
+        callback: () => {
+          alert("준비중입니다.");
+        },
+      },
       {
         type: "mypage",
         text: "마이페이지",
-        hash: "#",
         dropdown: [
           {
             text: "마이페이지",
             hash: "#mypage",
+            callback: () => {
+              alert("준비중입니다.");
+            },
           },
           {
             text: "로그아웃",
@@ -80,11 +89,13 @@ export function setIcons() {
       {
         type: "mypage",
         text: "마이페이지",
-        hash: "#",
         dropdown: [
           {
             text: "마이페이지",
             hash: "#mypage",
+            callback: () => {
+              alert("준비중입니다.");
+            },
           },
           {
             text: "로그아웃",
@@ -95,7 +106,14 @@ export function setIcons() {
           },
         ],
       },
-      { type: "seller", text: "판매자 센터", hash: "#seller" },
+      {
+        type: "seller",
+        text: "판매자 센터",
+        hash: "#seller",
+        callback: () => {
+          alert("준비중입니다.");
+        },
+      },
     ]);
   }
 
@@ -118,17 +136,22 @@ function makeIcon(array) {
 
   // 아이콘 만들기 반복
   array.forEach((item) => {
-    const a = document.createElement("a");
+    // const a = document.createElement("a");
+    let icon = document.createElement("a");
     // hash 값이 없으면 이동하지 않으니 이동 막기
     if (!item.hash) {
-      a.addEventListener("click", (e) => e.preventDefault());
-      a.classList.add("cursor-pointer");
-    } else a.href = item.hash; // hash 있으면 href에 값 매달기
+      icon = document.createElement("button");
+      icon.addEventListener("click", (e) => e.preventDefault());
+      icon.classList.add("cursor-pointer");
+    } else {
+      // hash 있으면 href에 값 매달기
+      icon.href = item.hash;
+    }
 
     // 값 세팅 및 스타일 적용
-    a.id = `${item.type}Btn`;
-    a.dataset.type = item.type;
-    a.classList.add(
+    icon.id = `${item.type}Btn`;
+    icon.dataset.type = item.type;
+    icon.classList.add(
       "flex",
       "flex-col",
       "items-center",
@@ -141,7 +164,7 @@ function makeIcon(array) {
 
     // 판매자센터 버튼 스타일링
     if (item.type === "seller") {
-      a.classList.add("center-btn"); // style.css에 작성
+      icon.classList.add("center-btn"); // style.css에 작성
     }
 
     // 아이콘 하단 텍스트
@@ -150,46 +173,56 @@ function makeIcon(array) {
     span.innerText = item.text;
 
     // a 태그에 매달기
-    a.append(span);
+    icon.append(span);
 
     // 드롭다운 있는 경우
-    let arrayPush = a;
+    let arrayPush = icon;
     if (item.dropdown) {
       const wrap = document.createElement("div");
       wrap.classList.add("relative");
-      wrap.append(a);
+      wrap.append(icon);
       // a.append(dropdownWrap);
 
       // 클릭 시 아이콘 색 바꾸기
-      a.addEventListener("click", (e) => {
+      icon.addEventListener("click", (e) => {
         e.stopPropagation(); // 버블링 막기!
 
         const clickBtn = e.currentTarget;
         clickBtn.classList.toggle("active-icon");
 
+        // 드롭다운 가져오기
         const dropdownWrap = document.querySelector(".dropdown-wrap");
 
         if (dropdownWrap) {
+          // 있으면 삭제
           dropdownWrap.remove();
           isDropdown = null;
         } else {
+          // 없으면 생성 후 이벤트 달기
           const dropdownWrap = document.createElement("ul");
+
           item.dropdown.forEach((li) => {
             const list = document.createElement("li");
-            const a = document.createElement("a");
-            a.innerText = li.text;
+            let dropdownItem = document.createElement("a");
 
-            if (li.hash) {
-              a.href = li.hash;
-            } else if (li.callback) {
-              a.href = "#";
-              a.addEventListener("click", (e) => {
+            if (li.hash) dropdownItem.href = li.hash;
+            else {
+              dropdownItem = document.createElement("button");
+              dropdownItem.type = "button";
+              dropdownItem.classList.add("cursor-pointer");
+            }
+
+            dropdownItem.innerText = li.text;
+
+            if (li.callback) {
+              // dropdownItem.href = "#";
+              dropdownItem.addEventListener("click", (e) => {
                 e.preventDefault();
                 li.callback();
               });
             }
 
-            list.append(a);
+            list.append(dropdownItem);
             dropdownWrap.append(list);
           });
           dropdownWrap.classList.add("dropdown-wrap"); // style.css에 구현
@@ -204,7 +237,8 @@ function makeIcon(array) {
 
     // 버튼을 눌렀을 때 실행해야 하는 함수가 있는 경우 실행
     if (item.callback) {
-      a.addEventListener("click", () => {
+      icon.addEventListener("click", (e) => {
+        e.preventDefault();
         item.callback();
       });
     }
