@@ -32,7 +32,7 @@ async function loadPage(hash) {
 
   try {
     // [1] HTML 템플릿 로딩 (+ 실패 시 throw)
-    const res = await fetch(`/templates/${page}.html`);
+    const res = await fetch(`./templates/${page}.html`);
     if (!res.ok) throw new Error(`TEMPLATE_NOT_FOUND: ${page}`);
     const html = await res.text();
     root.innerHTML = html;
@@ -63,7 +63,7 @@ async function loadPage(hash) {
     }
 
     // [3] 해당 페이지 JS 로딩 (+ 실패 시 throw → 404 폴백)
-    await loadScript(`/scripts/${page}.js`, `page-script-${page}`);
+    await loadScript(`./scripts/${page}.js`, `page-script-${page}`);
 
     window.scrollTo(0, 0);
   } catch (err) {
@@ -93,6 +93,7 @@ function handleHashChange() {
     if (page === "product" && typeof window.initProductPage === "function") {
       window.initProductPage(id); // id = 2 같은 값 전달
     }
+    if (page === "join") window.joinDOM.init();
   });
 }
 
