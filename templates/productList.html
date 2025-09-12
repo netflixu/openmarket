@@ -1,36 +1,64 @@
+<!-- 페이지 리스트(시멘틱 + 이미지 보더/오버플로우 제거) -->
 <div>
-  <!-- 헤더가 주입될 자리 (필요 시 스크립트로 렌더링) -->
-  <div id="header"></div>
+  <!-- 헤더: 스크립트로 주입 예정 -->
+  <header id="header" role="banner"></header>
 
-  <!-- 본문 섹션: product.html과 동일한 계층 -->
-  <section class="w-full">
+  <!-- 프로모션/배너 섹션 -->
+  <section aria-label="프로모션 배너" class="w-full">
     <div class="mx-auto max-w-[1280px] px-4">
-      <!-- 상단 배너(슬라이더 자리) -->
       <div
         class="relative mt-6 flex h-72 items-center justify-center rounded bg-gray-100"
       >
         <button
           class="absolute left-4 text-3xl font-bold text-black/80 hover:text-black"
-          aria-label="이전"
+          aria-label="이전 배너"
+          type="button"
         >
           &#8249;
         </button>
-        <div class="text-gray-400">배너/슬라이더 영역</div>
+        <p class="text-gray-400">배너/슬라이더 영역</p>
         <button
           class="absolute right-4 text-3xl font-bold text-black/80 hover:text-black"
-          aria-label="다음"
+          aria-label="다음 배너"
+          type="button"
         >
           &#8250;
         </button>
       </div>
+    </div>
+  </section>
 
-      <!-- 상품 리스트 -->
-      <main class="py-12">
-        <!-- 그리드 컨테이너 -->
+  <!-- 메인 콘텐츠: 상품 리스트 -->
+  <main id="main-content" class="w-full" role="main">
+    <div class="mx-auto max-w-[1280px] px-4">
+      <section aria-labelledby="products-heading" class="py-12">
+        <h2 id="products-heading" class="sr-only">상품 목록</h2>
+
+        <!-- 그리드 컨테이너 (JS 주입 대상) -->
         <div
           id="grid"
           class="grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 md:grid-cols-3"
+          role="list"
         ></div>
+
+        <!-- 카드 템플릿: 이미지에 border/overflow-hidden 없음 -->
+        <template id="card-template">
+          <article class="rounded-lg bg-white p-4 shadow" role="listitem">
+            <a href="#" class="group block">
+              <!-- 여기! 이미지에 border/overflow-hidden 제거 -->
+              <img
+                src=""
+                alt=""
+                class="aspect-square w-full rounded-md object-cover"
+                loading="lazy"
+              />
+              <div class="mt-4">
+                <h3 class="line-clamp-2 text-sm font-medium text-gray-900"></h3>
+                <p class="mt-1 text-sm text-gray-500"></p>
+              </div>
+            </a>
+          </article>
+        </template>
 
         <!-- 로딩 스켈레톤 -->
         <template id="skeleton">
@@ -43,55 +71,52 @@
 
         <!-- 오류 메시지 -->
         <p id="error" class="mt-8 hidden text-center text-sm text-red-600"></p>
-      </main>
+      </section>
     </div>
-  </section>
+  </main>
 
-  <!-- 푸터 (원하시면 여기 대신 외부에서 주입해도 OK) -->
-  <footer class="bg-gray-100">
+  <!-- 푸터 -->
+  <footer class="bg-gray-100" role="contentinfo">
     <div class="mx-auto max-w-6xl px-8 py-10">
       <div class="flex items-center justify-between text-sm">
-        <ul class="flex flex-wrap items-center text-gray-700">
-          <li><a href="#" class="hover:text-black">호두샵 소개</a></li>
-          <span class="mx-3 text-gray-300">|</span>
-          <li><a href="#" class="hover:text-black">이용약관</a></li>
-          <span class="mx-3 text-gray-300">|</span>
-          <li>
-            <a href="#" class="font-semibold text-black">개인정보처리방침</a>
-          </li>
-          <span class="mx-3 text-gray-300">|</span>
-          <li><a href="#" class="hover:text-black">전자금융거래약관</a></li>
-          <span class="mx-3 text-gray-300">|</span>
-          <li><a href="#" class="hover:text-black">청소년보호정책</a></li>
-          <span class="mx-3 text-gray-300">|</span>
-          <li><a href="#" class="hover:text-black">제휴문의</a></li>
-        </ul>
+        <!-- 푸터 내비게이션 -->
+        <nav aria-label="푸터 링크">
+          <ul
+            class="flex flex-wrap items-center text-gray-700 [&>li+li]:before:mx-3 [&>li+li]:before:text-gray-300 [&>li+li]:before:content-['|']"
+          >
+            <li><a href="#" class="hover:text-black">호두샵 소개</a></li>
+            <li><a href="#" class="hover:text-black">이용약관</a></li>
+            <li>
+              <a href="#" class="font-semibold text-black">개인정보처리방침</a>
+            </li>
+            <li><a href="#" class="hover:text-black">전자금융거래약관</a></li>
+            <li><a href="#" class="hover:text-black">청소년보호정책</a></li>
+            <li><a href="#" class="hover:text-black">제휴문의</a></li>
+          </ul>
+        </nav>
 
         <div class="flex items-center gap-4">
           <a href="#" aria-label="Instagram">
-            <img
-              src="../images/icon-insta.svg"
-              alt="Instagram"
-              class="h-7 w-7"
-            />
+            <img src="../images/icon-insta.svg" alt="" class="h-7 w-7" />
           </a>
           <a href="#" aria-label="Facebook">
-            <img src="../images/icon-fb.svg" alt="Facebook" class="h-7 w-7" />
+            <img src="../images/icon-fb.svg" alt="" class="h-7 w-7" />
           </a>
           <a href="#" aria-label="YouTube">
-            <img src="../images/icon-yt.svg" alt="YouTube" class="h-7 w-7" />
+            <img src="../images/icon-yt.svg" alt="" class="h-7 w-7" />
           </a>
         </div>
       </div>
 
       <hr class="mt-5 border-gray-300" />
 
-      <div class="mt-6 text-sm leading-relaxed text-gray-500">
+      <!-- 주소/사업자 정보는 address로 감싸고 이탤릭 제거 -->
+      <address class="mt-6 text-sm leading-relaxed text-gray-500 not-italic">
         <p class="font-semibold text-gray-500">(주)HODU SHOP</p>
         <p class="mt-1">제주특별자치도 제주시 동광고 137 제주코딩베이스캠프</p>
         <p class="mt-1">사업자 번호 : 000-0000-0000 | 통신판매업</p>
         <p class="mt-1">대표 : 김호두</p>
-      </div>
+      </address>
     </div>
   </footer>
 </div>
