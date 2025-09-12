@@ -1,5 +1,4 @@
 # node.js 관련
 node_modules/
-src/output.css
 package-lock.json
 .DS_Store
