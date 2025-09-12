@@ -43,7 +43,7 @@ export function setIcons() {
         hash: "#",
         callback: () => {
           saveReturnUrl(location.hash);
-
+          console.log(location.hash, "저장된 url");
           document.body.append(
             showModal(
               "로그인 필요",

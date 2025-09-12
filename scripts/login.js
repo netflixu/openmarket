@@ -102,6 +102,7 @@ function initLoginPage() {
         startTokenAutoRefresh();
         // SPA 환경에서는 해시만 변경
         const returnUrl = getReturnUrl();
+        console.log("로그인할 때 이전 url", returnUrl);
         if (returnUrl && returnUrl !== "#login") {
           clearReturnUrl();
           location.hash = returnUrl;
