@@ -656,5 +656,5 @@ window.joinDOM = {
   },
 };
 
-// 최초 실행
-window.joinDOM.init();
+// 최초 실행 => 라우터에서 실행하니 안해도 됨
+// window.joinDOM.init();
