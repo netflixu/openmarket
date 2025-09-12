@@ -4,6 +4,7 @@ import {
   loadRefresh,
   saveRefresh,
   setAccess,
+  startTokenAutoRefresh,
 } from "./tokenStore.js";
 
 // DOM 요소들을 함수 내에서 가져오도록 수정
@@ -96,7 +97,8 @@ function initializeLogin() {
         saveRefresh(refresh);
         // 유저정보 저장
         saveUserInfo(user);
-
+        // 자동 갱신 시작
+        startTokenAutoRefresh();
         // SPA 환경에서는 해시만 변경
         location.hash = "#productList";
       })
