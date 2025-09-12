@@ -39,6 +39,7 @@ export function setIcons() {
       {
         type: "cart",
         text: "장바구니",
+        hash: "#",
         callback: () =>
           document.body.append(
             showModal(
@@ -58,6 +59,7 @@ export function setIcons() {
       {
         type: "mypage",
         text: "마이페이지",
+        hash: "#",
         dropdown: [
           {
             text: "마이페이지",
@@ -78,6 +80,7 @@ export function setIcons() {
       {
         type: "mypage",
         text: "마이페이지",
+        hash: "#",
         dropdown: [
           {
             text: "마이페이지",
@@ -120,7 +123,8 @@ function makeIcon(array) {
     if (!item.hash) {
       a.addEventListener("click", (e) => e.preventDefault());
       a.classList.add("cursor-pointer");
-    } else a.href = `#${item.type}`; // hash 있으면 href에 값 매달기
+    } else a.href = item.hash; // hash 있으면 href에 값 매달기
+
     // 값 세팅 및 스타일 적용
     a.id = `${item.type}Btn`;
     a.dataset.type = item.type;
