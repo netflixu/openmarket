@@ -40,7 +40,7 @@ async function loadPage(hash) {
     // [2] 공통 Header 로딩 (있을 때만)
     const headerContainer = document.getElementById("header");
     if (headerContainer) {
-      const headerRes = await fetch("/components/header.html");
+      const headerRes = await fetch("./components/header.html");
       if (headerRes.ok) {
         headerContainer.innerHTML = await headerRes.text();
         setIcons();
@@ -51,7 +51,7 @@ async function loadPage(hash) {
     if (FooterContainer) {
       try {
         // 상대경로 권장: 현재 페이지 기준
-        const footerRes = await fetch("/components/footer.html");
+        const footerRes = await fetch("./components/footer.html");
         if (!footerRes.ok) throw new Error(`Footer HTTP ${footerRes.status}`);
         FooterContainer.innerHTML = await footerRes.text();
       } catch (err) {
@@ -63,19 +63,19 @@ async function loadPage(hash) {
     }
 
     // [3] 해당 페이지 JS 로딩 (+ 실패 시 throw → 404 폴백)
-    await loadScript(`/scripts/${page}.js`, `page-script-${page}`);
+    await loadScript(`./scripts/${page}.js`, `page-script-${page}`);
 
     window.scrollTo(0, 0);
   } catch (err) {
     // [4] 로딩 실패(템플릿/스크립트) → 404 페이지로 폴백
-    const res404 = await fetch("/templates/404.html");
+    const res404 = await fetch("./templates/404.html");
     const html404 = res404.ok
       ? await res404.text()
       : `<p style="text-align:center; margin-top:10rem;">페이지를 불러오는 중 오류가 발생했습니다.</p>`;
     root.innerHTML = html404;
 
     // 404의 '이전 페이지' 버튼 동작 스크립트 로드
-    await loadScript("/scripts/404.js", "page-script-404");
+    await loadScript("./scripts/404.js", "page-script-404");
     window.scrollTo(0, 0);
   }
 }
