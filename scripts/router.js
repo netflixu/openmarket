@@ -51,7 +51,7 @@ async function loadPage(hash) {
     if (FooterContainer) {
       try {
         // 상대경로 권장: 현재 페이지 기준
-        const footerRes = await fetch("./components/footer.html");
+        const footerRes = await fetch("/components/footer.html");
         if (!footerRes.ok) throw new Error(`Footer HTTP ${footerRes.status}`);
         FooterContainer.innerHTML = await footerRes.text();
       } catch (err) {
