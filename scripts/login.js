@@ -1,4 +1,5 @@
 import { saveUserInfo } from "./getUserInfo.js";
+import { clearReturnUrl, getReturnUrl } from "./returnUrl.js";
 import {
   getAccess,
   loadRefresh,
@@ -100,7 +101,14 @@ function initLoginPage() {
         // 자동 갱신 시작
         startTokenAutoRefresh();
         // SPA 환경에서는 해시만 변경
-        location.hash = "#productList";
+        const returnUrl = getReturnUrl();
+        if (returnUrl && returnUrl !== "#login") {
+          clearReturnUrl();
+          location.hash = returnUrl;
+        } else {
+          // 이전페이지가 없으면 프로덕트 리스트로 기본페이지.
+          location.hash = "#productList";
+        }
       })
       .catch((error) => {
         showError(error.error);
