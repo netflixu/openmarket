@@ -300,3 +300,22 @@ window.addEventListener("hashchange", () => {
 
 // ★ 동적으로 script가 삽입된 경우를 위해, 로드 즉시 한 번 시도
 scheduleMount();
+
+// ================== SPA 환경을 위한 초기화 함수 추가 ==================
+
+function initializeProductList() {
+  console.log("상품 목록 페이지 초기화");
+
+  // 기존 로직 재실행 (이것만으로 충분함)
+  scheduleMount();
+}
+
+// DOM 상태에 따라 초기화 실행 (첫 로드 시)
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeProductList);
+} else {
+  initializeProductList();
+}
+
+// SPA 환경을 위한 전역 함수 등록 (router.js에서 호출용)
+window.initProductListPage = initializeProductList;
