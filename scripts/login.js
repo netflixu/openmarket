@@ -8,7 +8,7 @@ import {
 } from "./tokenStore.js";
 
 // DOM 요소들을 함수 내에서 가져오도록 수정
-function initializeLogin() {
+function initLoginPage() {
   const tabBuyer = document.getElementById("tab-buyer");
   const tabSeller = document.getElementById("tab-seller");
   const panel = document.getElementById("panel");
@@ -187,11 +187,10 @@ function initializeLogin() {
 
 // DOM이 준비되면 초기화 실행
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializeLogin);
+  document.addEventListener("DOMContentLoaded", initLoginPage);
 } else {
-  initializeLogin();
+  initLoginPage();
   console.log("로딩완료");
 }
 
-// SPA 환경을 위한 추가 초기화 (router에서 호출될 수 있도록)
-setTimeout(initializeLogin, 100);
+window.initLoginPage = initLoginPage;

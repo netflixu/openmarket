@@ -87,13 +87,26 @@ function handleHashChange() {
   const params = new URLSearchParams(hash.split("?")[1]);
   const id = params.get("id");
 
-  // [비동기] 페이지 로딩 후 init 함수 호출
+  //[비동기] 페이지 로딩 후 init 함수 호출
   loadPage(hash).then(() => {
-    // 페이지가 'product'일 경우 → 전역 초기화 함수 실행
-    if (page === "product" && typeof window.initProductPage === "function") {
-      window.initProductPage(id); // id = 2 같은 값 전달
+    // 각 페이지별 초기화 함수 패턴
+    const initFunctions = {
+      product: () => window.initProductPage?.(id),
+      join: () => window.joinDOM?.init?.(),
+      login: () => window.initLoginPage?.(),
+      productList: () => window.initProductListPage?.(),
+      // 새로운 페이지 추가 시 여기에만 추가하면 됨
+    };
+
+    // 해당 페이지의 초기화 함수 실행
+    if (initFunctions[page]) {
+      try {
+        initFunctions[page]();
+        console.log(`${page} 페이지 초기화 완료`);
+      } catch (error) {
+        console.error(`${page} 페이지 초기화 실패:`, error);
+      }
     }
-    if (page === "join") window.joinDOM.init();
   });
 }
 
