@@ -1,4 +1,11 @@
-import { loadRefresh, getAccess } from "./tokenStore.js";
+import { setIcons } from "./header.js";
+
+import {
+  loadRefresh,
+  stopTokenAutoRefresh,
+  saveRefresh,
+  clearAccess,
+} from "./tokenStore.js";
 
 // refresh로 accesstoken 재발급
 export async function refreshAccessToken() {
@@ -23,4 +30,21 @@ export async function refreshAccessToken() {
   const accessToken = data.access;
 
   return accessToken;
+}
+
+function removeUserInfo() {
+  localStorage.removeItem("user");
+}
+
+export function logout() {
+  clearAccess();
+
+  saveRefresh(null);
+
+  stopTokenAutoRefresh();
+
+  removeUserInfo();
+
+  setIcons();
+  console.log("로그아웃 완료");
 }
