@@ -122,12 +122,15 @@ function createCard(p, i) {
 
   fig.appendChild(img);
 
+  const textWrap = document.createElement("div");
+  textWrap.className = "flex flex-col lg:gap-2.5 sm:gap-1.5 mt-4";
+
   const meta = document.createElement("p");
-  meta.className = "mt-3 text-[13px] text-gray-400";
+  meta.className = "text-base text-font-gray";
   if (p.seller) meta.textContent = p.seller;
 
   const title = document.createElement("h3");
-  title.className = "mt-1 text-base leading-snug text-gray-900";
+  title.className = "text-lg leading-snug";
   title.style.display = "-webkit-box";
   title.style.webkitLineClamp = "2";
   title.style.webkitBoxOrient = "vertical";
@@ -135,12 +138,12 @@ function createCard(p, i) {
   title.textContent = p.title;
 
   const priceWrap = document.createElement("p");
-  priceWrap.className = "mt-3 flex items-baseline flex-wrap gap-x-2 gap-y-1";
+  priceWrap.className = "flex items-baseline flex-wrap gap-0.5";
   const strong = document.createElement("span");
-  strong.className = "text-2xl font-extrabold text-gray-900 align-baseline";
+  strong.className = "text-2xl font-bold align-baseline";
   strong.textContent = KRW(p.price);
   const won = document.createElement("span");
-  won.className = "ml-1 text-gray-900 align-baseline";
+  won.className = "align-baseline";
   won.textContent = "원";
   priceWrap.append(strong, won);
 
@@ -159,7 +162,8 @@ function createCard(p, i) {
     }
   });
 
-  el.append(fig, meta, title, priceWrap);
+  textWrap.append(meta, title, priceWrap);
+  el.append(fig, textWrap);
   return el;
 }
 
