@@ -32,7 +32,7 @@ async function loadPage(hash) {
 
   try {
     // [1] HTML 템플릿 로딩 (+ 실패 시 throw)
-    const res = await fetch(`/templates/${page}.html`);
+    const res = await fetch(`./templates/${page}.html`);
     if (!res.ok) throw new Error(`TEMPLATE_NOT_FOUND: ${page}`);
     const html = await res.text();
     root.innerHTML = html;
