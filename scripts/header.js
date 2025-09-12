@@ -216,8 +216,10 @@ function makeIcon(array) {
 document.addEventListener("click", (e) => {
   if (isDropdown && !isDropdown.contains(e.target)) {
     const activeIcon = document.querySelector(".active-icon");
-    activeIcon.classList.toggle("active-icon");
-    isDropdown.remove();
-    isDropdown = null;
+    if (activeIcon) {
+      activeIcon.classList.toggle("active-icon");
+      isDropdown.remove();
+      isDropdown = null;
+    }
   }
 });
