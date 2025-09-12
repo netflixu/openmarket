@@ -1,3 +1,4 @@
+import { logout } from "./auth.js";
 import { getUserInfo } from "./getUserInfo.js";
 import { showModal } from "./modal.js";
 
@@ -26,6 +27,9 @@ export function setIcons() {
   const iconWrap = findIconWrap();
   if (!iconWrap) return;
   console.log("아이콘 세팅!");
+
+  // 로그아웃 시 하고 다시 아이콘 세팅할 때 기존 아이콘들 초기화
+  iconWrap.innerHTML = "";
 
   // 이미 DOM 로드된 상태이니 바로 실행
   // 아이콘 만들어서 가져오기
@@ -61,7 +65,9 @@ export function setIcons() {
           },
           {
             text: "로그아웃",
-            hash: "#logout",
+            callback: () => {
+              logout();
+            },
           },
         ],
       },
@@ -78,7 +84,10 @@ export function setIcons() {
           },
           {
             text: "로그아웃",
-            hash: "#logout",
+            callback: () => {
+              logout();
+              setIcons();
+            },
           },
         ],
       },
@@ -164,9 +173,18 @@ function makeIcon(array) {
             const list = document.createElement("li");
             const a = document.createElement("a");
             a.innerText = li.text;
-            a.href = li.hash;
-            list.append(a);
 
+            if (li.hash) {
+              a.href = li.hash;
+            } else if (li.callback) {
+              a.href = "#";
+              a.addEventListener("click", (e) => {
+                e.preventDefault();
+                li.callback();
+              });
+            }
+
+            list.append(a);
             dropdownWrap.append(list);
           });
           dropdownWrap.classList.add("dropdown-wrap"); // style.css에 구현
