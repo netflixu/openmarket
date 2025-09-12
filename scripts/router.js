@@ -1,4 +1,5 @@
 import { setIcons } from "./header.js";
+import { renderFooter } from "./footer.js";
 
 // SPA 진입 포인트: 라우팅이 이루어질 루트 DOM 요소
 const root = document.getElementById("app");
@@ -43,6 +44,21 @@ async function loadPage(hash) {
       if (headerRes.ok) {
         headerContainer.innerHTML = await headerRes.text();
         setIcons();
+      }
+    }
+
+    const FooterContainer = document.getElementById("footer");
+    if (FooterContainer) {
+      try {
+        // 상대경로 권장: 현재 페이지 기준
+        const footerRes = await fetch("./components/footer.html");
+        if (!footerRes.ok) throw new Error(`Footer HTTP ${footerRes.status}`);
+        FooterContainer.innerHTML = await footerRes.text();
+      } catch (err) {
+        console.warn("Footer HTML load failed, fallback to JS component:", err);
+        FooterContainer.innerHTML = "";
+        // JS 컴포넌트 방식 (footer.js)
+        renderFooter(FooterContainer); // 옵션 필요시 두 번째 인자로 전달
       }
     }
 
