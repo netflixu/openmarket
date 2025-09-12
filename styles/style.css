@@ -146,7 +146,6 @@ form button:disabled {
 }
 
 /* dropdown-wrap */
-
 .active-icon + .dropdown-wrap {
   display: flex;
 }
@@ -170,7 +169,7 @@ form button:disabled {
   transform: translateX(-50%);
   z-index: 100;
 
-  display: none;
+  animation: dropdownOpen 0.4s 2;
 }
 
 .dropdown-wrap::before {
@@ -206,4 +205,16 @@ form button:disabled {
 .dropdown-wrap a:hover {
   outline: 1px solid rgba(0, 0, 0, 0.5);
   color: #000;
+}
+
+@keyframes dropdownOpen {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -2%);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
 }
