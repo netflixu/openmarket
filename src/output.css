@@ -286,6 +286,9 @@
   .left-1\/2 {
     left: calc(1/2 * 100%);
   }
+  .left-2 {
+    left: calc(var(--spacing) * 2);
+  }
   .left-4 {
     left: calc(var(--spacing) * 4);
   }
@@ -750,6 +753,9 @@
   .gap-y-1 {
     row-gap: calc(var(--spacing) * 1);
   }
+  .gap-y-8 {
+    row-gap: calc(var(--spacing) * 8);
+  }
   .gap-y-16 {
     row-gap: calc(var(--spacing) * 16);
   }
@@ -907,6 +913,12 @@
   .bg-\[url\(\.\.\/images\/icon-down-arrow\.svg\)\] {
     background-image: url(../images/icon-down-arrow.svg);
   }
+  .bg-\[url\(\.\.\/images\/icon-prev\.svg\)\] {
+    background-image: url(../images/icon-prev.svg);
+  }
+  .bg-\[url\(\.\/images\/icon-prev\.svg\)\] {
+    background-image: url(./images/icon-prev.svg);
+  }
   .bg-contain {
     background-size: contain;
   }
@@ -973,6 +985,9 @@
   .px-5 {
     padding-inline: calc(var(--spacing) * 5);
   }
+  .px-5\.5 {
+    padding-inline: calc(var(--spacing) * 5.5);
+  }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
   }
@@ -1011,6 +1026,12 @@
   }
   .py-12 {
     padding-block: calc(var(--spacing) * 12);
+  }
+  .py-13 {
+    padding-block: calc(var(--spacing) * 13);
+  }
+  .py-13\.5 {
+    padding-block: calc(var(--spacing) * 13.5);
   }
   .py-\[19px\] {
     padding-block: 19px;
@@ -1848,6 +1869,36 @@
       }
     }
   }
+  .min-\[30rem\]\:right-4 {
+    @media (width >= 30rem) {
+      right: calc(var(--spacing) * 4);
+    }
+  }
+  .min-\[30rem\]\:right-5 {
+    @media (width >= 30rem) {
+      right: calc(var(--spacing) * 5);
+    }
+  }
+  .min-\[30rem\]\:right-7\.5 {
+    @media (width >= 30rem) {
+      right: calc(var(--spacing) * 7.5);
+    }
+  }
+  .min-\[30rem\]\:left-4 {
+    @media (width >= 30rem) {
+      left: calc(var(--spacing) * 4);
+    }
+  }
+  .min-\[30rem\]\:left-5 {
+    @media (width >= 30rem) {
+      left: calc(var(--spacing) * 5);
+    }
+  }
+  .min-\[30rem\]\:left-7\.5 {
+    @media (width >= 30rem) {
+      left: calc(var(--spacing) * 7.5);
+    }
+  }
   .min-\[30rem\]\:order-0 {
     @media (width >= 30rem) {
       order: 0;
@@ -1916,6 +1967,16 @@
   .min-\[30rem\]\:gap-12 {
     @media (width >= 30rem) {
       gap: calc(var(--spacing) * 12);
+    }
+  }
+  .min-\[30rem\]\:gap-x-10 {
+    @media (width >= 30rem) {
+      column-gap: calc(var(--spacing) * 10);
+    }
+  }
+  .min-\[30rem\]\:gap-y-16 {
+    @media (width >= 30rem) {
+      row-gap: calc(var(--spacing) * 16);
     }
   }
   .min-\[30rem\]\:self-auto {
@@ -1998,6 +2059,16 @@
         content: var(--tw-content);
         width: calc(var(--spacing) * 7);
       }
+    }
+  }
+  .sm\:right-7\.5 {
+    @media (width >= 40rem) {
+      right: calc(var(--spacing) * 7.5);
+    }
+  }
+  .sm\:left-7\.5 {
+    @media (width >= 40rem) {
+      left: calc(var(--spacing) * 7.5);
     }
   }
   .sm\:order-0 {
