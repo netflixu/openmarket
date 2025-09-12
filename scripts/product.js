@@ -1,3 +1,14 @@
+import { showModal } from "./modal.js";
+import { getUserInfo } from "./getUserInfo.js";
+
+function checkLogin() {
+  const user = getUserInfo();
+
+  const loginType = user ? user.user_type : "";
+
+  return loginType;
+}
+
 function getProductIdFromHashOrSearch() {
   const hash = window.location.hash; // 예: "#product?id=3"
   const hashQuery = hash.includes("?") ? hash.split("?")[1] : null;
@@ -57,29 +68,79 @@ function renderProduct(product, stock, quantity) {
   updateTotalPrice(product.price, quantity);
   setupQuantityControls(product.price, stock, quantity);
   setupTabs(product);
-  if (stock === 0) {
-    const buyBtn = document.getElementById("buy-now");
-    const addToCartBtn = document.getElementById("add-to-cart");
-    const decreaseBtn = document.getElementById("quantity-decrease");
-    const increaseBtn = document.getElementById("quantity-increase");
 
+  const loginType = checkLogin();
+  const buyBtn = document.getElementById("buy-now");
+  const addToCartBtn = document.getElementById("add-to-cart");
+  const decreaseBtn = document.getElementById("quantity-decrease");
+  const increaseBtn = document.getElementById("quantity-increase");
+
+  if (stock === 0) {
     if (buyBtn) {
       buyBtn.textContent = "재고 없음";
       buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
-      buyBtn.disabled = true; // 기능적으로도 비활성화
+      buyBtn.disabled = true;
     }
     if (addToCartBtn) {
       addToCartBtn.style.display = "none";
     }
-
     if (decreaseBtn) {
       decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
       decreaseBtn.disabled = true;
     }
-
     if (increaseBtn) {
       increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
       increaseBtn.disabled = true;
+    }
+  } else {
+    if (loginType === "") {
+      if (buyBtn) {
+        buyBtn.addEventListener("click", () => {
+          document.body.append(
+            showModal(
+              "로그인 필요",
+              "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
+              () => {
+                location.hash = "#login";
+              },
+            ),
+          );
+        });
+      }
+
+      if (addToCartBtn) {
+        addToCartBtn.addEventListener("click", () => {
+          document.body.append(
+            showModal(
+              "로그인 필요",
+              "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
+              () => {
+                location.hash = "#login";
+              },
+            ),
+          );
+        });
+      }
+    } else {
+      if (buyBtn) {
+        buyBtn.addEventListener("click", () => {
+          document.body.append(alert("구매 페이지를 준비중입니다."));
+        });
+      }
+
+      if (addToCartBtn) {
+        addToCartBtn.addEventListener("click", () => {
+          document.body.append(
+            showModal(
+              "장바구니에 담기",
+              "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+              () => {
+                document.body.append(alert("장바구니 페이지를 준비중입니다."));
+              },
+            ),
+          );
+        });
+      }
     }
   }
 }
