@@ -33,9 +33,10 @@ window.initProductPage = async function () {
     );
     if (!res.ok) throw new Error("상품을 불러올 수 없습니다.");
     const product = await res.json();
+    const stock = product.stock;
+    const quantity = product.stock === 0 ? 0 : 1;
 
-    renderProduct(product);
-    setupQuantityControls(product.price);
+    renderProduct(product, stock, quantity);
     setupTabs(product);
   } catch (err) {
     document.getElementById("app").innerHTML =
@@ -43,7 +44,7 @@ window.initProductPage = async function () {
   }
 };
 
-function renderProduct(product) {
+function renderProduct(product, stock, quantity) {
   setImage("product-image", product.image);
   setText("product-store-name", product.store_name);
   setText("product-name", product.product_name);
@@ -53,15 +54,40 @@ function renderProduct(product) {
     product.shipping_method === "PARCEL" ? "택배배송" : "직접배송",
   );
   setHTML("tab-content", `<p>${product.product_info}</p>`);
-  updateTotalPrice(product.price, 1);
-  setupQuantityControls(product.price);
+  updateTotalPrice(product.price, quantity);
+  setupQuantityControls(product.price, stock, quantity);
   setupTabs(product);
+  if (stock === 0) {
+    const buyBtn = document.getElementById("buy-now");
+    const addToCartBtn = document.getElementById("add-to-cart");
+    const decreaseBtn = document.getElementById("quantity-decrease");
+    const increaseBtn = document.getElementById("quantity-increase");
+
+    if (buyBtn) {
+      buyBtn.textContent = "재고 없음";
+      buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
+      buyBtn.disabled = true; // 기능적으로도 비활성화
+    }
+    if (addToCartBtn) {
+      addToCartBtn.style.display = "none";
+    }
+
+    if (decreaseBtn) {
+      decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+      decreaseBtn.disabled = true;
+    }
+
+    if (increaseBtn) {
+      increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+      increaseBtn.disabled = true;
+    }
+  }
 }
 
-function setupQuantityControls(unitPrice) {
-  let quantity = 1;
+function setupQuantityControls(unitPrice, stock, quantity) {
   const quantityEl = document.getElementById("product-quantity");
   const totalPriceEl = document.getElementById("total-price");
+  quantityEl.textContent = quantity;
 
   document
     .getElementById("quantity-decrease")
@@ -76,9 +102,11 @@ function setupQuantityControls(unitPrice) {
   document
     .getElementById("quantity-increase")
     ?.addEventListener("click", () => {
-      quantity++;
-      quantityEl.textContent = quantity;
-      updateTotalPrice(unitPrice, quantity);
+      if (quantity < stock) {
+        quantity++;
+        quantityEl.textContent = quantity;
+        updateTotalPrice(unitPrice, quantity);
+      }
     });
 }
 
@@ -107,7 +135,6 @@ function setupTabs(product) {
     const button = document.getElementById(tabId);
     if (button) {
       button.addEventListener("click", () => {
-        console.log(`${tabId} 클릭됨`);
         tabContent.innerHTML = tabs[tabId];
         highlightActiveTab(tabId);
       });
