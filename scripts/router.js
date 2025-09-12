@@ -4,6 +4,30 @@ import { renderFooter } from "./footer.js";
 // SPA 진입 포인트: 라우팅이 이루어질 루트 DOM 요소
 const root = document.getElementById("app");
 
+const pageTitle = "호두 오픈마켓 서비스";
+const routeArray = {
+  product: {
+    title: `제품 상세 페이지 | ${pageTitle}`,
+    description: "제품 설명",
+  },
+  productList: {
+    title: pageTitle,
+    description: "제품 다양한 물건이 있는 호두 오픈마켓 서비스입니다.",
+  },
+  login: {
+    title: `로그인 | ${pageTitle}`,
+    description: "호두 오픈마켓 서비스 로그인 페이지입니다.",
+  },
+  join: {
+    title: `회원가입 | ${pageTitle}`,
+    description: "호두 오픈마켓 서비스 회원가입 페이지입니다.",
+  },
+  404: {
+    title: `404 Error | ${pageTitle}`,
+    description: "페이지를 찾을 수 없습니다.",
+  },
+};
+
 // 동적 스크립트 로더 (중복 로드 방지 + 에러 처리)
 function loadScript(src, id) {
   return new Promise((resolve, reject) => {
@@ -76,7 +100,13 @@ async function loadPage(hash) {
 
     // 404의 '이전 페이지' 버튼 동작 스크립트 로드
     await loadScript("./scripts/404.js", "page-script-404");
+
     window.scrollTo(0, 0);
+  } finally {
+    // meta 세팅
+    const metaData = routeArray[page] ? routeArray[page] : routeArray["404"];
+    metaData.url = location.href;
+    updateMetaTags(metaData);
   }
 }
 
@@ -118,3 +148,25 @@ window.addEventListener("hashchange", () => {
 window.addEventListener("DOMContentLoaded", () => {
   handleHashChange(); // 최초 진입 시에도 URL 해시를 기준으로 렌더링
 });
+
+// meta 태그 수정 함수
+function updateMetaTags({ title, description, url }) {
+  document.title = title;
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute("content", description);
+  // title 수정
+  document
+    .querySelector('meta[property="og:title"]')
+    .setAttribute("content", title);
+
+  // description 수정
+  document
+    .querySelector('meta[property="og:description"]')
+    .setAttribute("content", description);
+
+  // url 수정
+  document
+    .querySelector('meta[property="og:url"]')
+    .setAttribute("content", url);
+}
