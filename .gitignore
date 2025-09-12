@@ -1,0 +1,4 @@
+# node.js 관련
+node_modules/
+package-lock.json
+.DS_Store

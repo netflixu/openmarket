@@ -1,9 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko-KR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>호두 오픈마켓 서비스</title>
+    <link href="/src/output.css" rel="stylesheet" />
+    <link href="/styles/style.css" rel="stylesheet" />
+    <script type="module" src="./scripts/router.js"></script>
+    <script type="module" src="./scripts/initAutoRefresh.js"></script>
   </head>
-  <body></body>
+  <body>
+    <!-- 테스트용 네비게이션 버튼 -->
+    <div class="mt-2 flex gap-4">
+      <a
+        href="#productList"
+        class="rounded bg-green-600 px-3 py-1 text-white hover:bg-green-700"
+        >상품목록 페이지</a
+      >
+      <a
+        href="#product"
+        class="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
+        >상품 상세 페이지</a
+      >
+      <a
+        href="#product?id=2"
+        class="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
+        >2번 상품 상세 페이지</a
+      >
+      <a
+        href="#login"
+        class="rounded bg-gray-600 px-3 py-1 text-white hover:bg-gray-700"
+        >로그인 페이지</a
+      >
+      <a
+        href="#join"
+        class="rounded bg-gray-600 px-3 py-1 text-white hover:bg-gray-700"
+        >회원가입 페이지</a
+      >
+    </div>
+    <div id="app" class="w-full"></div>
+  </body>
 </html>

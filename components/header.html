@@ -1,0 +1,39 @@
+<header class="w-full shadow-md">
+  <div
+    class="mx-auto flex max-w-[1280px] items-center justify-between px-4 py-5 max-sm:flex-col max-sm:items-end max-sm:gap-2"
+  >
+    <!-- 좌측: 로고 + 검색창 -->
+    <div class="flex items-center space-x-4 max-sm:w-full">
+      <!-- 로고 -->
+      <h1>
+        <a href="#" data-link class="block w-31">
+          <img
+            src="/images/logo-hodu.png"
+            alt="HODU 로고"
+            id="logo"
+            class="w-full"
+          />
+        </a>
+      </h1>
+
+      <!-- 검색창 -->
+      <div class="relative shrink-1 grow lg:w-[400px]">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="상품을 검색해보세요!"
+          class="border-main focus:ring-main w-full rounded-full border-2 p-2 pr-12 pl-6 placeholder-gray-500 focus:ring-2 focus:outline-none"
+        />
+        <button
+          id="searchBtn"
+          type="button"
+          class="absolute top-1/2 right-4 h-5 w-5 -translate-y-1/2"
+        >
+          <img src="/images/icon-search.svg" alt="검색" class="h-full w-full" />
+        </button>
+      </div>
+    </div>
+    <!-- 아이콘 영역 -->
+    <div class="icon-wrap flex items-center gap-6.5"></div>
+  </div>
+</header>
