@@ -104,8 +104,7 @@ function createCard(p, i) {
     "hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#21BF48]/40";
 
   const fig = document.createElement("figure");
-  fig.className =
-    "relative overflow-hidden rounded-[14px] border border-gray-300";
+  fig.className = "relative";
 
   const img = document.createElement("img");
   img.className = "w-full aspect-square object-cover";
