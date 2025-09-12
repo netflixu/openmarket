@@ -1,5 +1,3 @@
-import { setIcons } from "./header.js";
-
 import {
   loadRefresh,
   stopTokenAutoRefresh,
@@ -45,6 +43,5 @@ export function logout() {
 
   removeUserInfo();
 
-  setIcons();
   console.log("로그아웃 완료");
 }

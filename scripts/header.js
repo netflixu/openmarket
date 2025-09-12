@@ -67,6 +67,7 @@ export function setIcons() {
             text: "로그아웃",
             callback: () => {
               logout();
+              setIcons();
             },
           },
         ],
