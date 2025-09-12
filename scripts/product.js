@@ -1,9 +1,9 @@
 import { showModal } from "./modal.js";
+import { getUserInfo } from "./getUserInfo.js";
 
 function checkLogin() {
   const user = getUserInfo();
 
-  // 세션에서 로그인 상태 확인
   const loginType = user ? user.user_type : "";
 
   return loginType;
