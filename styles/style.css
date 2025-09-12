@@ -117,7 +117,7 @@ form button:disabled {
 }
 
 /* header-icon */
-.icon-wrap a[id$="Btn"]::before {
+.icon-wrap [id$="Btn"]::before {
   content: "";
   display: block;
   width: 32px;
@@ -196,13 +196,15 @@ form button:disabled {
   border-right: 10px solid transparent;
   border-bottom: 10px solid #fff;
 }
-.dropdown-wrap a {
+.dropdown-wrap a,
+.dropdown-wrap button {
   display: inline-block;
   width: 100%;
   padding: 4px 6px;
   border-radius: 2px;
 }
-.dropdown-wrap a:hover {
+.dropdown-wrap a:hover,
+.dropdown-wrap button:hover {
   outline: 1px solid rgba(0, 0, 0, 0.5);
   color: #000;
 }
