@@ -1,11 +1,11 @@
 <!-- 푸터 -->
 <footer class="bg-gray-100" role="contentinfo">
-  <div class="mx-auto max-w-6xl px-8 py-10">
-    <div class="flex items-center justify-between text-sm">
+  <div class="mx-auto max-w-6xl px-4 py-5 sm:px-8 sm:py-10">
+    <div class="flex items-center justify-between gap-2 text-sm sm:gap-0">
       <!-- 푸터 내비게이션 -->
       <nav aria-label="푸터 링크">
         <ul
-          class="flex flex-wrap items-center text-gray-700 [&>li+li]:before:mx-3 [&>li+li]:before:text-gray-300 [&>li+li]:before:content-['|']"
+          class="flex flex-col gap-1 self-start text-gray-700 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0 sm:[&>li+li]:before:mx-3 sm:[&>li+li]:before:text-gray-300 sm:[&>li+li]:before:content-['|']"
         >
           <li><a href="#" class="hover:text-black">호두샵 소개</a></li>
           <li><a href="#" class="hover:text-black">이용약관</a></li>
@@ -18,7 +18,9 @@
         </ul>
       </nav>
 
-      <div class="flex items-center gap-4">
+      <div
+        class="flex flex-col items-center gap-4 self-start sm:flex-row sm:self-auto"
+      >
         <a href="#" aria-label="Instagram">
           <img src="./images/icon-insta.svg" alt="" class="h-7 w-7" />
         </a>
@@ -34,7 +36,9 @@
     <hr class="mt-5 border-gray-300" />
 
     <!-- 주소/사업자 정보는 address로 감싸고 이탤릭 제거 -->
-    <address class="mt-6 text-sm leading-relaxed text-gray-500 not-italic">
+    <address
+      class="mt-6 text-xs leading-3.5 text-gray-500 not-italic sm:text-sm sm:leading-relaxed"
+    >
       <p class="font-semibold text-gray-500">(주)HODU SHOP</p>
       <p class="mt-1">제주특별자치도 제주시 동광고 137 제주코딩베이스캠프</p>
       <p class="mt-1">사업자 번호 : 000-0000-0000 | 통신판매업</p>
