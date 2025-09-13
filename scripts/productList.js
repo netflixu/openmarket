@@ -314,12 +314,5 @@ function initializeProductList() {
   scheduleMount();
 }
 
-// DOM 상태에 따라 초기화 실행 (첫 로드 시)
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializeProductList);
-} else {
-  initializeProductList();
-}
-
 // SPA 환경을 위한 전역 함수 등록 (router.js에서 호출용)
 window.initProductListPage = initializeProductList;
