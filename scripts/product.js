@@ -76,9 +76,28 @@ function renderProduct(product, stock, quantity) {
   const decreaseBtn = document.getElementById("quantity-decrease");
   const increaseBtn = document.getElementById("quantity-increase");
 
-  if (loginType === "SELLER") {
-    if (buyBtn) buyBtn.style.display = "none";
-    if (addToCartBtn) addToCartBtn.style.display = "none";
+  if (buyBtn) {
+    buyBtn.style.display = "inline-block";
+    buyBtn.disabled = false;
+    buyBtn.textContent = "구매하기";
+    buyBtn.classList.remove("cursor-not-allowed", "opacity-50", "bg-gray-400");
+  }
+
+  if (addToCartBtn) {
+    addToCartBtn.style.display = "inline-block";
+    addToCartBtn.disabled = false;
+  }
+
+  if (stock === 0) {
+    if (buyBtn) {
+      buyBtn.textContent = "재고 없음";
+      buyBtn.classList.remove("hover:bg-[#1aa843]");
+      buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
+      buyBtn.disabled = true;
+    }
+    if (addToCartBtn) {
+      addToCartBtn.style.display = "none";
+    }
     if (decreaseBtn) {
       decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
       decreaseBtn.disabled = true;
@@ -88,30 +107,20 @@ function renderProduct(product, stock, quantity) {
       increaseBtn.disabled = true;
     }
   } else {
-    if (buyBtn) {
-      buyBtn.style.display = "inline-block";
-      buyBtn.disabled = false;
-      buyBtn.textContent = "구매하기";
-      buyBtn.classList.remove(
-        "cursor-not-allowed",
-        "opacity-50",
-        "bg-gray-400",
-      );
-    }
-
-    if (addToCartBtn) {
-      addToCartBtn.style.display = "inline-block";
-      addToCartBtn.disabled = false;
-    }
-
-    if (stock === 0) {
+    if (loginType === "SELLER") {
       if (buyBtn) {
-        buyBtn.textContent = "재고 없음";
+        buyBtn.classList.remove("hover:bg-[#1aa843]");
         buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
         buyBtn.disabled = true;
       }
       if (addToCartBtn) {
-        addToCartBtn.style.display = "none";
+        addToCartBtn.classList.remove("bg-gray-700", "hover:bg-gray-800");
+        addToCartBtn.classList.add(
+          "cursor-not-allowed",
+          "opacity-50",
+          "bg-gray-400",
+        );
+        addToCartBtn.disabled = true;
       }
       if (decreaseBtn) {
         decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
@@ -121,8 +130,28 @@ function renderProduct(product, stock, quantity) {
         increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
         increaseBtn.disabled = true;
       }
+    } else if (loginType === "BUYER") {
+      if (buyBtn) {
+        buyBtn.addEventListener("click", () => {
+          document.body.append(alert("구매 페이지를 준비중입니다."));
+        });
+      }
+
+      if (addToCartBtn) {
+        addToCartBtn.addEventListener("click", () => {
+          document.body.append(
+            showModal(
+              "장바구니에 담기",
+              "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+              () => {
+                document.body.append(alert("장바구니 페이지를 준비중입니다."));
+              },
+            ),
+          );
+        });
+      }
     } else {
-      if (loginType === "") {
+      {
         if (buyBtn) {
           buyBtn.addEventListener("click", () => {
             document.body.append(
@@ -145,28 +174,6 @@ function renderProduct(product, stock, quantity) {
                 "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
                 () => {
                   location.hash = "#login";
-                },
-              ),
-            );
-          });
-        }
-      } else if (loginType === "BUYER") {
-        if (buyBtn) {
-          buyBtn.addEventListener("click", () => {
-            document.body.append(alert("구매 페이지를 준비중입니다."));
-          });
-        }
-
-        if (addToCartBtn) {
-          addToCartBtn.addEventListener("click", () => {
-            document.body.append(
-              showModal(
-                "장바구니에 담기",
-                "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
-                () => {
-                  document.body.append(
-                    alert("장바구니 페이지를 준비중입니다."),
-                  );
                 },
               ),
             );
