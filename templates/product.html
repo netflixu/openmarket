@@ -93,43 +93,44 @@
           >
             <li>
               <button
-                id="tab-description"
-                class="w-full border-b-2 border-[#21BF48] py-4 text-[#21BF48] transition hover:text-[#1aa843]"
+                data-tab="description"
+                class="tab-button w-full border-b-2 py-4 transition"
               >
                 상품설명
               </button>
             </li>
             <li>
               <button
-                id="tab-shipping"
-                class="w-full border-b-2 border-gray-300 py-4 hover:text-black"
+                data-tab="shipping"
+                class="tab-button w-full border-b-2 py-4 transition"
               >
                 배송/교환/반품
               </button>
             </li>
             <li>
               <button
-                id="tab-review"
-                class="w-full border-b-2 border-gray-300 py-4 hover:text-black"
+                data-tab="review"
+                class="tab-button w-full border-b-2 py-4 transition"
               >
                 리뷰
               </button>
             </li>
             <li>
               <button
-                id="tab-qna"
-                class="w-full border-b-2 border-gray-300 py-4 hover:text-black"
+                data-tab="qna"
+                class="tab-button w-full border-b-2 py-4 transition"
               >
                 문의
               </button>
             </li>
           </ul>
 
-          <div
-            id="tab-content"
-            class="mt-6 text-sm leading-relaxed text-gray-800"
-          >
-            <p>상품 설명을 불러오는 중입니다...</p>
+          <div class="mt-6 text-sm leading-relaxed text-gray-800">
+            <!-- 각 탭의 콘텐츠는 ID로 구분되며 기본적으로 모두 숨김 처리, 선택된 탭만 보여짐 -->
+            <div id="tab-description" class="tab-content hidden">상품설명</div>
+            <div id="tab-shipping" class="tab-content hidden">배송정보</div>
+            <div id="tab-review" class="tab-content hidden">리뷰</div>
+            <div id="tab-qna" class="tab-content hidden">문의</div>
           </div>
         </div>
       </div>
