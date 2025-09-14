@@ -9,6 +9,8 @@ function checkLogin() {
   return loginType;
 }
 
+const loginType = checkLogin();
+
 function getProductIdFromHashOrSearch() {
   const hash = window.location.hash; // 예: "#product?id=3"
   const hashQuery = hash.includes("?") ? hash.split("?")[1] : null;
@@ -69,77 +71,101 @@ function renderProduct(product, stock, quantity) {
   setupQuantityControls(product.price, stock, quantity);
   setupTabs(product);
 
-  const loginType = checkLogin();
   const buyBtn = document.getElementById("buy-now");
   const addToCartBtn = document.getElementById("add-to-cart");
   const decreaseBtn = document.getElementById("quantity-decrease");
   const increaseBtn = document.getElementById("quantity-increase");
 
-  if (stock === 0) {
-    if (buyBtn) {
-      buyBtn.textContent = "재고 없음";
-      buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
-      buyBtn.disabled = true;
-    }
-    if (addToCartBtn) {
-      addToCartBtn.style.display = "none";
-    }
-    if (decreaseBtn) {
-      decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
-      decreaseBtn.disabled = true;
-    }
-    if (increaseBtn) {
-      increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
-      increaseBtn.disabled = true;
-    }
+  if (loginType === "SELLER") {
+    if (buyBtn) buyBtn.style.display = "none";
+    if (addToCartBtn) addToCartBtn.style.display = "none";
+    if (decreaseBtn) decreaseBtn.style.display = "none";
+    if (increaseBtn) increaseBtn.style.display = "none";
   } else {
-    if (loginType === "") {
-      if (buyBtn) {
-        buyBtn.addEventListener("click", () => {
-          document.body.append(
-            showModal(
-              "로그인 필요",
-              "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
-              () => {
-                location.hash = "#login";
-              },
-            ),
-          );
-        });
-      }
+    if (buyBtn) {
+      buyBtn.style.display = "inline-block";
+      buyBtn.disabled = false;
+      buyBtn.textContent = "구매하기";
+      buyBtn.classList.remove(
+        "cursor-not-allowed",
+        "opacity-50",
+        "bg-gray-400",
+      );
+    }
 
+    if (addToCartBtn) {
+      addToCartBtn.style.display = "inline-block";
+      addToCartBtn.disabled = false;
+    }
+
+    if (stock === 0) {
+      if (buyBtn) {
+        buyBtn.textContent = "재고 없음";
+        buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
+        buyBtn.disabled = true;
+      }
       if (addToCartBtn) {
-        addToCartBtn.addEventListener("click", () => {
-          document.body.append(
-            showModal(
-              "로그인 필요",
-              "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
-              () => {
-                location.hash = "#login";
-              },
-            ),
-          );
-        });
+        addToCartBtn.style.display = "none";
+      }
+      if (decreaseBtn) {
+        decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+        decreaseBtn.disabled = true;
+      }
+      if (increaseBtn) {
+        increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+        increaseBtn.disabled = true;
       }
     } else {
-      if (buyBtn) {
-        buyBtn.addEventListener("click", () => {
-          document.body.append(alert("구매 페이지를 준비중입니다."));
-        });
-      }
+      if (loginType === "") {
+        if (buyBtn) {
+          buyBtn.addEventListener("click", () => {
+            document.body.append(
+              showModal(
+                "로그인 필요",
+                "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
+                () => {
+                  location.hash = "#login";
+                },
+              ),
+            );
+          });
+        }
 
-      if (addToCartBtn) {
-        addToCartBtn.addEventListener("click", () => {
-          document.body.append(
-            showModal(
-              "장바구니에 담기",
-              "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
-              () => {
-                document.body.append(alert("장바구니 페이지를 준비중입니다."));
-              },
-            ),
-          );
-        });
+        if (addToCartBtn) {
+          addToCartBtn.addEventListener("click", () => {
+            document.body.append(
+              showModal(
+                "로그인 필요",
+                "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
+                () => {
+                  location.hash = "#login";
+                },
+              ),
+            );
+          });
+        }
+      } else if (loginType === "BUYER") {
+        if (buyBtn) {
+          buyBtn.addEventListener("click", () => {
+            document.body.append(alert("구매 페이지를 준비중입니다."));
+          });
+        }
+
+        if (addToCartBtn) {
+          addToCartBtn.addEventListener("click", () => {
+            document.body.append(
+              showModal(
+                "장바구니에 담기",
+                "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+                () => {
+                  document.body.append(
+                    alert("장바구니 페이지를 준비중입니다."),
+                  );
+                },
+              ),
+            );
+          });
+        }
       }
     }
   }
