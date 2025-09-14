@@ -1,4 +1,4 @@
-<header class="flex justify-center p-[70px]">
+<header class="flex justify-center p-14 pb-8 min-[30rem]:p-[70px]">
   <h1>
     <a href="#" aria-label="호두 오픈마켓 홈페이지로 이동">
       <img class="w-[238px]" src="./images/Logo-hodu.svg" alt="호두 오픈마켓" />
@@ -6,8 +6,8 @@
   </h1>
 </header>
 
-<main class="flex justify-center">
-  <section class="w-[550px] pb-16">
+<main class="flex justify-center px-2">
+  <section class="w-9/10 pb-16 min-[30rem]:w-[550px]">
     <h2 class="sr-only">회원가입 폼</h2>
     <div class="tab-container">
       <ul
@@ -17,7 +17,7 @@
       >
         <li class="grow">
           <button
-            class="bg-disabled-li active border-gray-border w-full rounded-t-[10px] border p-5 font-medium hover:cursor-pointer"
+            class="bg-disabled-li active border-gray-border w-full rounded-t-[10px] border p-2 text-sm font-medium hover:cursor-pointer min-[30rem]:p-5 min-[30rem]:text-base"
             type="button"
             data-type="buyer"
             role="tab"
@@ -29,7 +29,7 @@
         </li>
         <li class="grow">
           <button
-            class="bg-disabled-li border-gray-border w-full rounded-t-[10px] border p-5 font-medium hover:cursor-pointer"
+            class="bg-disabled-li border-gray-border w-full rounded-t-[10px] border p-2 text-sm font-medium hover:cursor-pointer min-[30rem]:p-5 min-[30rem]:text-base"
             type="button"
             data-type="seller"
             role="tab"
@@ -47,14 +47,16 @@
           <input type="hidden" id="userType" name="userType" value="buyer" />
 
           <div
-            class="border-gray-border flex flex-col gap-12 rounded-b-[10px] border border-t-0 p-[35px]"
+            class="border-gray-border flex flex-col gap-8 rounded-b-[10px] border border-t-0 p-4 text-sm min-[30rem]:gap-12 min-[30rem]:p-[35px] min-[30rem]:text-base"
           >
             <fieldset class="flex flex-col gap-3">
               <legend class="sr-only">로그인 정보</legend>
 
               <div>
                 <label class="text-font-gray" for="userId">아이디</label>
-                <div class="mt-2.5 flex gap-3">
+                <div
+                  class="mt-2.5 flex flex-col gap-1 min-[30rem]:flex-row min-[30rem]:gap-3"
+                >
                   <input
                     type="text"
                     name="userId"
@@ -64,11 +66,11 @@
                     maxlength="20"
                     pattern="^[a-zA-Z0-9]{4,20}$"
                     aria-describedby="userIdMessage"
-                    class="border-gray-border focus:outline-main grow rounded-[5px] border p-4"
+                    class="border-gray-border focus:outline-main grow rounded-[5px] border p-2 min-[30rem]:p-4"
                   />
                   <button
                     id="userIdCheckBtn"
-                    class="bg-main rounded-[5px] px-8 py-4 text-white hover:cursor-pointer"
+                    class="bg-main rounded-[5px] p-2 text-white hover:cursor-pointer min-[30rem]:px-8 min-[30rem]:py-4"
                     type="button"
                     aria-describedby="userId"
                   >
@@ -77,7 +79,7 @@
                 </div>
                 <p
                   id="userIdMessage"
-                  class="text-main mt-2.5"
+                  class="text-main mt-1.5 min-[30rem]:mt-2.5"
                   aria-live="assertive"
                 ></p>
               </div>
@@ -86,7 +88,7 @@
                 <label class="text-font-gray" for="password">비밀번호</label>
                 <div
                   id="passwordWrap"
-                  class="relative mt-2.5 after:absolute after:top-1/2 after:right-4 after:block after:h-7 after:w-7 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:content-['']"
+                  class="relative mt-1.5 after:absolute after:top-1/2 after:right-4 after:block after:h-5 after:w-5 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:bg-contain after:bg-center after:content-[''] min-[30rem]:mt-2.5 min-[30rem]:after:h-7 min-[30rem]:after:w-7"
                 >
                   <input
                     type="password"
@@ -95,13 +97,13 @@
                     min="8"
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
                     required
-                    class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
+                    class="border-gray-border focus:outline-main w-full rounded-[5px] border p-2 pr-12 min-[30rem]:p-4 min-[30rem]:pr-15"
                     aria-describedby="passwordMessage"
                   />
                 </div>
                 <p
                   id="passwordMessage"
-                  class="error-message text-accent mt-2.5"
+                  class="error-message text-accent mt-1.5 min-[30rem]:mt-2.5"
                   aria-live="assertive"
                 ></p>
               </div>
@@ -112,7 +114,7 @@
                 >
                 <div
                   id="passwordConfirmWrap"
-                  class="relative mt-2.5 after:absolute after:top-1/2 after:right-4 after:block after:h-7 after:w-7 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:content-['']"
+                  class="relative mt-1.5 after:absolute after:top-1/2 after:right-4 after:block after:h-5 after:w-5 after:-translate-y-1/2 after:transform after:bg-[url(../images/icon-check-off.svg)] after:bg-contain after:bg-center after:content-[''] min-[30rem]:mt-2.5 min-[30rem]:after:h-7 min-[30rem]:after:w-7"
                 >
                   <input
                     type="password"
@@ -122,12 +124,12 @@
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
                     required
                     aria-describedby="pwConfirmMessage"
-                    class="border-gray-border focus:outline-main w-full rounded-[5px] border p-4"
+                    class="border-gray-border focus:outline-main w-full rounded-[5px] border p-2 pr-12 min-[30rem]:p-4 min-[30rem]:pr-15"
                   />
                 </div>
                 <p
                   id="pwConfirmMessage"
-                  class="error-message text-accent mt-2.5"
+                  class="error-message text-accent mt-1.5 min-[30rem]:mt-2.5"
                   aria-live="assertive"
                 ></p>
               </div>
@@ -144,12 +146,12 @@
                   id="userName"
                   autocomplete="username"
                   required
-                  class="border-gray-border focus:outline-main mt-2.5 w-full rounded-[5px] border p-4"
+                  class="border-gray-border focus:outline-main mt-1.5 w-full rounded-[5px] border p-2 min-[30rem]:mt-2.5 min-[30rem]:p-4"
                   aria-describedby="userNameMessage"
                 />
                 <p
                   id="userNameMessage"
-                  class="error-message mt-2.5"
+                  class="error-message mt-1.5 min-[30rem]:mt-2.5"
                   aria-live="assertive"
                 ></p>
               </div>
@@ -157,7 +159,9 @@
               <div>
                 <fieldset>
                   <legend class="text-font-gray">휴대폰번호</legend>
-                  <div class="mt-2.5 flex gap-3">
+                  <div
+                    class="mt-1.5 flex gap-1 min-[30rem]:mt-2.5 min-[30rem]:gap-3"
+                  >
                     <div class="relative w-[33%]">
                       <input
                         type="tel"
@@ -166,45 +170,45 @@
                         value="010"
                         required
                         readonly
-                        class="custom-select focus:outline-main outline-main border-gray-border w-full cursor-pointer appearance-none rounded-[5px] border bg-[url(../images/icon-down-arrow.svg)] bg-no-repeat p-4 pr-8 text-center focus:bg-[url(../images/icon-up-arrow.svg)]"
+                        class="custom-select focus:outline-main outline-main border-gray-border w-full cursor-pointer appearance-none rounded-[5px] border bg-[url(../images/icon-down-arrow.svg)] bg-no-repeat p-2 pr-8 text-center focus:bg-[url(../images/icon-up-arrow.svg)] min-[30rem]:p-4"
                         aria-label="통신사 번호"
                       />
                       <ul
                         id="phoneFirstSelectUl"
-                        class="custom-select-ul border-gray-border absolute top-11/10 z-10 hidden h-40 w-full overflow-x-hidden overflow-y-scroll rounded-[5px] border bg-white text-center"
+                        class="custom-select-ul border-gray-border absolute top-11/10 z-10 hidden h-20 w-full overflow-x-hidden overflow-y-scroll rounded-[5px] border bg-white text-center min-[30rem]:h-40"
                       >
                         <li
-                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="010"
                         >
                           010
                         </li>
                         <li
-                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="011"
                         >
                           011
                         </li>
                         <li
-                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="016"
                         >
                           016
                         </li>
                         <li
-                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="017"
                         >
                           017
                         </li>
                         <li
-                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="018"
                         >
                           018
                         </li>
                         <li
-                          class="hover:bg-gray-border-b w-full cursor-pointer p-2"
+                          class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="019"
                         >
                           019
@@ -219,7 +223,7 @@
                       aria-label="휴대폰 가운데 4자리"
                       pattern="[0-9]{3,4}"
                       maxlength="4"
-                      class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-4 text-center"
+                      class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-2 text-center min-[30rem]:p-4"
                     />
                     <input
                       type="tel"
@@ -229,12 +233,12 @@
                       aria-label="휴대폰 마지막 4자리"
                       pattern="[0-9]{4}"
                       maxlength="4"
-                      class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-4 text-center"
+                      class="border-gray-border focus:outline-main w-[33%] rounded-[5px] border p-2 text-center min-[30rem]:p-4"
                     />
                   </div>
                   <p
                     id="phoneNumberMessage"
-                    class="error-message mt-2.5"
+                    class="error-message mt-1.5 min-[30rem]:mt-2.5"
                     aria-live="assertive"
                   ></p>
                 </fieldset>
@@ -252,27 +256,29 @@
                 <label class="text-font-gray" for="businessNumber"
                   >사업자 등록번호</label
                 >
-                <div class="mt-2.5 flex gap-3">
+                <div
+                  class="mt-1.5 flex flex-col gap-1 min-[30rem]:mt-2.5 min-[30rem]:flex-row min-[30rem]:gap-3"
+                >
                   <input
                     type="text"
                     name="businessNumber"
                     id="businessNumber"
                     pattern="[0-9]{10}"
                     aria-describedby="businessNumberMessage"
-                    class="border-gray-border focus:outline-main grow rounded-[5px] border p-4"
+                    class="border-gray-border focus:outline-main grow rounded-[5px] border p-2 min-[30rem]:p-4"
                   />
                   <button
                     id="businessNumberCheckBtn"
                     type="button"
                     aria-describedby="businessNumber"
-                    class="bg-main rounded-[5px] px-8 py-4 text-white hover:cursor-pointer"
+                    class="bg-main rounded-[5px] p-2 text-white hover:cursor-pointer min-[30rem]:px-8 min-[30rem]:py-4"
                   >
                     인증
                   </button>
                 </div>
                 <p
                   id="businessNumberMessage"
-                  class="text-main mt-2.5"
+                  class="text-main mt-1.5 min-[30rem]:mt-2.5"
                   aria-live="assertive"
                 ></p>
               </div>
@@ -286,18 +292,20 @@
                   name="storeName"
                   id="storeName"
                   aria-describedby="storeNameMessage"
-                  class="border-gray-border focus:outline-main mt-2.5 w-full rounded-[5px] border p-4"
+                  class="border-gray-border focus:outline-main mt-1.5 w-full rounded-[5px] border p-2 min-[30rem]:mt-2.5 min-[30rem]:p-4"
                 />
                 <p
                   id="storeNameMessage"
-                  class="error-message mt-2.5"
+                  class="error-message mt-1.5 min-[30rem]:mt-2.5"
                   aria-live="assertive"
                 ></p>
               </div>
             </fieldset>
           </div>
 
-          <div class="mt-8 px-[35px]">
+          <div
+            class="mt-4 px-0 text-sm min-[30rem]:mt-8 min-[30rem]:px-[35px] min-[30rem]:text-base"
+          >
             <h3 class="sr-only">약관 동의</h3>
             <div>
               <input
@@ -319,13 +327,13 @@
                 </p></label
               >
             </div>
-            <div class="mt-[34px] px-[35px]">
+            <div class="mt-5 px-0 min-[30rem]:mt-[34px] min-[30rem]:px-[35px]">
               <button
                 id="joinBtn"
                 type="submit"
                 disabled
                 aria-describedby="submitHelp"
-                class="bg-main w-full rounded-[5px] p-[19px] text-center font-bold text-white hover:cursor-pointer disabled:cursor-no-drop"
+                class="bg-main w-full rounded-[5px] p-3 text-center font-bold text-white hover:cursor-pointer disabled:cursor-no-drop min-[30rem]:p-[19px]"
               >
                 가입하기
               </button>

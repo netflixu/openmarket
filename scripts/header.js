@@ -1,6 +1,7 @@
 import { logout } from "./auth.js";
 import { getUserInfo } from "./getUserInfo.js";
 import { showModal } from "./modal.js";
+import { saveReturnUrl } from "./returnUrl.js";
 
 let isDropdown = null;
 
@@ -40,7 +41,9 @@ export function setIcons() {
         type: "cart",
         text: "장바구니",
         hash: "#",
-        callback: () =>
+        callback: () => {
+          saveReturnUrl(location.hash);
+          console.log(location.hash, "저장된 url");
           document.body.append(
             showModal(
               "로그인 필요",
@@ -49,9 +52,17 @@ export function setIcons() {
                 location.hash = "#login";
               },
             ),
-          ),
+          );
+        },
       },
-      { type: "login", text: "로그인", hash: "#login" },
+      {
+        type: "login",
+        text: "로그인",
+        callback: () => {
+          saveReturnUrl(location.hash);
+          location.hash = "#login";
+        },
+      },
     ]);
   } else if (loginType === "BUYER") {
     iconArray = makeIcon([

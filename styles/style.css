@@ -171,6 +171,11 @@ form button:disabled {
 
   animation: dropdownOpen 0.4s 2;
 }
+@media (max-width: 1320px) {
+  .dropdown-wrap {
+    left: 30%;
+  }
+}
 
 .dropdown-wrap::before {
   content: "";
