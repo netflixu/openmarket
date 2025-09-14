@@ -79,8 +79,14 @@ function renderProduct(product, stock, quantity) {
   if (loginType === "SELLER") {
     if (buyBtn) buyBtn.style.display = "none";
     if (addToCartBtn) addToCartBtn.style.display = "none";
-    if (decreaseBtn) decreaseBtn.style.display = "none";
-    if (increaseBtn) increaseBtn.style.display = "none";
+    if (decreaseBtn) {
+      decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+      decreaseBtn.disabled = true;
+    }
+    if (increaseBtn) {
+      increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+      increaseBtn.disabled = true;
+    }
   } else {
     if (buyBtn) {
       buyBtn.style.display = "inline-block";
