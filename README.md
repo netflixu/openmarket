@@ -454,7 +454,6 @@ project
   - select 태그가 아닌 ul li 태그를 이용하여 샐랙트 박스 커스텀 디자인을 적용한다.
 
 - 로그인/로그아웃
-  - 토큰 기반 로그인/로그아웃을 구현했습니다.
   - Access Token은 localStorage에, Refresh Token은 sessionStorage에 저장해 사용했습니다.
   - 현재는 Access Token을 4분마다 주기적으로 갱신하고 있습니다. 앞으로는 호출 빈도를 줄이기 위해, 필요한 시점(만료 임박 또는 인증 실패 시)에만 Refresh Token으로 Access Token을 재발급받도록 개선할 예정입니다.
 
