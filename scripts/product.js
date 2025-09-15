@@ -61,7 +61,7 @@ window.initProductPage = async function () {
 function renderProduct(product, stock, quantity) {
   setImage("product-image", product.image);
   setText("product-store-name", product.store_name);
-  setText("product-name", product.product_name);
+  setText("product-name", product.name);
   setText("product-price", product.price.toLocaleString());
   setText(
     "product-shipping",
