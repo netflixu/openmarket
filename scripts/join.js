@@ -477,11 +477,16 @@ function handleTabChange(e) {
   const type = e.target.dataset.type;
   if (!type) return; // type 없는 요소 클릭했을 때 방지
 
+  const inputWrap = document.getElementById("inputWrap");
   DOMElementArray.userType.value = type;
   if (type === "buyer") {
     document.getElementById("sellerData").style.display = "none";
+    inputWrap.classList.remove("rounded-tr-none");
+    inputWrap.classList.add("rounded-tl-none");
   } else if (type == "seller") {
     document.getElementById("sellerData").style.display = "flex";
+    inputWrap.classList.remove("rounded-tl-none");
+    inputWrap.classList.add("rounded-tr-none");
   }
 
   DOMElementArray.currentTab.classList.remove("active");

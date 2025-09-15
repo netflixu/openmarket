@@ -37,7 +37,13 @@
 
 .tab-list .active {
   background: #fff;
-  border-bottom: 0;
+  z-index: 30;
+  padding-bottom: 8px;
+}
+@media (min-width: 30rem) {
+  .tab-list .active {
+    padding-bottom: 12px;
+  }
 }
 
 /* 회원가입 에러 */

@@ -9,7 +9,7 @@
 <main class="flex justify-center px-2">
   <section class="w-9/10 pb-16 min-[30rem]:w-[550px]">
     <h2 class="sr-only">회원가입 폼</h2>
-    <div class="tab-container">
+    <div class="tab-container relative">
       <ul
         role="tablist"
         aria-label="로그인 유형"
@@ -17,7 +17,7 @@
       >
         <li class="grow">
           <button
-            class="bg-disabled-li active border-gray-border w-full rounded-t-[10px] border p-2 text-sm font-medium hover:cursor-pointer min-[30rem]:p-5 min-[30rem]:text-base"
+            class="bg-disabled-li active border-gray-border absolute z-0 w-1/2 rounded-t-[10px] border border-b-0 p-2 pb-4 text-sm font-medium hover:cursor-pointer min-[30rem]:p-5 min-[30rem]:pb-7 min-[30rem]:text-base"
             type="button"
             data-type="buyer"
             role="tab"
@@ -29,7 +29,7 @@
         </li>
         <li class="grow">
           <button
-            class="bg-disabled-li border-gray-border w-full rounded-t-[10px] border p-2 text-sm font-medium hover:cursor-pointer min-[30rem]:p-5 min-[30rem]:text-base"
+            class="bg-disabled-li border-gray-border absolute z-0 w-1/2 rounded-t-[10px] border border-b-0 p-2 pb-4 text-sm font-medium hover:cursor-pointer min-[30rem]:p-5 min-[30rem]:pb-7 min-[30rem]:text-base"
             type="button"
             data-type="seller"
             role="tab"
@@ -47,7 +47,8 @@
           <input type="hidden" id="userType" name="userType" value="buyer" />
 
           <div
-            class="border-gray-border flex flex-col gap-8 rounded-b-[10px] border border-t-0 p-4 text-sm min-[30rem]:gap-12 min-[30rem]:p-[35px] min-[30rem]:text-base"
+            id="inputWrap"
+            class="border-gray-border absolute top-9 z-10 flex flex-col gap-8 rounded-[10px] rounded-tl-none border bg-white p-4 text-sm min-[30rem]:top-14 min-[30rem]:gap-12 min-[30rem]:p-[35px] min-[30rem]:text-base"
           >
             <fieldset class="flex flex-col gap-3">
               <legend class="sr-only">로그인 정보</legend>
