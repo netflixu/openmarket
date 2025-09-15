@@ -525,7 +525,7 @@ async function join() {
     name: DOMElementArray.userName.value, // 이름
     phone_number: `${DOMElementArray.phoneFirst.value}${DOMElementArray.phoneMiddle.value}${DOMElementArray.phoneLast.value}`, // 전화번호는 010으로 시작하는 10~11자리 숫자
   };
-  if (DOMElementArray.userType === "seller") {
+  if (DOMElementArray.userType.value === "seller") {
     url = "accounts/seller/signup/";
     data.company_registration_number = DOMElementArray.businessNumber.value;
     data.store_name = DOMElementArray.storeName.value;
