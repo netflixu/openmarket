@@ -1,9 +1,9 @@
 <div class="flex flex-col items-center">
-  <header class="mt-25">
+  <header class="mt-10 lg:mt-25">
     <h1>
       <a href="#" aria-label="호두 오픈마켓 홈페이지로 이동">
         <img
-          class="w-[238px]"
+          class="w-[180px] lg:w-[238px]"
           src="./images/Logo-hodu.svg"
           alt="호두 오픈마켓"
         />
@@ -11,18 +11,23 @@
     </h1>
   </header>
 
-  <main class="mt-[70px]">
+  <main class="mt-10 lg:mt-[70px] w-full px-4">
     <section
-      class="border-gray-border w-[550px] rounded-[10px] border-r border-b border-l"
+      class="mx-auto w-full max-w-[340px] sm:max-w-[420px] lg:w-[550px] lg:max-w-[550px] rounded-[10px] border-l border-r border-b border-gray-border"
     >
       <h2 class="sr-only">로그인 폼</h2>
+
       <!-- Tabs -->
-      <ul role="tablist" aria-label="로그인 유형" class="tab-list flex text-lg">
+      <ul
+        role="tablist"
+        aria-label="로그인 유형"
+        class="tab-list flex text-base lg:text-lg"
+      >
         <li role="presentation" class="flex-1">
           <button
             id="tab-buyer"
             data-id="BUYER"
-            class="active border-gray-border h-20 w-full rounded-t-[10px] border-t border-r pt-5 font-medium hover:cursor-pointer"
+            class="active h-14 w-full rounded-t-[10px] border-t border-r border-gray-border pt-3 font-medium hover:cursor-pointer lg:h-20 lg:pt-5"
             role="tab"
             aria-controls="panel"
             aria-selected="true"
@@ -32,11 +37,12 @@
             구매회원 로그인
           </button>
         </li>
+
         <li role="presentation" class="flex-1">
           <button
             id="tab-seller"
             data-id="SELLER"
-            class="bg-disabled-li border-gray-border h-20 w-full rounded-t-[10px] border-t border-l pt-5 font-medium hover:cursor-pointer"
+            class="bg-disabled-li h-14 w-full rounded-t-[10px] border-t border-l border-gray-border pt-3 font-medium hover:cursor-pointer lg:h-20 lg:pt-5"
             role="tab"
             aria-controls="panel"
             aria-selected="false"
@@ -49,33 +55,27 @@
       </ul>
 
       <!-- 단일 패널 -->
-      <div
-        id="panel"
-        class="mt-9"
-        role="tabpanel"
-        tabindex="0"
-        aria-labelledby="tab-buyer"
-      >
+      <div id="panel" class="mt-6 lg:mt-9" role="tabpanel" tabindex="0" aria-labelledby="tab-buyer">
         <form id="login-form" autocomplete="on" action="#">
           <fieldset class="flex flex-col items-center">
             <legend class="sr-only">로그인</legend>
 
-            <div>
+            <div class="w-full flex justify-center">
               <label class="sr-only" for="username">아이디</label>
               <input
                 id="username"
-                class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b pl-1 placeholder:text-[16px]"
+                class="h-12 w-[280px] border-b border-gray-border pl-1 placeholder:text-sm placeholder-font-gray focus:outline-main lg:h-15 lg:w-120 lg:placeholder:text-[16px]"
                 name="username"
                 autocomplete="username"
                 placeholder="아이디"
               />
             </div>
 
-            <div>
+            <div class="w-full mt-3 flex justify-center lg:mt-0">
               <label class="sr-only" for="password">비밀번호</label>
               <input
                 id="password"
-                class="border-gray-border placeholder-font-gray focus:outline-main h-15 w-120 border-b pl-1 placeholder:text-[16px]"
+                class="h-12 w-[280px] border-b border-gray-border pl-1 placeholder:text-sm placeholder-font-gray focus:outline-main lg:h-15 lg:w-120 lg:placeholder:text-[16px]"
                 name="password"
                 type="password"
                 autocomplete="current-password"
@@ -85,19 +85,14 @@
 
             <div
               id="login-error-place"
-              class="mt-[26px] hidden h-5 w-120 items-center justify-start"
+              class="mt-4 hidden h-5 w-[280px] items-center justify-start lg:mt-[26px] lg:w-120"
             >
-              <p
-                id="login-error"
-                class="text-accent font-medium"
-                role="alert"
-                aria-live="assertive"
-              ></p>
+              <p id="login-error" class="text-accent font-medium" role="alert" aria-live="assertive"></p>
             </div>
 
             <button
               id="login-button"
-              class="bg-main mt-9 mb-9 h-15 w-120 rounded-[5px] text-[18px] font-bold text-white"
+              class="bg-main mt-6 mb-6 h-12 w-[280px] rounded-[5px] text-base font-bold text-white lg:mt-9 lg:mb-9 lg:h-15 lg:w-120 lg:text-[18px]"
               type="submit"
             >
               로그인
@@ -107,8 +102,9 @@
       </div>
     </section>
 
-    <div class="mt-[30px] flex justify-center gap-[14px]">
-      <a href="#join">회원가입</a> <span>|</span>
+    <div class="mt-6 flex justify-center gap-3 text-sm lg:mt-[30px] lg:gap-[14px] lg:text-base">
+      <a href="#join">회원가입</a>
+      <span>|</span>
       <a href="javascript:void(0)" id="find-password">비밀번호 찾기</a>
     </div>
   </main>
