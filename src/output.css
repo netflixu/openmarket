@@ -490,6 +490,9 @@
   .w-5\.5 {
     width: calc(var(--spacing) * 5.5);
   }
+  .w-5\/6 {
+    width: calc(5/6 * 100%);
+  }
   .w-7 {
     width: calc(var(--spacing) * 7);
   }
@@ -498,6 +501,12 @@
   }
   .w-9\/10 {
     width: calc(9/10 * 100%);
+  }
+  .w-9\/11 {
+    width: calc(9/11 * 100%);
+  }
+  .w-9\/12 {
+    width: calc(9/12 * 100%);
   }
   .w-25 {
     width: calc(var(--spacing) * 25);
@@ -1485,6 +1494,11 @@
       margin-top: calc(var(--spacing) * 2.5);
     }
   }
+  .min-\[30rem\]\:mt-5 {
+    @media (width >= 30rem) {
+      margin-top: calc(var(--spacing) * 5);
+    }
+  }
   .min-\[30rem\]\:mt-8 {
     @media (width >= 30rem) {
       margin-top: calc(var(--spacing) * 8);
@@ -1513,6 +1527,11 @@
   .min-\[30rem\]\:h-40 {
     @media (width >= 30rem) {
       height: calc(var(--spacing) * 40);
+    }
+  }
+  .min-\[30rem\]\:w-90 {
+    @media (width >= 30rem) {
+      width: calc(var(--spacing) * 90);
     }
   }
   .min-\[30rem\]\:w-\[550px\] {
@@ -1580,6 +1599,11 @@
       padding: 70px;
     }
   }
+  .min-\[30rem\]\:px-4\.5 {
+    @media (width >= 30rem) {
+      padding-inline: calc(var(--spacing) * 4.5);
+    }
+  }
   .min-\[30rem\]\:px-8 {
     @media (width >= 30rem) {
       padding-inline: calc(var(--spacing) * 8);
@@ -1593,6 +1617,11 @@
   .min-\[30rem\]\:py-4 {
     @media (width >= 30rem) {
       padding-block: calc(var(--spacing) * 4);
+    }
+  }
+  .min-\[30rem\]\:py-4\.5 {
+    @media (width >= 30rem) {
+      padding-block: calc(var(--spacing) * 4.5);
     }
   }
   .min-\[30rem\]\:pr-15 {

@@ -30,14 +30,17 @@ export function showModal(h2, text, yesFunc = null) {
     "bg-white",
     "border",
     "border-gray-border",
-    "px-4.5",
-    "py-4.5",
+    "min-[30rem]:px-4.5",
+    "px-2",
+    "min-[30rem]:py-4.5",
+    "py-4",
     "flex",
     "flex-col",
     "items-center",
     "text-center",
     "gap-2.5",
-    "w-90",
+    "min-[30rem]:w-90",
+    "w-5/6",
   );
   modal.setAttribute("role", "dialog");
   modal.setAttribute("aria-modal", "true");
@@ -70,7 +73,14 @@ export function showModal(h2, text, yesFunc = null) {
 
   // 하단 버튼
   const btnWrap = document.createElement("div");
-  btnWrap.classList.add("flex", "gap-2.5", "font-medium", "mt-5", "text-x");
+  btnWrap.classList.add(
+    "flex",
+    "gap-2.5",
+    "font-medium",
+    "mt-2",
+    "min-[30rem]:mt-5",
+    "text-x",
+  );
   const noBtn = document.createElement("button");
   noBtn.classList.add(
     "border",
