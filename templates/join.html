@@ -178,36 +178,48 @@
                         class="custom-select-ul border-gray-border absolute top-11/10 z-10 hidden h-20 w-full overflow-x-hidden overflow-y-scroll rounded-[5px] border bg-white text-center min-[30rem]:h-40"
                       >
                         <li
+                          role="option"
+                          tabindex="0"
                           class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="010"
                         >
                           010
                         </li>
                         <li
+                          role="option"
+                          tabindex="0"
                           class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="011"
                         >
                           011
                         </li>
                         <li
+                          role="option"
+                          tabindex="0"
                           class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="016"
                         >
                           016
                         </li>
                         <li
+                          role="option"
+                          tabindex="0"
                           class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="017"
                         >
                           017
                         </li>
                         <li
+                          role="option"
+                          tabindex="0"
                           class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="018"
                         >
                           018
                         </li>
                         <li
+                          role="option"
+                          tabindex="0"
                           class="hover:bg-gray-border-b w-full cursor-pointer p-1 min-[30rem]:p-2"
                           data-value="019"
                         >
@@ -313,15 +325,16 @@
                 name="privacyConsent"
                 id="privacyConsent"
                 required
-                class="hidden"
+                class="peer sr-only"
               />
               <label
                 id="privacyConsentLabel"
-                class="text-font-gray flex gap-2.5 before:mt-1 before:block before:h-4 before:w-4 before:shrink-0 before:bg-[url(../images/check-box.svg)] before:content-['']"
+                class="text-font-gray peer-focus:before:ring-main flex cursor-pointer gap-2.5 before:mt-1 before:block before:h-4 before:w-4 before:shrink-0 before:bg-[url(../images/check-box.svg)] before:content-[''] peer-focus:before:ring-2"
                 for="privacyConsent"
               >
                 <p>
-                  호두샵의 <a class="font-bold" href="#">이용약관</a> 및
+                  호두샵의
+                  <a class="font-bold" href="#">이용약관</a> 및
                   <a class="font-bold" href="#">개인정보처리방침</a>에 대한
                   내용을 확인하였고 동의합니다.
                 </p></label
