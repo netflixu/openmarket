@@ -9,6 +9,8 @@ function checkLogin() {
   return loginType;
 }
 
+const loginType = checkLogin();
+
 function getProductIdFromHashOrSearch() {
   const hash = window.location.hash; // 예: "#product?id=3"
   const hashQuery = hash.includes("?") ? hash.split("?")[1] : null;
@@ -69,15 +71,27 @@ function renderProduct(product, stock, quantity) {
   setupQuantityControls(product.price, stock, quantity);
   setupTabs(product);
 
-  const loginType = checkLogin();
   const buyBtn = document.getElementById("buy-now");
   const addToCartBtn = document.getElementById("add-to-cart");
   const decreaseBtn = document.getElementById("quantity-decrease");
   const increaseBtn = document.getElementById("quantity-increase");
 
+  if (buyBtn) {
+    buyBtn.style.display = "inline-block";
+    buyBtn.disabled = false;
+    buyBtn.textContent = "구매하기";
+    buyBtn.classList.remove("cursor-not-allowed", "opacity-50", "bg-gray-400");
+  }
+
+  if (addToCartBtn) {
+    addToCartBtn.style.display = "inline-block";
+    addToCartBtn.disabled = false;
+  }
+
   if (stock === 0) {
     if (buyBtn) {
       buyBtn.textContent = "재고 없음";
+      buyBtn.classList.remove("hover:bg-[#1aa843]");
       buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
       buyBtn.disabled = true;
     }
@@ -93,35 +107,30 @@ function renderProduct(product, stock, quantity) {
       increaseBtn.disabled = true;
     }
   } else {
-    if (loginType === "") {
+    if (loginType === "SELLER") {
       if (buyBtn) {
-        buyBtn.addEventListener("click", () => {
-          document.body.append(
-            showModal(
-              "로그인 필요",
-              "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
-              () => {
-                location.hash = "#login";
-              },
-            ),
-          );
-        });
+        buyBtn.classList.remove("hover:bg-[#1aa843]");
+        buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
+        buyBtn.disabled = true;
       }
-
       if (addToCartBtn) {
-        addToCartBtn.addEventListener("click", () => {
-          document.body.append(
-            showModal(
-              "로그인 필요",
-              "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
-              () => {
-                location.hash = "#login";
-              },
-            ),
-          );
-        });
+        addToCartBtn.classList.remove("bg-gray-700", "hover:bg-gray-800");
+        addToCartBtn.classList.add(
+          "cursor-not-allowed",
+          "opacity-50",
+          "bg-gray-400",
+        );
+        addToCartBtn.disabled = true;
       }
-    } else {
+      if (decreaseBtn) {
+        decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+        decreaseBtn.disabled = true;
+      }
+      if (increaseBtn) {
+        increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
+        increaseBtn.disabled = true;
+      }
+    } else if (loginType === "BUYER") {
       if (buyBtn) {
         buyBtn.addEventListener("click", () => {
           document.body.append(alert("구매 페이지를 준비중입니다."));
@@ -140,6 +149,36 @@ function renderProduct(product, stock, quantity) {
             ),
           );
         });
+      }
+    } else {
+      {
+        if (buyBtn) {
+          buyBtn.addEventListener("click", () => {
+            document.body.append(
+              showModal(
+                "로그인 필요",
+                "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
+                () => {
+                  location.hash = "#login";
+                },
+              ),
+            );
+          });
+        }
+
+        if (addToCartBtn) {
+          addToCartBtn.addEventListener("click", () => {
+            document.body.append(
+              showModal(
+                "로그인 필요",
+                "로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",
+                () => {
+                  location.hash = "#login";
+                },
+              ),
+            );
+          });
+        }
       }
     }
   }
@@ -180,42 +219,42 @@ function updateTotalPrice(price, quantity) {
 }
 
 function setupTabs(product) {
-  const tabContent = document.getElementById("tab-content");
+  const tabButtons = document.querySelectorAll(".tab-button");
+  const tabContents = document.querySelectorAll(".tab-content");
 
-  const tabs = {
-    "tab-description": `<p>${product.product_info}</p>`,
-    "tab-shipping": `
-      <p><strong>배송방법:</strong> ${product.shipping_method === "PARCEL" ? "택배" : "직접배송"}</p>
-      <p><strong>배송비:</strong> ${product.shipping_fee === 0 ? "무료배송" : product.shipping_fee.toLocaleString() + "원"}</p>
+  const contentMap = {
+    description: product.product_info || "상세 설명이 없습니다.",
+    shipping: `
+      <p><strong>배송방법:</strong> ${product.shipping_method === "PARCEL" ? "택배배송" : "직접배송"}</p>
+      <p><strong>배송비:</strong> ${
+        product.shipping_fee === 0
+          ? "무료배송"
+          : `${product.shipping_fee.toLocaleString()}원`
+      }</p>
     `,
-    "tab-review": `<p>아직 등록된 리뷰가 없습니다.</p>`,
-    "tab-qna": `<p>등록된 문의가 없습니다.</p>`,
+    review: "등록된 리뷰가 없습니다.",
+    qna: "등록된 문의가 없습니다.",
   };
 
-  Object.keys(tabs).forEach((tabId) => {
-    const button = document.getElementById(tabId);
-    if (button) {
-      button.addEventListener("click", () => {
-        tabContent.innerHTML = tabs[tabId];
-        highlightActiveTab(tabId);
+  tabButtons.forEach((button) => {
+    const tabKey = button.dataset.tab;
+    const contentEl = document.getElementById(`tab-${tabKey}`);
+    if (!contentEl) return;
+    button.addEventListener("click", () => {
+      tabContents.forEach((el) => el.classList.add("hidden"));
+      contentEl.classList.remove("hidden");
+      contentEl.innerHTML = contentMap[tabKey] || "내용이 없습니다.";
+      tabButtons.forEach((btn) => {
+        btn.classList.remove("border-[#21BF48]", "text-[#21BF48]");
+        btn.classList.add("border-gray-300", "text-gray-500");
       });
-    }
+      button.classList.add("border-[#21BF48]", "text-[#21BF48]");
+      button.classList.remove("border-gray-300", "text-gray-500");
+    });
   });
-}
 
-function highlightActiveTab(activeId) {
-  const tabIds = ["tab-description", "tab-shipping", "tab-review", "tab-qna"];
-  tabIds.forEach((id) => {
-    const btn = document.getElementById(id);
-    if (!btn) return;
-    if (id === activeId) {
-      btn.classList.add("border-[#21BF48]", "text-[#21BF48]");
-      btn.classList.remove("border-gray-300");
-    } else {
-      btn.classList.remove("border-[#21BF48]", "text-[#21BF48]");
-      btn.classList.add("border-gray-300");
-    }
-  });
+  const defaultTab = tabButtons[0];
+  if (defaultTab) defaultTab.click();
 }
 
 function setText(id, value) {
