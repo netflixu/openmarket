@@ -35,9 +35,10 @@
   font-weight: 500;
 }
 
-.tab-list .active {
-  background: #fff;
-  border-bottom: 0;
+@media (min-width: 30rem) {
+  .tab-list .active {
+    padding-bottom: 20px;
+  }
 }
 
 /* 회원가입 에러 */
