@@ -93,7 +93,7 @@ function renderProduct(product, stock, quantity) {
   if (stock === 0) {
     if (buyBtn) {
       buyBtn.textContent = "재고 없음";
-      buyBtn.classList.remove("hover:bg-[#1aa843]");
+      buyBtn.classList.remove("hover:bg-[#1aa843]", "cursor-pointer");
       buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
       buyBtn.disabled = true;
     }
@@ -101,17 +101,19 @@ function renderProduct(product, stock, quantity) {
       addToCartBtn.style.display = "none";
     }
     if (decreaseBtn) {
+      decreaseBtn.classList.remove("cursor-pointer");
       decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
       decreaseBtn.disabled = true;
     }
     if (increaseBtn) {
+      increaseBtn.classList.remove("cursor-pointer");
       increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
       increaseBtn.disabled = true;
     }
   } else {
     if (loginType === "SELLER") {
       if (buyBtn) {
-        buyBtn.classList.remove("hover:bg-[#1aa843]");
+        buyBtn.classList.remove("hover:bg-[#1aa843]", "cursor-pointer");
         buyBtn.classList.add("cursor-not-allowed", "opacity-50", "bg-gray-400");
         buyBtn.disabled = true;
       }
@@ -125,10 +127,12 @@ function renderProduct(product, stock, quantity) {
         addToCartBtn.disabled = true;
       }
       if (decreaseBtn) {
+        decreaseBtn.classList.remove("cursor-pointer");
         decreaseBtn.classList.add("cursor-not-allowed", "opacity-50");
         decreaseBtn.disabled = true;
       }
       if (increaseBtn) {
+        increaseBtn.classList.remove("cursor-pointer");
         increaseBtn.classList.add("cursor-not-allowed", "opacity-50");
         increaseBtn.disabled = true;
       }
@@ -223,8 +227,13 @@ function setupQuantityControls(unitPrice, stock, quantity) {
 function updateTotalPrice(price, quantity) {
   const total = price * quantity;
   const totalEl = document.getElementById("total-price");
+  const totalQuantity = document.getElementById("total-quantity");
+
   if (totalEl) {
-    totalEl.textContent = `${total.toLocaleString()}원`;
+    totalEl.textContent = `${total.toLocaleString()}`;
+  }
+  if (totalQuantity) {
+    totalQuantity.textContent = `${quantity.toLocaleString()}`;
   }
 }
 
