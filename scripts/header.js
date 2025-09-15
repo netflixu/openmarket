@@ -90,6 +90,7 @@ export function setIcons() {
             callback: () => {
               logout();
               setIcons();
+              location.reload();
             },
           },
         ],
@@ -113,6 +114,7 @@ export function setIcons() {
             callback: () => {
               logout();
               setIcons();
+              location.reload();
             },
           },
         ],

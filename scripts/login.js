@@ -106,7 +106,8 @@ function initLoginPage() {
         console.log("로그인할 때 이전 url", returnUrl);
         if (returnUrl && returnUrl !== "#login") {
           clearReturnUrl();
-          location.hash = returnUrl;
+          location.replace(returnUrl);
+          window.location.reload();
         } else {
           // 이전페이지가 없으면 프로덕트 리스트로 기본페이지.
           location.hash = "#productList";
