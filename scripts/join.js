@@ -453,6 +453,7 @@ function eventSetting() {
     }
 
     // 회원가입 성공 시 로그인페이지로
+    alert("회원가입이 완료되었습니다. 로그인 해주세요!");
     location.hash = "#login";
   });
 
