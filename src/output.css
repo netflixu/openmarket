@@ -1624,6 +1624,11 @@
       padding-block: calc(var(--spacing) * 4.5);
     }
   }
+  .min-\[30rem\]\:pr-8 {
+    @media (width >= 30rem) {
+      padding-right: calc(var(--spacing) * 8);
+    }
+  }
   .min-\[30rem\]\:pr-15 {
     @media (width >= 30rem) {
       padding-right: calc(var(--spacing) * 15);
