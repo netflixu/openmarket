@@ -413,7 +413,7 @@ function eventSetting() {
     if (type === "buyer") {
       document.getElementById("sellerData").style.display = "none";
     } else if (type == "seller") {
-      document.getElementById("sellerData").style.display = "block";
+      document.getElementById("sellerData").style.display = "flex";
     }
 
     DOMElementArray.currentTab.classList.remove("active");

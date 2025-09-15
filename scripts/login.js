@@ -1,4 +1,5 @@
 import { saveUserInfo } from "./getUserInfo.js";
+import { clearReturnUrl, getReturnUrl } from "./returnUrl.js";
 import {
   getAccess,
   loadRefresh,
@@ -18,6 +19,7 @@ function initLoginPage() {
   const loginForm = document.getElementById("login-form");
   const loginErrorPlace = document.getElementById("login-error-place");
   const loginButton = document.getElementById("login-button");
+  const findPassword = document.getElementById("find-password");
 
   // 요소들이 존재하지 않으면 리턴
   if (!tabBuyer || !tabSeller || !loginForm) {
@@ -100,7 +102,15 @@ function initLoginPage() {
         // 자동 갱신 시작
         startTokenAutoRefresh();
         // SPA 환경에서는 해시만 변경
-        location.hash = "#productList";
+        const returnUrl = getReturnUrl();
+        console.log("로그인할 때 이전 url", returnUrl);
+        if (returnUrl && returnUrl !== "#login") {
+          clearReturnUrl();
+          location.hash = returnUrl;
+        } else {
+          // 이전페이지가 없으면 프로덕트 리스트로 기본페이지.
+          location.hash = "#productList";
+        }
       })
       .catch((error) => {
         showError(error.error);
@@ -183,14 +193,11 @@ function initLoginPage() {
   // 두 탭에 키보드 이벤트 추가
   tabBuyer.addEventListener("keydown", handleKeydown);
   tabSeller.addEventListener("keydown", handleKeydown);
-}
 
-// DOM이 준비되면 초기화 실행
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initLoginPage);
-} else {
-  initLoginPage();
-  console.log("로딩완료");
+  findPassword.addEventListener("click", (event) => {
+    event.preventDefault();
+    alert("비밀번호 찾기 페이지를 준비중입니다.");
+  });
 }
 
 window.initLoginPage = initLoginPage;
