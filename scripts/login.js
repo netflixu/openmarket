@@ -1,15 +1,9 @@
-import { saveUserInfo } from "./getUserInfo.js";
+﻿import { saveUserInfo } from "./getUserInfo.js";
 import { clearReturnUrl, getReturnUrl } from "./returnUrl.js";
-import {
-  getAccess,
-  loadRefresh,
-  saveRefresh,
-  setAccess,
-  startTokenAutoRefresh,
-} from "./tokenStore.js";
+import { saveRefresh, setAccess, startTokenAutoRefresh } from "./tokenStore.js";
 
-// DOM 요소들을 함수 내에서 가져오도록 수정
 function initLoginPage() {
+  // DOM
   const tabBuyer = document.getElementById("tab-buyer");
   const tabSeller = document.getElementById("tab-seller");
   const panel = document.getElementById("panel");
@@ -21,59 +15,105 @@ function initLoginPage() {
   const loginButton = document.getElementById("login-button");
   const findPassword = document.getElementById("find-password");
 
-  // 요소들이 존재하지 않으면 리턴
   if (!tabBuyer || !tabSeller || !loginForm) {
     console.warn("로그인 페이지 요소를 찾을 수 없습니다.");
     return;
   }
 
-  function switchTab(activeTab, inactiveTab) {
-    // 활성 탭 설정
-    activeTab.classList.add("active");
-    activeTab.classList.remove("bg-disabled-li");
-    activeTab.setAttribute("aria-selected", "true");
-    activeTab.setAttribute("tabindex", "0");
+  // z-index 정책: 패널 z-10, 활성 탭 z-20, 비활성 탭 z-0
+  const ACTIVE = ["z-20", "bg-white"];
+  const INACTIVE = ["z-0", "bg-gray-100", "text-gray-800"];
 
-    // 비활성 탭 설정
-    inactiveTab.classList.remove("active");
-    inactiveTab.classList.add("bg-disabled-li");
-    inactiveTab.setAttribute("aria-selected", "false");
-    inactiveTab.setAttribute("tabindex", "-1");
+  // 상태 전환: z-index만으로 겹침 제어 (보더 투명 처리 사용 안 함)
+  function setBuyerActive() {
+    // buyer 활성
+    tabBuyer.classList.add(...ACTIVE);
+    tabBuyer.classList.remove("z-0", "bg-gray-100", "text-gray-800");
 
-    panel.setAttribute("aria-labelledby", activeTab.id);
-    console.log("동작중");
+    // seller 비활성 (보더 투명 처리 제거)
+    tabSeller.classList.add(...INACTIVE);
+    tabSeller.classList.remove("z-20", "bg-white");
+
+    tabBuyer.classList.add("active");
+    tabSeller.classList.remove("active");
+
+    tabBuyer.setAttribute("aria-selected", "true");
+    tabBuyer.setAttribute("tabindex", "0");
+    tabSeller.setAttribute("aria-selected", "false");
+    tabSeller.setAttribute("tabindex", "-1");
+
+    panel.setAttribute("aria-labelledby", "tab-buyer");
+    panel.classList.remove("rounded-tr-none");
+    panel.classList.add("rounded-tl-none");
   }
 
+  function setSellerActive() {
+    // seller 활성
+    tabSeller.classList.add(...ACTIVE);
+    tabSeller.classList.remove(
+      "z-0",
+      "bg-gray-100",
+      "text-gray-800",
+      "border-r-transparent",
+      "border-l-transparent",
+    );
+
+    // buyer 비활성 (보더 투명 처리 제거)
+    tabBuyer.classList.add(...INACTIVE);
+    tabBuyer.classList.remove(
+      "z-20",
+      "bg-white",
+      "border-b-transparent",
+      "border-l-transparent",
+      "border-r-transparent",
+    );
+
+    tabSeller.classList.add("active");
+    tabBuyer.classList.remove("active");
+
+    tabSeller.setAttribute("aria-selected", "true");
+    tabSeller.setAttribute("tabindex", "0");
+    tabBuyer.setAttribute("aria-selected", "false");
+    tabBuyer.setAttribute("tabindex", "-1");
+
+    panel.setAttribute("aria-labelledby", "tab-seller");
+    panel.classList.remove("rounded-tl-none");
+    panel.classList.add("rounded-tr-none");
+  }
+
+  function switchTab(active) {
+    if (active === tabBuyer) setBuyerActive();
+    else setSellerActive();
+  }
+
+  // 에러 UI
   function showError(message) {
-    loginError.textContent = message;
-    loginErrorPlace.classList.remove("hidden");
-    loginButton.classList.remove("mt-9");
-    loginButton.classList.add("mt-[26px]");
+    if (loginError) loginError.textContent = message || "";
+    if (loginErrorPlace) loginErrorPlace.classList.remove("hidden");
+    if (loginButton) loginButton.classList.add("mt-[26px]");
   }
-
   function hideError() {
-    loginError.textContent = "";
+    if (loginError) loginError.textContent = "";
+    if (loginErrorPlace) loginErrorPlace.classList.add("hidden");
+    if (loginButton) loginButton.classList.remove("mt-[26px]");
   }
 
   function getLoginType() {
     return tabBuyer.getAttribute("aria-selected") === "true"
-      ? tabBuyer.dataset.id
-      : tabSeller.dataset.id;
+      ? tabBuyer.dataset.id // "BUYER"
+      : tabSeller.dataset.id; // "SELLER"
   }
 
   function login() {
     fetch("https://api.wenivops.co.kr/services/open-market/accounts/login/", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: username.value,
         password: password.value,
       }),
     })
       .then((response) => {
-        // 응답이 실패면 에러 메시지 추출
         if (!response.ok) {
           return response.json().then((errorData) => {
             throw errorData;
@@ -82,72 +122,58 @@ function initLoginPage() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         const { access, refresh, user } = data;
-        let loginType = getLoginType();
+
+        const loginType = getLoginType();
         if (loginType !== user.user_type) {
-          if (loginType === "BUYER") {
-            showError("판매회원 로그인을 해주세요");
-          } else if (loginType === "SELLER") {
-            showError("구매회원 로그인을 해주세요");
-          }
+          showError(
+            loginType === "BUYER"
+              ? "판매회원 로그인을 해주세요"
+              : "구매회원 로그인을 해주세요",
+          );
           return;
         }
-        // 엑세스토큰 저장
+
         setAccess(access);
-        // 리프레시 토큰저장
         saveRefresh(refresh);
-        // 유저정보 저장
         saveUserInfo(user);
-        // 자동 갱신 시작
         startTokenAutoRefresh();
-        // SPA 환경에서는 해시만 변경
+
         const returnUrl = getReturnUrl();
-        console.log("로그인할 때 이전 url", returnUrl);
         if (returnUrl && returnUrl !== "#login") {
           clearReturnUrl();
           location.replace(returnUrl);
           window.location.reload();
         } else {
-          // 이전페이지가 없으면 프로덕트 리스트로 기본페이지.
           location.hash = "#productList";
         }
       })
       .catch((error) => {
-        showError(error.error);
+        showError(error?.error || "로그인에 실패했습니다.");
         password.value = "";
       });
   }
 
-  // 이벤트 리스너 등록
-  tabBuyer.addEventListener("click", () => {
-    switchTab(tabBuyer, tabSeller);
-  });
+  // 초기 상태: 구매 활성
+  setBuyerActive();
 
-  tabSeller.addEventListener("click", () => {
-    switchTab(tabSeller, tabBuyer);
-  });
+  // 클릭 이벤트
+  tabBuyer.addEventListener("click", () => switchTab(tabBuyer));
+  tabSeller.addEventListener("click", () => switchTab(tabSeller));
 
+  // 제출
   loginForm.addEventListener("submit", (event) => {
-    event.preventDefault(); // 폼 실제 제출 막기
-    event.stopPropagation(); // 추가
-
+    event.preventDefault();
+    event.stopPropagation();
     hideError();
 
-    if (!username.value && !password.value) {
-      showError("아이디를 입력해 주세요.");
-      username.focus();
-      return;
-    }
-
     if (!username.value) {
-      showError("아이디를 입력해 주세요.");
+      showError("아이디를 입력해주세요");
       username.focus();
       return;
     }
-
     if (!password.value) {
-      showError("비밀번호를 입력해 주세요.");
+      showError("비밀번호를 입력해주세요");
       password.focus();
       return;
     }
@@ -155,50 +181,37 @@ function initLoginPage() {
     login();
   });
 
-  // 키보드 이벤트 리스너 (접근성)
+  // 접근성: 키보드 탭 이동
   function handleKeydown(event) {
-    const currentTab = event.target;
-    let targetTab = null;
-
     switch (event.key) {
       case "ArrowLeft":
       case "ArrowUp":
-        targetTab = currentTab === tabBuyer ? tabSeller : tabBuyer;
+      case "Home":
+        event.preventDefault();
+        setBuyerActive();
+        tabBuyer.focus();
         break;
       case "ArrowRight":
       case "ArrowDown":
-        targetTab = currentTab === tabBuyer ? tabSeller : tabBuyer;
-        break;
-      case "Home":
-        targetTab = tabBuyer;
-        break;
       case "End":
-        targetTab = tabSeller;
+        event.preventDefault();
+        setSellerActive();
+        tabSeller.focus();
         break;
       default:
-        return;
+        break;
     }
-
-    event.preventDefault();
-
-    if (targetTab === tabBuyer) {
-      switchTab(tabBuyer, tabSeller);
-    } else {
-      switchTab(tabSeller, tabBuyer);
-    }
-
-    // 포커스 이동
-    targetTab.focus();
   }
-
-  // 두 탭에 키보드 이벤트 추가
   tabBuyer.addEventListener("keydown", handleKeydown);
   tabSeller.addEventListener("keydown", handleKeydown);
 
-  findPassword.addEventListener("click", (event) => {
-    event.preventDefault();
-    alert("비밀번호 찾기 페이지를 준비중입니다.");
-  });
+  // 비밀번호 찾기(임시)
+  if (findPassword) {
+    findPassword.addEventListener("click", (event) => {
+      event.preventDefault();
+      alert("비밀번호 찾기 페이지는 준비중입니다");
+    });
+  }
 }
 
 window.initLoginPage = initLoginPage;
