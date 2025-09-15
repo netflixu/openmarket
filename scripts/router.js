@@ -104,9 +104,11 @@ async function loadPage(hash) {
     window.scrollTo(0, 0);
   } finally {
     // meta 세팅
-    const metaData = routeArray[page] ? routeArray[page] : routeArray["404"];
-    metaData.url = location.href;
-    updateMetaTags(metaData);
+    if (page !== "product") {
+      const metaData = routeArray[page] ?? routeArray["404"];
+      metaData.url = location.href;
+      updateMetaTags(metaData);
+    }
   }
 }
 
@@ -150,7 +152,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 // meta 태그 수정 함수
-function updateMetaTags({ title, description, url }) {
+export function updateMetaTags({ title, description, url }) {
   document.title = title;
   document
     .querySelector('meta[name="description"]')
