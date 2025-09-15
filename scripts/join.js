@@ -148,7 +148,7 @@ function loadJoinDOM() {
   };
 }
 
-document.addEventListener("click", (e) => {
+document.addEventListener("mousedown", (e) => {
   // 외부 눌러도 드롭다운
   if (
     !DOMElementArray.phoneFirst.contains(e.target) &&
@@ -159,14 +159,15 @@ document.addEventListener("click", (e) => {
 
 // 유효성 검사
 document.addEventListener("keyup", () => {
-  const isDisabled = isInputBlank("all", false);
-  DOMElementArray.joinBtn.disabled = isDisabled;
+  handleInputCheck();
 });
 
 // 전체 확인
 function eventSetting() {
   //1. id 확인
-  DOMElementArray.userId.addEventListener("keydown", () => {
+  DOMElementArray.userId.addEventListener("keyup", (e) => {
+    if (e.key === "Tab") return;
+
     resetError(DOMElementArray.userId, DOMElementArray.userIdMessage, () => {
       validationsMapping.userId.isCheck = false;
     });
@@ -179,11 +180,14 @@ function eventSetting() {
     ),
   );
 
-  //2. 비밀번호 확인
+  //2. 비밀번호/비밀번호 확인
   DOMElementArray.password.addEventListener("focus", () => {
     isInputBlank("password");
   });
-  DOMElementArray.password.addEventListener("keydown", (e) => {
+  DOMElementArray.password.addEventListener("keyup", (e) => {
+    if (e.key === "Tab") return;
+
+    // 비밀번호 확인 input 리셋
     resetError(
       DOMElementArray.password,
       DOMElementArray.passwordMessage,
@@ -193,8 +197,8 @@ function eventSetting() {
     );
     DOMElementArray.passwordConfirm.value = "";
     DOMElementArray.passwordConfirmWrap.classList.remove("check-password");
-  });
-  DOMElementArray.password.addEventListener("keyup", (e) => {
+
+    // 비밀번호 유효성 검사
     const passwordValue = e.target.value;
     // 8자 이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
@@ -220,12 +224,13 @@ function eventSetting() {
   DOMElementArray.passwordConfirm.addEventListener("focus", () => {
     isInputBlank("passwordConfirm");
   });
-  DOMElementArray.passwordConfirm.addEventListener("keydown", () => {
+  DOMElementArray.passwordConfirm.addEventListener("keyup", (e) => {
+    if (e.key === "Tab") return;
+
     resetError(passwordConfirm, pwConfirmMessage, () => {
       validationsMapping.passwordConfirm.isCheck = false;
     });
-  });
-  DOMElementArray.passwordConfirm.addEventListener("keyup", (e) => {
+
     const passwordConfirmValue = e.target.value;
     const passwordValue = password.value;
 
@@ -259,9 +264,12 @@ function eventSetting() {
   DOMElementArray.userName.addEventListener("focus", () => {
     isInputBlank("userName");
   });
-  DOMElementArray.userName.addEventListener("keydown", () => {
+  DOMElementArray.userName.addEventListener("keyup", (e) => {
+    if (e.key === "Tab") return;
+
     resetError(userName, userNameMessage);
   });
+
   //4. 휴대폰번호
   DOMElementArray.phoneFirst.addEventListener("focus", (e) => {
     e.stopPropagation();
@@ -273,13 +281,36 @@ function eventSetting() {
 
     e.target.classList.add("outline-main");
   });
-  DOMElementArray.phoneFirstSelectUl.addEventListener("click", (e) => {
+  DOMElementArray.phoneFirstSelectUl.addEventListener("mousedown", (e) => {
     if (e.target.dataset.value === "") return;
 
-    const phoneFirstValue = e.target.dataset.value;
-    DOMElementArray.phoneFirst.value = phoneFirstValue;
+    handleSelectbox(e);
+  });
+  DOMElementArray.phoneFirstSelectUl.addEventListener("keydown", (e) => {
+    const active = document.activeElement;
+    const items = DOMElementArray.phoneFirstSelectUl.querySelectorAll("li");
+    const currentIndex = Array.from(items).indexOf(active);
 
-    DOMElementArray.phoneFirstSelectUl.style.display = "none";
+    if (e.key === "ArrowDown") {
+      e.preventDefault(); // 스크롤 방지
+      const next = items[currentIndex + 1] || items[0];
+      next.focus();
+    }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const prev = items[currentIndex - 1] || items[items.length - 1];
+      prev.focus();
+    }
+
+    if (e.key === "Tab" && active === items[items.length - 1]) {
+      DOMElementArray.phoneFirstSelectUl.style.display = "none";
+      return;
+    }
+
+    if (e.key !== "Enter") return;
+
+    handleSelectbox(e);
   });
   DOMElementArray.phoneMiddle.addEventListener("focus", () => {
     resetError(null, DOMElementArray.phoneNumberMessage);
@@ -294,7 +325,9 @@ function eventSetting() {
   DOMElementArray.businessNumber.addEventListener("focus", () => {
     isInputBlank("businessNumber");
   });
-  DOMElementArray.businessNumber.addEventListener("keydown", () => {
+  DOMElementArray.businessNumber.addEventListener("keyup", (e) => {
+    if (e.key === "Tab") return;
+
     resetError(
       DOMElementArray.businessNumber,
       DOMElementArray.businessNumberMessage,
@@ -334,7 +367,9 @@ function eventSetting() {
   DOMElementArray.storeName.addEventListener("focus", () => {
     isInputBlank("storeName");
   });
-  DOMElementArray.storeName.addEventListener("keydown", () => {
+  DOMElementArray.storeName.addEventListener("keyup", (e) => {
+    if (e.key === "Tab") return;
+
     resetError(DOMElementArray.storeName, DOMElementArray.storeNameMessage);
   });
 
@@ -347,9 +382,28 @@ function eventSetting() {
     }
     isInputBlank("checkbox");
 
-    // 전체 값 체크
-    const isDisabled = isInputBlank("all", false);
-    DOMElementArray.joinBtn.disabled = isDisabled;
+    handleInputCheck();
+  });
+  DOMElementArray.privacyConsent.addEventListener("keyup", (e) => {
+    if (e.key !== "Enter") return;
+
+    if (e.target.checked) {
+      e.target.checked = false;
+      DOMElementArray.privacyConsentLabel.classList.remove("check");
+      return;
+    }
+
+    e.target.checked = true;
+    DOMElementArray.privacyConsentLabel.classList.add("check");
+  });
+
+  // label 안쪽 a태그 이동 이벤트 막기
+  const policyArray = DOMElementArray.privacyConsentLabel.querySelectorAll("a");
+  policyArray.forEach((policy) => {
+    policy.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("준비중입니다.");
+    });
   });
 
   //6. 가입하기
@@ -406,24 +460,50 @@ function eventSetting() {
   DOMElementArray.tabList.addEventListener("click", (e) => {
     e.stopPropagation(); // 이벤트 버블링 차단
 
-    const type = e.target.dataset.type;
-    if (!type) return; // type 없는 요소 클릭했을 때 방지
-
-    DOMElementArray.userType.value = type;
-    if (type === "buyer") {
-      document.getElementById("sellerData").style.display = "none";
-    } else if (type == "seller") {
-      document.getElementById("sellerData").style.display = "flex";
-    }
-
-    DOMElementArray.currentTab.classList.remove("active");
-    DOMElementArray.currentTab = e.target;
-    DOMElementArray.currentTab.classList.add("active");
-
-    // 전체 값 체크
-    const isDisabled = isInputBlank("all", false);
-    DOMElementArray.joinBtn.disabled = isDisabled;
+    handleTabChange(e);
   });
+  DOMElementArray.tabList.addEventListener("keyup", (e) => {
+    e.stopPropagation(); // 이벤트 버블링 차단
+
+    if (e.key !== "Enter") return;
+
+    handleTabChange(e);
+    handleInputCheck();
+  });
+}
+
+// 상단 탭 요소
+function handleTabChange(e) {
+  const type = e.target.dataset.type;
+  if (!type) return; // type 없는 요소 클릭했을 때 방지
+
+  DOMElementArray.userType.value = type;
+  if (type === "buyer") {
+    document.getElementById("sellerData").style.display = "none";
+  } else if (type == "seller") {
+    document.getElementById("sellerData").style.display = "flex";
+  }
+
+  DOMElementArray.currentTab.classList.remove("active");
+  DOMElementArray.currentTab = e.target;
+  DOMElementArray.currentTab.classList.add("active");
+
+  // 선택하면 아이디 입력창으로 포커스
+  DOMElementArray.userId.focus();
+}
+
+// 샐랙트박스 요소
+function handleSelectbox(e) {
+  const phoneFirstValue = e.target.dataset.value;
+  DOMElementArray.phoneFirst.value = phoneFirstValue;
+
+  DOMElementArray.phoneFirstSelectUl.style.display = "none";
+}
+
+// 전체 값 체크
+function handleInputCheck() {
+  const isDisabled = isInputBlank("all", false);
+  DOMElementArray.joinBtn.disabled = isDisabled;
 }
 
 async function join() {
@@ -478,7 +558,7 @@ async function checkUserId(userId, userIdMessage, validationsMapping) {
 
   if (result.error) {
     showError(userId, userIdMessage, result.error, () => {
-      validationsMapping.userId.isCheck = false;
+      userId.isCheck = false;
     });
 
     userId.focus();
@@ -489,12 +569,15 @@ async function checkUserId(userId, userIdMessage, validationsMapping) {
     validationsMapping.userId.isCheck = true;
   });
 
-  userId.focus();
+  DOMElementArray.password.focus();
 }
 
 // 빈 input 체크
 function isInputBlank(name, errorCheck = true) {
-  if (name === "" && errorCheck) return;
+  // join 페이지인 경우에만 실행
+  if (location.hash !== "#join") return;
+
+  if (name === "") return;
 
   const requiredText = "필수 정보입니다.";
 
