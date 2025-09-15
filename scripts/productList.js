@@ -107,7 +107,7 @@ function createCard(p, i) {
   fig.className = "relative";
 
   const img = document.createElement("img");
-  img.className = "w-full aspect-square object-cover";
+  img.className = "w-full aspect-square object-contain";
   img.alt = p.title || "상품 이미지";
   img.src = p.image;
 

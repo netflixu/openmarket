@@ -142,7 +142,8 @@ function initLoginPage() {
         const returnUrl = getReturnUrl();
         if (returnUrl && returnUrl !== "#login") {
           clearReturnUrl();
-          location.hash = returnUrl;
+          location.replace(returnUrl);
+          window.location.reload();
         } else {
           location.hash = "#productList";
         }

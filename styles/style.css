@@ -35,6 +35,11 @@
   font-weight: 500;
 }
 
+.tab-list .active {
+  background: #fff;
+  z-index: 30;
+  padding-bottom: 8px;
+}
 @media (min-width: 30rem) {
   .tab-list .active {
     padding-bottom: 20px;
@@ -175,6 +180,10 @@ form button:disabled {
 @media (max-width: 1320px) {
   .dropdown-wrap {
     left: 30%;
+  }
+
+  .dropdown-wrap.seller-wrap {
+    left: 50%;
   }
 }
 

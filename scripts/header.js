@@ -90,6 +90,7 @@ export function setIcons() {
             callback: () => {
               logout();
               setIcons();
+              location.reload();
             },
           },
         ],
@@ -113,6 +114,7 @@ export function setIcons() {
             callback: () => {
               logout();
               setIcons();
+              location.reload();
             },
           },
         ],
@@ -237,6 +239,9 @@ function makeIcon(array) {
             dropdownWrap.append(list);
           });
           dropdownWrap.classList.add("dropdown-wrap"); // style.css에 구현
+
+          const loginType = checkLogin();
+          if (loginType === "SELLER") dropdownWrap.classList.add("seller-wrap");
 
           wrap.append(dropdownWrap);
           isDropdown = dropdownWrap;
