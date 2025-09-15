@@ -1,5 +1,6 @@
 import { showModal } from "./modal.js";
 import { getUserInfo } from "./getUserInfo.js";
+import { updateMetaTags } from "./router.js";
 
 function checkLogin() {
   const user = getUserInfo();
@@ -60,7 +61,7 @@ window.initProductPage = async function () {
 function renderProduct(product, stock, quantity) {
   setImage("product-image", product.image);
   setText("product-store-name", product.store_name);
-  setText("product-name", product.product_name);
+  setText("product-name", product.name);
   setText("product-price", product.price.toLocaleString());
   setText(
     "product-shipping",
@@ -70,6 +71,7 @@ function renderProduct(product, stock, quantity) {
   updateTotalPrice(product.price, quantity);
   setupQuantityControls(product.price, stock, quantity);
   setupTabs(product);
+  updateMetaTags(generateProductMeta(product));
 
   const buyBtn = document.getElementById("buy-now");
   const addToCartBtn = document.getElementById("add-to-cart");
@@ -184,6 +186,14 @@ function renderProduct(product, stock, quantity) {
   }
 }
 
+function generateProductMeta(product) {
+  return {
+    title: `${product.name} | 호두 오픈마켓`,
+    description: `${product.info?.slice(0, 100)}` || "상품 설명 없음",
+    url: location.href,
+  };
+}
+
 function setupQuantityControls(unitPrice, stock, quantity) {
   const quantityEl = document.getElementById("product-quantity");
   const totalPriceEl = document.getElementById("total-price");
@@ -223,7 +233,7 @@ function setupTabs(product) {
   const tabContents = document.querySelectorAll(".tab-content");
 
   const contentMap = {
-    description: product.product_info || "상세 설명이 없습니다.",
+    description: product.info || "상세 설명이 없습니다.",
     shipping: `
       <p><strong>배송방법:</strong> ${product.shipping_method === "PARCEL" ? "택배배송" : "직접배송"}</p>
       <p><strong>배송비:</strong> ${
