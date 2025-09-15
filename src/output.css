@@ -241,6 +241,9 @@
   .relative {
     position: relative;
   }
+  .sticky {
+    position: sticky;
+  }
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
@@ -301,6 +304,9 @@
   .order-1 {
     order: 1;
   }
+  .clear-both {
+    clear: both;
+  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -354,6 +360,9 @@
   }
   .mt-10 {
     margin-top: calc(var(--spacing) * 10);
+  }
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
   }
   .mt-25 {
     margin-top: calc(var(--spacing) * 25);
@@ -1479,6 +1488,21 @@
   .min-\[30rem\]\:mt-8 {
     @media (width >= 30rem) {
       margin-top: calc(var(--spacing) * 8);
+    }
+  }
+  .min-\[30rem\]\:mt-16 {
+    @media (width >= 30rem) {
+      margin-top: calc(var(--spacing) * 16);
+    }
+  }
+  .min-\[30rem\]\:mt-18 {
+    @media (width >= 30rem) {
+      margin-top: calc(var(--spacing) * 18);
+    }
+  }
+  .min-\[30rem\]\:mt-20 {
+    @media (width >= 30rem) {
+      margin-top: calc(var(--spacing) * 20);
     }
   }
   .min-\[30rem\]\:mt-\[34px\] {
