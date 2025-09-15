@@ -181,6 +181,10 @@ form button:disabled {
   .dropdown-wrap {
     left: 30%;
   }
+
+  .dropdown-wrap.seller-wrap {
+    left: 50%;
+  }
 }
 
 .dropdown-wrap::before {

@@ -240,6 +240,9 @@ function makeIcon(array) {
           });
           dropdownWrap.classList.add("dropdown-wrap"); // style.css에 구현
 
+          const loginType = checkLogin();
+          if (loginType === "SELLER") dropdownWrap.classList.add("seller-wrap");
+
           wrap.append(dropdownWrap);
           isDropdown = dropdownWrap;
         }
