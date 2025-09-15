@@ -165,7 +165,7 @@ document.addEventListener("keyup", () => {
 // 전체 확인
 function eventSetting() {
   //1. id 확인
-  DOMElementArray.userId.addEventListener("keyup", (e) => {
+  DOMElementArray.userId.addEventListener("keydown", (e) => {
     if (e.key === "Tab") return;
 
     resetError(DOMElementArray.userId, DOMElementArray.userIdMessage, () => {
